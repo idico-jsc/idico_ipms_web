@@ -1,57 +1,41 @@
-import { Component, ReactNode } from 'react';
+import { useRouteError, isRouteErrorResponse } from 'react-router';
 import { ErrorPage } from '@/components/pages';
-
-interface Props {
-  children?: ReactNode;
-}
-
-interface State {
-  hasError: boolean;
-  error: Error | null;
-}
 
 /**
  * Error Boundary Component
  *
- * Catches and displays errors that occur during rendering.
- * Uses React Error Boundary pattern to catch errors in component tree.
+ * Catches and displays routing errors using React Router's error handling.
+ * Now works properly with createBrowserRouter data router context.
  * Displays error details in development, generic message in production.
  */
-export default class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      hasError: false,
-      error: null,
-    };
-  }
+export default function ErrorBoundary() {
+  const error = useRouteError();
 
-  static getDerivedStateFromError(error: Error): State {
-    // Update state so the next render will show the fallback UI
-    return {
-      hasError: true,
-      error,
-    };
-  }
+  let errorMessage = 'An unexpected error occurred';
+  let statusCode = 500;
+  let errorObject: Error | null = null;
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Log error to console in development
-    if (import.meta.env.DEV) {
-      console.error('Error caught by boundary:', error, errorInfo);
+  // Parse error based on type
+  if (isRouteErrorResponse(error)) {
+    // HTTP error response (404, 500, etc.)
+    statusCode = error.status;
+    errorMessage = error.statusText || errorMessage;
+    if (error.data?.message) {
+      errorMessage = error.data.message;
     }
+  } else if (error instanceof Error) {
+    // JavaScript error
+    errorMessage = error.message;
+    errorObject = error;
+  } else if (typeof error === 'string') {
+    errorMessage = error;
   }
 
-  render() {
-    if (this.state.hasError) {
-      return (
-        <ErrorPage
-          error={this.state.error}
-          errorMessage={this.state.error?.message || 'An unexpected error occurred'}
-          statusCode={500}
-        />
-      );
-    }
-
-    return this.props.children;
-  }
+  return (
+    <ErrorPage
+      error={errorObject}
+      errorMessage={errorMessage}
+      statusCode={statusCode}
+    />
+  );
 }

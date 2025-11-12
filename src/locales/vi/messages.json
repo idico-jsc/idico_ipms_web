@@ -10,7 +10,7 @@
   "error": {
     "general": {
       "title": "Đã xảy ra lỗi",
-      "message": "Chúng tôi xin lỗi vì sự bất tiện. Đã xảy ra lỗi và chúng tôi đang cố gắng khắc phục."
+      "message": "Đã xảy ra lỗi! Chúng tôi xin lỗi vì sự bất tiện và đang cố gắng khắc phục."
     },
     "server": {
       "title": "Lỗi máy chủ",

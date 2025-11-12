@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router';
+import { createBrowserRouter, RouteObject } from 'react-router';
 import ErrorBoundary from './error';
 import RootLayout from './layout';
 import NotFoundPage from './not-found';
@@ -38,6 +38,7 @@ interface RouteConfig {
   Component: React.ComponentType;
   layouts: Array<React.ComponentType<{ children: React.ReactNode }>>;
   hasError: boolean;
+  filePath: string;
 }
 
 /**
@@ -144,6 +145,7 @@ const routes: RouteConfig[] = Object.entries(pageModules).map(([filePath, module
     Component: module.default,
     layouts,
     hasError,
+    filePath,
   };
 });
 
@@ -154,33 +156,43 @@ const sortedRoutes = routes.sort((a, b) => {
   return 0;
 });
 
-export const AppRoutes = () => {
-  return (
-    <Routes>
-      {sortedRoutes.map((route, index) => {
-        const { Component, layouts } = route;
+/**
+ * Convert RouteConfig array to React Router route objects
+ * Wraps each page component with its layouts and error boundary
+ */
+function buildRouteObjects(routes: RouteConfig[]): RouteObject[] {
+  return routes.map((route) => {
+    const { path, Component, layouts } = route;
 
-        // Build nested layout structure
-        // Start from the innermost (the page component)
-        let element: React.ReactNode = <Component />;
+    // Build nested layout structure
+    // Start from the innermost (the page component)
+    let element: React.ReactNode = <Component />;
 
-        // Wrap with layouts from innermost to outermost (reverse order)
-        for (let i = layouts.length - 1; i >= 0; i--) {
-          const Layout = layouts[i];
-          element = <Layout>{element}</Layout>;
-        }
+    // Wrap with layouts from innermost to outermost (reverse order)
+    for (let i = layouts.length - 1; i >= 0; i--) {
+      const Layout = layouts[i];
+      element = <Layout>{element}</Layout>;
+    }
 
-        return (
-          <Route
-            key={`${route.path}-${index}`}
-            path={route.path}
-            element={element}
-            errorElement={<ErrorBoundary />}
-          />
-        );
-      })}
-      {/* Catch-all 404 route - must be last */}
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
-  );
-};
+    return {
+      path,
+      element,
+      errorElement: <ErrorBoundary />,
+    };
+  });
+}
+
+// Build route objects
+const routeObjects = buildRouteObjects(sortedRoutes);
+
+// Add catch-all 404 route
+routeObjects.push({
+  path: '*',
+  element: <NotFoundPage />,
+});
+
+/**
+ * Create the browser router with all discovered routes
+ * Uses createBrowserRouter to enable data router features
+ */
+export const router = createBrowserRouter(routeObjects);

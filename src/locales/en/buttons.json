@@ -11,10 +11,12 @@
   "back": "Back",
   "next": "Next",
   "finish": "Finish",
-  "signIn": "Sign In",
-  "signOut": "Sign Out",
-  "signUp": "Sign Up",
+  "sign_in": "Sign In",
+  "sign_out": "Sign Out",
   "toggleTheme": "Toggle theme",
   "lightMode": "Light mode",
-  "darkMode": "Dark mode"
+  "darkMode": "Dark mode",
+  "goHome": "Go Home",
+  "goBack": "Go Back",
+  "refresh": "Refresh Page"
 }

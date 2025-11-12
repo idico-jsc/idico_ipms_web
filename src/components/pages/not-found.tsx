@@ -61,12 +61,6 @@ export const NotFound = () => {
           </Button>
         </div>
 
-        {/* Additional Help Text */}
-        <p className="mt-8 text-sm text-muted-foreground">
-          {t('notFound.help', {
-            defaultValue: 'If you believe this is an error, please contact support.',
-          })}
-        </p>
       </div>
     </div>
   );

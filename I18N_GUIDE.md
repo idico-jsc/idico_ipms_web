@@ -177,7 +177,7 @@ function LoginForm() {
       </div>
 
       <button type="submit">
-        {t('signIn', { ns: 'buttons' })}
+        {t('sign_in', { ns: 'buttons' })}
       </button>
     </form>
   );

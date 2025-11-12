@@ -9,6 +9,9 @@
     "description": "Trang bạn đang tìm kiếm không tồn tại.",
     "backButton": "Quay về Trang chủ"
   },
+  "errorPage": {
+    "showDetails": "Hiển thị chi tiết lỗi"
+  },
   "auth": {
     "login": {
       "welcome": "Chào mừng qúy phụ huynh! Vui lòng đăng nhập để tiếp tục",
@@ -24,7 +27,6 @@
       "submittingButton": "Đang đăng nhập...",
       "orContinueWith": "Hoặc tiếp tục với",
       "noAccount": "Chưa có tài khoản?",
-      "signUpLink": "Đăng ký",
       "errors": {
         "emailRequired": "Email là bắt buộc",
         "emailInvalid": "Vui lòng nhập địa chỉ email hợp lệ",

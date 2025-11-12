@@ -1,7 +1,9 @@
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
-import { Button } from '@/components/atoms';
-import { AlertTriangle, Home, RefreshCw, ArrowLeft } from 'lucide-react';
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { Button } from "@/components/atoms";
+import { AlertTriangle, Home, RefreshCw, ArrowLeft } from "lucide-react";
+import { LanguageSwitcher } from "@molecules";
+import { ROUTES } from "@/constants/routes";
 
 interface ErrorPageProps {
   error?: Error | null;
@@ -24,21 +26,15 @@ interface ErrorPageProps {
  */
 export const ErrorPage = ({
   error = null,
-  errorMessage = 'An unexpected error occurred',
+  errorMessage = "An unexpected error occurred",
   statusCode = 500,
   showDetails = false,
 }: ErrorPageProps) => {
-  const { t } = useTranslation('pages');
+  const { t } = useTranslation(["buttons", "messages", "pages"]);
   const navigate = useNavigate();
   const isDev = import.meta.env.DEV;
 
-  // Determine error details
-  const displayMessage =
-    errorMessage || error?.message || t('error.defaultMessage', {
-      defaultValue: 'An unexpected error occurred'
-    });
-
-  const errorDetails = isDev && error?.stack ? error.stack : '';
+  const errorDetails = isDev && error?.stack ? error.stack : "";
 
   const handleGoBack = () => {
     navigate(-1);
@@ -49,78 +45,71 @@ export const ErrorPage = ({
   };
 
   const handleGoHome = () => {
-    navigate('/');
+    navigate(ROUTES.HOME);
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 bg-background">
-      <div className="text-center max-w-2xl">
+    <div className="bg-background flex min-h-screen items-center justify-center px-4">
+      <LanguageSwitcher className="absolute top-4 right-4" />
+      <div className="text-center">
         {/* Error Icon */}
-        <div className="flex justify-center mb-6">
-          <div className="rounded-full bg-destructive/10 p-4">
-            <AlertTriangle className="h-16 w-16 text-destructive" />
+        <div className="mb-6 flex justify-center">
+          <div className="bg-destructive/10 rounded-full p-4">
+            <AlertTriangle className="text-destructive h-16 w-16" />
           </div>
         </div>
 
-        {/* Status Code */}
-        {statusCode && (
-          <h1 className="text-6xl font-bold text-destructive mb-4">
-            {statusCode}
-          </h1>
-        )}
+        {/* Error Message */}
+        <h2 className="text-foreground mb-4 text-2xl font-semibold">
+          {t("messages:error.general.title", { defaultValue: "Something went wrong!" })}
+        </h2>
 
         {/* Error Message */}
-        <h2 className="text-2xl font-semibold text-foreground mb-4">
-          {displayMessage}
-        </h2>
+        <h4 className="text-muted-foreground mb-4 text-lg font-semibold">
+          {t("messages:error.general.message", {
+            defaultValue: "We apologize for the inconvenience.",
+          })}
+        </h4>
 
         {/* Error Details (Dev only or when showDetails is true) */}
         {(isDev || showDetails) && errorDetails && (
-          <details className="mt-6 text-left">
-            <summary className="cursor-pointer text-sm text-muted-foreground hover:text-foreground mb-2">
-              {t('error.showDetails', { defaultValue: 'Show error details' })}
-              {isDev && ' (dev only)'}
-            </summary>
-            <pre className="text-xs bg-muted p-4 rounded-lg overflow-auto max-h-60 text-left">
-              {errorDetails}
-            </pre>
-          </details>
+          <div className="text-left mt-10">
+            {/* Status Code */}
+            {statusCode && (
+              <p>
+                <span className="text-destructive mb-4 text-base font-bold">
+                  [Error {statusCode}]
+                </span>
+                <span className="ml-2">{errorMessage}</span>
+              </p>
+            )}
+            <details className="mt-6 text-left">
+              <summary className="text-muted-foreground hover:text-foreground mb-2 cursor-pointer text-sm">
+                {t("pages:errorPage.showDetails", { defaultValue: "Show error details" })}
+                {isDev && " (dev only)"}
+              </summary>
+              <pre className="bg-muted max-h-60 overflow-auto rounded-lg p-4 text-left text-xs">
+                {errorDetails}
+              </pre>
+            </details>
+          </div>
         )}
 
-        {/* Description */}
-        <p className="text-muted-foreground mt-4 mb-8">
-          {isDev
-            ? t('error.descriptionDev', {
-                defaultValue: 'An error occurred. Check the console for more details.',
-              })
-            : t('error.description', {
-                defaultValue:
-                  'Something went wrong. Please try refreshing the page or go back to the home page.',
-              })}
-        </p>
-
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
           <Button onClick={handleGoBack} variant="outline" className="gap-2">
             <ArrowLeft className="h-4 w-4" />
-            {t('error.goBack', { defaultValue: 'Go Back' })}
+            {t("buttons:goBack", { defaultValue: "Go Back" })}
           </Button>
           <Button onClick={handleRefresh} variant="outline" className="gap-2">
             <RefreshCw className="h-4 w-4" />
-            {t('error.refresh', { defaultValue: 'Refresh Page' })}
+            {t("buttons:refresh", { defaultValue: "Refresh Page" })}
           </Button>
           <Button onClick={handleGoHome} className="gap-2">
             <Home className="h-4 w-4" />
-            {t('error.goHome', { defaultValue: 'Go Home' })}
+            {t("buttons:goHome", { defaultValue: "Go Home" })}
           </Button>
         </div>
-
-        {/* Additional Help Text */}
-        <p className="mt-8 text-sm text-muted-foreground">
-          {t('error.help', {
-            defaultValue: 'If this problem persists, please contact support.',
-          })}
-        </p>
       </div>
     </div>
   );

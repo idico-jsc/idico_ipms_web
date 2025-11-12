@@ -9,6 +9,9 @@
     "description": "The page you are looking for does not exist.",
     "backButton": "Go Back Home"
   },
+  "errorPage": {
+    "showDetails": "Show error details"
+  },
   "auth": {
     "login": {
       "welcome": "Welcome parent! Please sign in to continue",
@@ -24,7 +27,6 @@
       "submittingButton": "Signing in...",
       "orContinueWith": "Or continue with",
       "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up",
       "errors": {
         "emailRequired": "Email is required",
         "emailInvalid": "Please enter a valid email address",

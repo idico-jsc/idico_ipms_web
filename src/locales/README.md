@@ -336,7 +336,6 @@ toast.error(t('error.general', { ns: 'messages' }));
       "submittingButton": "Signing in...",
       "forgotPassword": "Forgot password?",
       "noAccount": "Don't have an account?",
-      "signUpLink": "Sign up"
     },
     "register": {
       "title": "Sign Up",
