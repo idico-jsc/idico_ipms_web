@@ -1,0 +1,40 @@
+{
+  "email": {
+    "label": "Email",
+    "placeholder": "Enter your email",
+    "description": "We'll never share your email",
+    "error": {
+      "required": "Email is required",
+      "invalid": "Please enter a valid email address"
+    }
+  },
+  "password": {
+    "label": "Password",
+    "placeholder": "Enter your password",
+    "description": "Must be at least 8 characters",
+    "error": {
+      "required": "Password is required",
+      "tooShort": "Password must be at least 8 characters",
+      "tooWeak": "Password is too weak"
+    }
+  },
+  "confirmPassword": {
+    "label": "Confirm Password",
+    "placeholder": "Re-enter your password",
+    "error": {
+      "required": "Please confirm your password",
+      "notMatch": "Passwords do not match"
+    }
+  },
+  "username": {
+    "label": "Username",
+    "placeholder": "Enter your username",
+    "error": {
+      "required": "Username is required",
+      "tooShort": "Username must be at least 3 characters"
+    }
+  },
+  "count": {
+    "label": "Count"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "confirmation": {
+    "title": "Confirm Action",
+    "description": "Are you sure you want to proceed?",
+    "confirmButton": "Yes, continue",
+    "cancelButton": "Cancel"
+  },
+  "delete": {
+    "title": "Delete Item",
+    "description": "Are you sure you want to delete this item? This action cannot be undone.",
+    "confirmButton": "Delete",
+    "cancelButton": "Cancel"
+  },
+  "unsavedChanges": {
+    "title": "Unsaved Changes",
+    "description": "You have unsaved changes. Do you want to save them before leaving?",
+    "saveButton": "Save Changes",
+    "discardButton": "Discard",
+    "cancelButton": "Cancel"
+  }
+}

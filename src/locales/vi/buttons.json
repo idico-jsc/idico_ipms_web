@@ -1,0 +1,19 @@
+{
+  "increase": "Tăng",
+  "decrease": "Giảm",
+  "save": "Lưu",
+  "cancel": "Hủy",
+  "submit": "Gửi",
+  "close": "Đóng",
+  "edit": "Chỉnh sửa",
+  "delete": "Xóa",
+  "confirm": "Xác nhận",
+  "back": "Quay lại",
+  "next": "Tiếp theo",
+  "finish": "Hoàn thành",
+  "signIn": "Đăng Nhập",
+  "signOut": "Đăng Xuất",
+  "toggleTheme": "Chuyển chế độ",
+  "lightMode": "Chế độ sáng",
+  "darkMode": "Chế độ tối"
+}

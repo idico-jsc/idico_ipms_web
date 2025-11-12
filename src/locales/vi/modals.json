@@ -1,0 +1,21 @@
+{
+  "confirmation": {
+    "title": "Xác nhận hành động",
+    "description": "Bạn có chắc chắn muốn tiếp tục?",
+    "confirmButton": "Có, tiếp tục",
+    "cancelButton": "Hủy"
+  },
+  "delete": {
+    "title": "Xóa mục",
+    "description": "Bạn có chắc chắn muốn xóa mục này? Hành động này không thể hoàn tác.",
+    "confirmButton": "Xóa",
+    "cancelButton": "Hủy"
+  },
+  "unsavedChanges": {
+    "title": "Thay đổi chưa lưu",
+    "description": "Bạn có thay đổi chưa được lưu. Bạn có muốn lưu chúng trước khi rời đi?",
+    "saveButton": "Lưu thay đổi",
+    "discardButton": "Bỏ qua",
+    "cancelButton": "Hủy"
+  }
+}

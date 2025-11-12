@@ -1,0 +1,45 @@
+{
+  "welcome": "Chào mừng trở lại!",
+  "goodbye": "Hẹn gặp lại!",
+  "success": {
+    "saved": "Đã lưu thay đổi thành công",
+    "deleted": "Đã xóa thành công",
+    "updated": "Đã cập nhật thành công",
+    "created": "Đã tạo thành công"
+  },
+  "error": {
+    "general": {
+      "title": "Đã xảy ra lỗi",
+      "message": "Chúng tôi xin lỗi vì sự bất tiện. Đã xảy ra lỗi và chúng tôi đang cố gắng khắc phục."
+    },
+    "server": {
+      "title": "Lỗi máy chủ",
+      "message": "Đã xảy ra lỗi không mong muốn trên máy chủ. Vui lòng thử lại sau."
+    },
+    "network": {
+      "title": "Lỗi mạng",
+      "message": "Lỗi mạng. Vui lòng kiểm tra kết nối của bạn."
+    },
+    "notFound": {
+      "title": "Không tìm thấy",
+      "message": "Không tìm thấy tài nguyên."
+    },
+    "unauthorized": {
+      "title": "Không được phép",
+      "message": "Bạn không có quyền thực hiện hành động này."
+    },
+    "invalid_credentials": {
+      "title": "Thông tin đăng nhập không hợp lệ",
+      "message": "Email hoặc mật khẩu bạn nhập không chính xác. Vui lòng thử lại."
+    },
+    "login_locked": {
+      "title": "Tài khoản đã bị khóa tạm thời",
+      "message": "Bạn đã gửi quá nhiều yêu cầu đăng nhập và sẽ được mở lại sau 60 giây."
+    }
+  },
+  "info": {
+    "processing": "Đang xử lý yêu cầu của bạn...",
+    "loading": "Đang tải dữ liệu...",
+    "noData": "Không có dữ liệu"
+  }
+}

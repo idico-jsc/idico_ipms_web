@@ -1,0 +1,45 @@
+{
+  "home": {
+    "title": "React-TS Starter với Vite",
+    "author": "Bởi Md Kawsar Islam Yeasin",
+    "countLabel": "Đếm"
+  },
+  "notFound": {
+    "title": "Không Tìm Thấy",
+    "description": "Trang bạn đang tìm kiếm không tồn tại.",
+    "backButton": "Quay về Trang chủ"
+  },
+  "auth": {
+    "login": {
+      "welcome": "Chào mừng qúy phụ huynh! Vui lòng đăng nhập để tiếp tục",
+      "title": "Đăng Nhập",
+      "subtitle": "Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục",
+      "email": "Email",
+      "emailPlaceholder": "Nhập email của bạn",
+      "password": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu",
+      "rememberMe": "Ghi nhớ đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "submitButton": "Đăng Nhập",
+      "submittingButton": "Đang đăng nhập...",
+      "orContinueWith": "Hoặc tiếp tục với",
+      "noAccount": "Chưa có tài khoản?",
+      "signUpLink": "Đăng ký",
+      "errors": {
+        "emailRequired": "Email là bắt buộc",
+        "emailInvalid": "Vui lòng nhập địa chỉ email hợp lệ",
+        "passwordRequired": "Mật khẩu là bắt buộc",
+        "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự",
+        "generic": "Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập và thử lại."
+      }
+    },
+    "register": {
+      "title": "Đăng Ký",
+      "subtitle": "Tạo tài khoản của bạn để bắt đầu",
+      "submitButton": "Đăng Ký",
+      "submittingButton": "Đang tạo tài khoản...",
+      "hasAccount": "Đã có tài khoản?",
+      "signInLink": "Đăng nhập"
+    }
+  }
+}

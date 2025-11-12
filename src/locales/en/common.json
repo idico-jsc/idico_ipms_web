@@ -1,0 +1,8 @@
+{
+  "app_name": "Parent portal",
+  "loading": "Loading...",
+  "notAvailable": "Not available",
+  "toggleTheme": "Toggle theme",
+  "darkMode": "Dark mode",
+  "lightMode": "Light mode"
+}

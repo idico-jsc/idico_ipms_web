@@ -1,0 +1,20 @@
+{
+  "alert": {
+    "title": "Thông báo",
+    "okButton": "OK"
+  },
+  "error": {
+    "title": "Lỗi",
+    "description": "Đã xảy ra lỗi",
+    "closeButton": "Đóng"
+  },
+  "success": {
+    "title": "Thành công",
+    "description": "Thao tác hoàn thành thành công",
+    "closeButton": "Đóng"
+  },
+  "info": {
+    "title": "Thông tin",
+    "closeButton": "Đóng"
+  }
+}

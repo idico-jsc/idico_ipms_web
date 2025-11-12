@@ -1,0 +1,45 @@
+{
+  "welcome": "Welcome back!",
+  "goodbye": "See you soon!",
+  "success": {
+    "saved": "Changes saved successfully",
+    "deleted": "Deleted successfully",
+    "updated": "Updated successfully",
+    "created": "Created successfully"
+  },
+  "error": {
+    "general": {
+      "title": "Something went wrong",
+      "message": "We apologize for the inconvenience. An error has occurred, and we are working to fix it"
+    },
+    "server": {
+      "title": "Server Error",
+      "message": "An unexpected error occurred on the server. Please try again later."
+    },
+    "network": {
+      "title": "Network Error",
+      "message": "Network error. Please check your connection."
+    },
+    "notFound": {
+      "title": "Not Found",
+      "message": "Resource not found."
+    },
+    "unauthorized": {
+      "title": "Unauthorized",
+      "message": "You are not authorized to perform this action."
+    },
+    "invalid_credentials": {
+      "title": "Invalid Credentials",
+      "message": "The email or password you entered is incorrect. Please try again."
+    },
+    "login_locked": {
+      "title": "Your account has been locked temporarily",
+      "message": "You have made too many login requests and will be unlocked after 60 seconds."
+    }
+  },
+  "info": {
+    "processing": "Processing your request...",
+    "loading": "Loading data...",
+    "noData": "No data available"
+  }
+}

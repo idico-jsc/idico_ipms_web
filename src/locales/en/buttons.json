@@ -1,0 +1,20 @@
+{
+  "increase": "Increase",
+  "decrease": "Decrease",
+  "save": "Save",
+  "cancel": "Cancel",
+  "submit": "Submit",
+  "close": "Close",
+  "edit": "Edit",
+  "delete": "Delete",
+  "confirm": "Confirm",
+  "back": "Back",
+  "next": "Next",
+  "finish": "Finish",
+  "signIn": "Sign In",
+  "signOut": "Sign Out",
+  "signUp": "Sign Up",
+  "toggleTheme": "Toggle theme",
+  "lightMode": "Light mode",
+  "darkMode": "Dark mode"
+}

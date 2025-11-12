@@ -1,0 +1,20 @@
+{
+  "alert": {
+    "title": "Alert",
+    "okButton": "OK"
+  },
+  "error": {
+    "title": "Error",
+    "description": "An error has occurred",
+    "closeButton": "Close"
+  },
+  "success": {
+    "title": "Success",
+    "description": "Operation completed successfully",
+    "closeButton": "Close"
+  },
+  "info": {
+    "title": "Information",
+    "closeButton": "Close"
+  }
+}

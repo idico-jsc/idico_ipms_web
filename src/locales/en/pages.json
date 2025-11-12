@@ -1,0 +1,45 @@
+{
+  "home": {
+    "title": "React-TS Starter with Vite",
+    "author": "By Md Kawsar Islam Yeasin",
+    "countLabel": "Count"
+  },
+  "notFound": {
+    "title": "Not Found",
+    "description": "The page you are looking for does not exist.",
+    "backButton": "Go Back Home"
+  },
+  "auth": {
+    "login": {
+      "welcome": "Welcome parent! Please sign in to continue",
+      "title": "Sign In",
+      "subtitle": "Welcome back! Please sign in to continue",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submitButton": "Sign In",
+      "submittingButton": "Signing in...",
+      "orContinueWith": "Or continue with",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign up",
+      "errors": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email address",
+        "passwordRequired": "Password is required",
+        "passwordTooShort": "Password must be at least 6 characters",
+        "generic": "Login failed. Please check your credentials and try again."
+      }
+    },
+    "register": {
+      "title": "Sign Up",
+      "subtitle": "Create your account to get started",
+      "submitButton": "Sign Up",
+      "submittingButton": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "signInLink": "Sign in"
+    }
+  }
+}
