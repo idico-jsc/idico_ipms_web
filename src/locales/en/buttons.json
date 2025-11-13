@@ -18,5 +18,6 @@
   "darkMode": "Dark mode",
   "goHome": "Go Home",
   "goBack": "Go Back",
-  "refresh": "Refresh Page"
+  "refresh": "Refresh Page",
+  "logout": "Logout"
 }

@@ -33,7 +33,8 @@
         "passwordRequired": "Mật khẩu là bắt buộc",
         "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự",
         "generic": "Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập và thử lại."
-      }
+      },
+      "googleButton": "Đăng nhập với Google"
     },
     "register": {
       "title": "Đăng Ký",

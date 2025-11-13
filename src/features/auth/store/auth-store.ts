@@ -1,7 +1,12 @@
 import { create } from "zustand";
 import type { FrappeUser } from "@/types/frappe.types";
 import { removeToken, hasToken, setToken } from "../services/token-storage";
-import { getCurrentUser, loginWithCredentials, logout } from "../services/api";
+import {
+  getCurrentUser,
+  loginWithCredentials,
+  loginWithGoogle as loginWithGoogleApi,
+  logout,
+} from "../services/api";
 import { getTokenExpirySeconds } from "../helpers";
 
 /**
@@ -33,6 +38,7 @@ interface AuthActions {
 
   // Auth actions
   login: (email: string, password: string) => Promise<void>;
+  loginWithGoogle: (idToken: string) => Promise<void>;
   logout: () => void;
   clearAuth: () => void;
 
@@ -124,6 +130,36 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       set({ isLoading: false, error: null });
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Login failed";
+      set({
+        isLoading: false,
+        error: errorMessage,
+        user: null,
+        isAuthenticated: false,
+      });
+      throw err;
+    }
+  },
+
+  // Login with Google OAuth
+  loginWithGoogle: async (idToken: string) => {
+    set({ isLoading: true, error: null });
+
+    try {
+      // Call Google login API with ID token (JWT credential)
+      const data = await loginWithGoogleApi(idToken);
+      if (!data.token) {
+        throw new Error("No token received from Google login");
+      }
+      // Save token
+      const expiresIn = getTokenExpirySeconds();
+      setToken(data.token, expiresIn);
+      // Fetch user profile
+      await get().fetchUserProfile();
+
+      set({ isLoading: false, error: null });
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "Google login failed";
       set({
         isLoading: false,
         error: errorMessage,

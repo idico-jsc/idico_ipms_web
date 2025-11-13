@@ -20,6 +20,7 @@ export function useAuth() {
   const error = useAuthStore((state) => state.error);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const loginAction = useAuthStore((state) => state.login);
+  const loginWithGoogleAction = useAuthStore((state) => state.loginWithGoogle);
   const logoutAction = useAuthStore((state) => state.logout);
 
   const { t } = useTranslation("messages");
@@ -53,6 +54,23 @@ export function useAuth() {
     }
   };
 
+  // Google login wrapper
+  const loginWithGoogle = async (idToken: string) => {
+    try {
+      await loginWithGoogleAction(idToken);
+    } catch (error) {
+      // Type guard for FrappeError
+      const frappeError = error as FrappeError;
+
+      // Handle Google-specific errors with fallback message
+      toast.error("Google Login Failed", {
+        testId: "google_login_failed",
+        description: "Failed to authenticate with Google. Please try again.",
+      });
+      handleError(frappeError);
+    }
+  };
+
   // Logout wrapper with redirect
   const logout = async () => {
     try {
@@ -70,6 +88,7 @@ export function useAuth() {
     isLoading,
     error,
     login,
+    loginWithGoogle,
     logout,
     isAuthenticated,
   };

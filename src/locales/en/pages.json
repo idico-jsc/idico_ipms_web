@@ -33,7 +33,8 @@
         "passwordRequired": "Password is required",
         "passwordTooShort": "Password must be at least 6 characters",
         "generic": "Login failed. Please check your credentials and try again."
-      }
+      },
+      "googleButton": "Sign in with Google"
     },
     "register": {
       "title": "Sign Up",

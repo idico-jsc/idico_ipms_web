@@ -7,9 +7,8 @@ interface Props extends React.ComponentProps<"div"> {}
 
 export const Home = ({ ...rest }: Props) => {
   const [count, setCount] = useState(0);
-  const { t } = useTranslation();
+  const { t } = useTranslation(["pages", "fields", "buttons"]);
   const { user, isAuthenticated, logout } = useAuth();
-
 
   const handleIncrement = () => {
     setCount(count + 1);
@@ -24,7 +23,7 @@ export const Home = ({ ...rest }: Props) => {
             <div className="mb-4 flex items-start justify-between">
               <h2 className="text-2xl font-bold">User Profile</h2>
               <Button variant="outline" size="sm" onClick={logout}>
-                Logout
+                {t("buttons:logout")}
               </Button>
             </div>
 

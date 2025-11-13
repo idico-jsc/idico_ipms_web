@@ -25,6 +25,28 @@ export async function loginWithCredentials(
   }
 }
 
+/**
+ * Login with Google OAuth
+ * Sends Google ID token (JWT credential) to Frappe backend for verification
+ */
+export async function loginWithGoogle(
+  idToken: string,
+): Promise<AuthResponse> {
+  try {
+    const response = await apiPost<AuthResponse>(
+      AUTH_ENDPOINTS.LOGIN_GOOGLE,
+      { id_token: idToken, use_jwt: 1 },
+      {
+        requireAuth: false,
+      },
+    );
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
 /** Logout
  */
 export async function logout(): Promise<void> {

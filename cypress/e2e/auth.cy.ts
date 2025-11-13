@@ -66,8 +66,10 @@ describe("Authentication E2E Tests", () => {
   });
 
   describe("Protected Routes", () => {
+    beforeEach(() => {
+      cy.visit("/login");
+    });
     it("should redirect to login when accessing protected route without auth", () => {
-      cy.visit("/");
       cy.url().should("include", "/login");
     });
 
@@ -81,7 +83,7 @@ describe("Authentication E2E Tests", () => {
       cy.wait("@login");
 
       cy.url().should("not.include", "/login");
-      cy.visit("/");
+
       cy.url().should("not.include", "/login");
     });
 
@@ -119,8 +121,10 @@ describe("Authentication E2E Tests", () => {
   });
 
   describe("Auto-logout on 401", () => {
-    it("should auto-logout when API returns 401", () => {
+    beforeEach(() => {
       cy.visit("/login");
+    });
+    it("should auto-logout when API returns 401", () => {
       cy.get('input[name="email"]').type(VALID_EMAIL);
       cy.get('input[name="password"]').type(VALID_PASSWORD);
       cy.intercept("POST", "**/api/method/login").as("login");
@@ -161,4 +165,5 @@ describe("Authentication E2E Tests", () => {
       cy.get('input[name="password"]').should("have.attr", "type", "password");
     });
   });
+
 });
