@@ -30,18 +30,21 @@ export function useAuth() {
     try {
       await loginAction(email, password);
     } catch (error) {
+
       // Type guard for FrappeError
       const frappeError = error as FrappeError;
 
       // Rethrow with translated message
       if (frappeError?.exc_type === "AuthenticationError") {
         toast.error(t("error.invalid_credentials.title"), {
+          testId: "invalid_credentials",
           description: t("error.invalid_credentials.message"),
         });
         return;
       }
       if (frappeError?.exc_type === "SecurityException") {
         toast.error(t("error.login_locked.title"), {
+          testId: "login_locked",
           description: t("error.login_locked.message"),
         });
         return;

@@ -6,22 +6,6 @@ import { useAuthStore } from "../store/auth-store";
 export const getTokenExpirySeconds = (): number => {
   return import.meta.env.VITE_FRAPPE_TOKEN_EXPIRY_DAYS * 24 * 60 * 60;
 };
-export function handleUnauthorized(): void {
-  // Clear Zustand auth state (also clears tokens)
-  useAuthStore.getState().clearAuth();
-
-  // Store current path for redirect after login (optional)
-  const currentPath = window.location.pathname;
-  if (currentPath !== "/login" && currentPath !== "/") {
-    sessionStorage.setItem("redirectAfterLogin", currentPath);
-  }
-
-  // Redirect to login page
-  // Note: Using window.location instead of router to ensure clean state
-  if (window.location.pathname !== "/login") {
-    window.location.href = "/login";
-  }
-}
 
 /**
  * Get the redirect path after successful login

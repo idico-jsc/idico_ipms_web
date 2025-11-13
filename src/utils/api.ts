@@ -1,6 +1,5 @@
 import { cleanPath, isAbsoluteURL } from "@/utils";
 import { getToken } from "../features/auth/services/token-storage";
-import { handleUnauthorized } from "../features/auth/helpers";
 
 /**
  * API Client
@@ -22,34 +21,6 @@ import { handleUnauthorized } from "../features/auth/helpers";
 // ============================================================================
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://jsonplaceholder.typicode.com";
-
-// ============================================================================
-// Error Handling
-// ============================================================================
-
-/**
- * Centralized API error handler
- * Handles common error scenarios and provides consistent error messages
- */
-const handleApiError = async (response: Response): Promise<never> => {
-  // Handle unauthorized responses
-  if (response.status === 401 || response.status === 403) {
-    handleUnauthorized();
-    throw new Error("Unauthorized - You have been logged out");
-  }
-
-  // Try to parse error response
-  let errorData: any;
-  try {
-    errorData = await response.json();
-  } catch (e) {
-    // If parsing fails, throw generic error with status
-    throw new Error(`API Error: ${response.status} ${response.statusText}`);
-  }
-
-  // Throw the parsed error data (Frappe format or custom format)
-  throw errorData;
-};
 
 // ============================================================================
 // Authenticated Fetch Wrapper
@@ -76,14 +47,22 @@ const Fetcher = async (endpoint: string, options?: FetcherOptions) => {
     ...fetchOptions,
     headers,
   });
-
-  // Handle error responses using centralized error handler
-  if (!response.ok) {
-    return handleApiError(response);
-  }
-
   // Parse successful response
   const res = await response.json();
+  // Handle error responses using centralized error handler
+  if (!response.ok) {
+    // Handle unauthorized responses
+    if (requireAuth && (response.status === 401 || response.status === 403)) {
+      // Trigger action clear auth in store 
+      await import("../features/auth/store/auth-store").then(({ useAuthStore }) => {
+        useAuthStore.getState().clearAuth();
+      });
+      return 
+      // Optionally, redirect to login page can be handled here
+      // throw new Error("Unauthorized - You have been logged out");
+    }
+    throw (res);
+  }
   return res;
 };
 
@@ -131,6 +110,5 @@ const apiUpload = async <T>(
     ...options,
   }) as Promise<T>;
 };
-
 
 export { apiGet, apiPost, apiPut, apiDelete, apiUpload };

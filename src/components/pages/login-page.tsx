@@ -12,11 +12,10 @@ export type LoginPageProps = HTMLAttributes<HTMLDivElement> & {};
 export const LoginPage: FC<LoginPageProps> = ({ className }) => {
   const { t } = useTranslation(["pages", "common"]);
 
-
   return (
     <ScreenLayout className={cn(className)}>
-      <Card className="lg:w-full max-w-[1200px] overflow-hidden rounded-lg shadow-2xl backdrop-blur-sm">
-        <CardContent className="grid grid-cols-1 lg:grid-cols-[55%_auto] w-full h-full p-0">
+      <Card className="max-w-[1200px] overflow-hidden rounded-lg shadow-2xl backdrop-blur-sm lg:w-full">
+        <CardContent className="grid h-full w-full grid-cols-1 p-0 lg:grid-cols-[55%_auto]">
           {/* Left side - Carousel (hidden on mobile) */}
           <div className="hidden h-full lg:block">
             <div className="relative h-full w-full overflow-hidden p-4 pr-0">
@@ -30,17 +29,15 @@ export const LoginPage: FC<LoginPageProps> = ({ className }) => {
               <ThemeToggle />
               <LanguageSwitcher />
             </div>
-            <div className="flex flex-1 flex-col py-5 lg:py-20 px-5 lg:px-0">
+            <div className="flex flex-1 flex-col px-5 py-5 lg:px-0 lg:py-20">
               <div className="mb-8 space-y-2 text-center">
-                <h4 className="text-3xl font-bold tracking-tight uppercase">{t("common:app_name")}</h4>
+                <h4 className="text-3xl font-bold tracking-tight uppercase">
+                  {t("common:app_name")}
+                </h4>
                 <p className="text-base">{t("auth.login.welcome")}</p>
               </div>
               <div>
-                <LoginForm
-                  // onSubmit={handleLogin}
-                  // isLoading={isLoggingIn}
-                  // error={error || (authError?.message ?? null)}
-                />
+                <LoginForm />
               </div>
             </div>
           </div>

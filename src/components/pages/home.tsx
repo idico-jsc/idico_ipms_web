@@ -10,7 +10,7 @@ export const Home = ({ ...rest }: Props) => {
   const { t } = useTranslation();
   const { user, isAuthenticated, logout } = useAuth();
 
-  throw new Error("Test error from Home component");
+
   const handleIncrement = () => {
     setCount(count + 1);
   };

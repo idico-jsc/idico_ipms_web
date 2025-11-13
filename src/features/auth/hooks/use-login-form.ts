@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,7 +14,6 @@ export const useLoginForm = () => {
           .min(1, { message: t("email.error.required") })
           .email({ message: t("email.error.invalid") }),
         password: z.string().min(1, { message: t("password.error.required") }),
-        rememberMe: z.boolean().default(false),
       }),
     [i18n.language],
   );
@@ -24,7 +24,6 @@ export const useLoginForm = () => {
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false,
     },
   });
 };

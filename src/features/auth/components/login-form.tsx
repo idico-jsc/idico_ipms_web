@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { Loader2 } from "lucide-react";
+import { LoadingButton } from "@/components/molecules/loading-button";
 import { Button } from "@/components/atoms/button";
 import {
   Form,
@@ -18,14 +18,13 @@ import { useLoginForm } from "@/features/auth/hooks/use-login-form";
 import { useAuth } from "../hooks/use-auth";
 
 interface LoginFormProps {
-  onSubmit?: (email: string, password: string, rememberMe: boolean) => Promise<void>;
-  isLoading?: boolean;
+  onSubmit?: (email: string, password: string) => Promise<void>;
 }
 
-export function LoginForm({ onSubmit, isLoading = false }: LoginFormProps) {
+export function LoginForm({ onSubmit }: LoginFormProps) {
   const { t } = useTranslation("pages");
   const form = useLoginForm();
-  const { login } = useAuth();
+  const { login, isLoading } = useAuth();
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = form.handleSubmit(async (values) => {
@@ -35,7 +34,7 @@ export function LoginForm({ onSubmit, isLoading = false }: LoginFormProps) {
 
       await login(email, password);
 
-      await onSubmit?.(values.email, values.password, values.rememberMe);
+      await onSubmit?.(values.email, values.password);
       // Redirect to the page user was trying to access, or home
       // const from = (location.state as any)?.from?.pathname || "/";
       // navigate(from, { replace: true });
@@ -56,7 +55,7 @@ export function LoginForm({ onSubmit, isLoading = false }: LoginFormProps) {
                 <FormLabel>{t("auth.login.email")}</FormLabel>
                 <FormControl>
                   <Input
-                    type="email"
+                    type="text"
                     placeholder={t("auth.login.emailPlaceholder")}
                     autoComplete="email"
                     disabled={isLoading}
@@ -127,16 +126,15 @@ export function LoginForm({ onSubmit, isLoading = false }: LoginFormProps) {
             </div>
           )}
 
-          <Button type="submit" className="w-full" disabled={isLoading} size="lg">
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                {t("auth.login.submittingButton")}
-              </>
-            ) : (
-              t("auth.login.submitButton")
-            )}
-          </Button>
+          <LoadingButton
+            type="submit"
+            className="w-full"
+            size="lg"
+            loading={isLoading}
+            loadingText={t("auth.login.submittingButton")}
+          >
+            {t("auth.login.submitButton")}
+          </LoadingButton>
         </form>
       </Form>
 
