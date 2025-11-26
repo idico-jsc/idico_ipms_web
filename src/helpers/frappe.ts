@@ -1,7 +1,7 @@
-import { FrappeError, FrappeServerMessage } from "@/types";
+// import { FrappeError } from "@/types";
 
 
-export const getFrappeMessages = (error: FrappeError) => {
+export const getFrappeMessages = () => {
 //   if (!error) return null;
 //   try {
 //     if (error._server_messages) {

@@ -15,7 +15,8 @@ export const APP_VERSION = import.meta.env.VITE_APP_VERSION || '0.0.0';
 
 // Auth & Security
 export const RETRY_DELAY = Number(import.meta.env.VITE_RETRY_DELAY) || 30;
-export const PASSWORD_STRENGTH_THRESHOLD = Number(import.meta.env.VITE_PASSWORD_STRENGTH) || 2;
+const passwordStrengthEnv = import.meta.env.VITE_PASSWORD_STRENGTH ?? import.meta.env.VITE_PASSWORD_STRENGHTH;
+export const PASSWORD_STRENGTH_THRESHOLD = Number(passwordStrengthEnv) || 2;
 export const AUTO_REDIRECT_DELAY = Number(import.meta.env.VITE_AUTO_REDIRECT_DELAY) || 5;
 
 // API Configuration

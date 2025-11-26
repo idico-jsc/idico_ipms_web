@@ -1,4 +1,4 @@
-import { HTMLAttributes, useEffect, useMemo, useRef, useState } from "react";
+import { HTMLAttributes, useEffect, useMemo, useState } from "react";
 import zxcvbn from "zxcvbn";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/utils";

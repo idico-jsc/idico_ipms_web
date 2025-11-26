@@ -5,8 +5,7 @@ import {
   getCurrentUser,
   loginWithCredentials,
   loginWithGoogle as loginWithGoogleApi,
-  logout,
-  resetPassword,
+  logout
 } from "../services/api";
 import { getTokenExpirySeconds } from "../helpers";
 

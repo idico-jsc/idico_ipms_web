@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Navigate, useLocation } from "react-router";
+import { FullPageLoader } from "@/components/molecules/full-page-loader";
 import { useAuthStore } from "../store/auth-store";
 
 interface ProtectedRouteProps {
