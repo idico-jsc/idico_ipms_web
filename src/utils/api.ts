@@ -1,4 +1,5 @@
 import { cleanPath, isAbsoluteURL } from "@/utils";
+import { API_BASE_URL } from "@/constants/env";
 import { getToken } from "../features/auth/services/token-storage";
 
 /**
@@ -19,8 +20,6 @@ import { getToken } from "../features/auth/services/token-storage";
 // ============================================================================
 // Configuration
 // ============================================================================
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://jsonplaceholder.typicode.com";
 
 // ============================================================================
 // Authenticated Fetch Wrapper
@@ -53,15 +52,18 @@ const Fetcher = async (endpoint: string, options?: FetcherOptions) => {
   if (!response.ok) {
     // Handle unauthorized responses
     if (requireAuth && (response.status === 401 || response.status === 403)) {
-      // Trigger action clear auth in store 
+      // Trigger action clear auth in store
       await import("../features/auth/store/auth-store").then(({ useAuthStore }) => {
         useAuthStore.getState().clearAuth();
       });
-      return 
+      return;
       // Optionally, redirect to login page can be handled here
       // throw new Error("Unauthorized - You have been logged out");
     }
-    throw (res);
+    if (response.status === 500) {
+      throw new Error("Server error - Please try again later");
+    }
+    throw res;
   }
   return res;
 };

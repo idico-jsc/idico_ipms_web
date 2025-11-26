@@ -134,6 +134,8 @@ export const showSplashScreen = async (): Promise<void> => {
  * App Info Utilities
  */
 
+import { APP_VERSION } from '@/constants/env';
+
 /**
  * Get the app information (name, version, build number, etc.)
  */
@@ -142,7 +144,7 @@ export const getAppInfo = async () => {
     return {
       name: 'Parent Portal',
       id: 'com.wellspring.parentportal',
-      version: import.meta.env.VITE_APP_VERSION || '0.0.0',
+      version: APP_VERSION,
       build: '1',
     };
   }

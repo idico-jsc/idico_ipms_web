@@ -101,6 +101,25 @@ export default defineConfig({
               },
             },
           },
+          {
+            // Cache API responses - NetworkFirst strategy
+            // Tries network first, falls back to cache if offline
+            urlPattern: ({ url }) => {
+              return url.pathname.startsWith('/api/');
+            },
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'api-cache',
+              networkTimeoutSeconds: 10,
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 5, // 5 minutes
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
         ],
       },
       devOptions: {

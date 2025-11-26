@@ -376,9 +376,9 @@ function LoginPage() {
 
   return (
     <form>
-      <h2>{t('auth.login.title', { ns: 'pages' })}</h2>
-      <p>{t('auth.login.subtitle', { ns: 'pages' })}</p>
-      <button>{t('auth.login.submitButton', { ns: 'pages' })}</button>
+      <h2>{t('loginPage.title', { ns: 'pages' })}</h2>
+      <p>{t('loginPage.subtitle', { ns: 'pages' })}</p>
+      <button>{t('loginPage.submitButton', { ns: 'pages' })}</button>
     </form>
   );
 }

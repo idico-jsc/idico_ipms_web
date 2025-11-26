@@ -1,10 +1,11 @@
 import { useAuthStore } from "../store/auth-store";
+import { FRAPPE_TOKEN_EXPIRY_DAYS } from "@/constants/env";
 
 /**
  * Helper to get token expiry in seconds
  */
 export const getTokenExpirySeconds = (): number => {
-  return import.meta.env.VITE_FRAPPE_TOKEN_EXPIRY_DAYS * 24 * 60 * 60;
+  return FRAPPE_TOKEN_EXPIRY_DAYS * 24 * 60 * 60;
 };
 
 /**

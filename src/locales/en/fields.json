@@ -11,12 +11,24 @@
   "password": {
     "label": "Password",
     "placeholder": "Enter your password",
-    "description": "Must be at least 8 characters",
+    "description": "Password must be at least 6 characters with uppercase, lowercase, numbers and special characters.",
     "error": {
       "required": "Password is required",
-      "tooShort": "Password must be at least 8 characters",
+      "tooShort": "Password must be at least 6 characters",
       "tooWeak": "Password is too weak"
+    },
+    "strength_level": {
+      "veryWeak": "Very Weak",
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong",
+      "veryStrong": "Very Strong"
     }
+  },
+  "newPassword": {
+    "label": "New Password",
+    "placeholder": "Enter your new password",
+    "description": "Password must be at least 6 characters with uppercase, lowercase, numbers and special characters."
   },
   "confirmPassword": {
     "label": "Confirm Password",

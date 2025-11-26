@@ -406,7 +406,7 @@ function ProtectedRoute({ children }) {
   path="/login"
   element={
     <AuthRoute>
-      <LoginPage />
+      <loginPage />
     </AuthRoute>
   }
 />

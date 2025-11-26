@@ -12,37 +12,72 @@
   "errorPage": {
     "showDetails": "Show error details"
   },
-  "auth": {
-    "login": {
-      "welcome": "Welcome parent! Please sign in to continue",
-      "title": "Sign In",
-      "subtitle": "Welcome back! Please sign in to continue",
-      "email": "Email",
-      "emailPlaceholder": "Enter your email",
-      "password": "Password",
-      "passwordPlaceholder": "Enter your password",
-      "rememberMe": "Remember me",
-      "forgotPassword": "Forgot password?",
-      "submitButton": "Sign In",
-      "submittingButton": "Signing in...",
-      "orContinueWith": "Or continue with",
-      "noAccount": "Don't have an account?",
-      "errors": {
-        "emailRequired": "Email is required",
-        "emailInvalid": "Please enter a valid email address",
-        "passwordRequired": "Password is required",
-        "passwordTooShort": "Password must be at least 6 characters",
-        "generic": "Login failed. Please check your credentials and try again."
-      },
-      "googleButton": "Sign in with Google"
+  "loginPage": {
+    "welcome": "Welcome to Wellspring Saigon!",
+    "title": "Sign In",
+    "subtitle": "Welcome back! Please sign in to continue",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "submitButton": "Sign In",
+    "submittingButton": "Signing in...",
+    "orContinueWith": "Or continue with",
+    "noAccount": "Don't have an account?",
+    "errors": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "generic": "Login failed. Please check your credentials and try again."
     },
-    "register": {
-      "title": "Sign Up",
-      "subtitle": "Create your account to get started",
-      "submitButton": "Sign Up",
-      "submittingButton": "Creating account...",
-      "hasAccount": "Already have an account?",
-      "signInLink": "Sign in"
+    "googleButton": "Sign in with Google"
+  },
+  "forgotPasswordPage": {
+    "title": "Forgot Password",
+    "subtitle": "Enter your account email address and we will send you instructions to reset your password",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "submitButton": "Send Reset Link",
+    "submittingButton": "Sending...",
+    "backToLogin": "Back to Sign In",
+    "errors": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "generic": "Failed to send reset link. Please try again."
+    },
+    "successMessage": {
+      "title": "Password Reset Request Received",
+      "message": "Check your email for a link to reset your password.",
+      "not_received": "Didn't receive the email? Check your spam folder or try again."
     }
+  },
+  "resetPasswordPage": {
+    "title": "Reset Password",
+    "subtitle": "Please enter a new password for your account",
+    "password": "New Password",
+    "passwordPlaceholder": "Enter your new password",
+    "submitButton": "Reset Password",
+    "submittingButton": "Resetting...",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Re-enter your new password",
+    "errors": {
+      "passwordRequired": "Password is required",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "confirmPasswordRequired": "Confirm password is required",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "generic": "Failed to reset password. Please try again."
+    },
+    "successMessage": {
+      "title": "Password Reset Successful",
+      "message": "Your password has been successfully reset. You can now login with your new password.",
+      "redirect": "Redirecting to login page in {{countdown}} seconds..."
+    }
+  },
+  "offline": {
+    "indicator": "You're offline - viewing cached data",
+    "formDisabled": "Internet connection required for this action"
   }
 }

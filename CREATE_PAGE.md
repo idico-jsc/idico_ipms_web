@@ -238,29 +238,116 @@ const navItems: NavItem[] = [
 
 ## Advanced: Dynamic Routes
 
-For dynamic routes (like `/blog/:id`), you can use React Router's params:
+For dynamic routes (like `/blog/:id`), you can use **Next.js-style `[param]` folder naming** combined with React Router's `useParams()` hook.
 
+### How It Works
+
+The routing system automatically converts Next.js-style folder names to React Router params:
+- `[id]` folder → `:id` URL parameter
+- `[slug]` folder → `:slug` URL parameter
+- `[token]` folder → `:token` URL parameter
+
+### Example 1: Blog Post by ID
+
+**Step 1: Create folder structure with `[id]`:**
+```bash
+mkdir -p src/app/blog/[id]
+```
+
+**Step 2: Create `src/app/blog/[id]/page.tsx`:**
 ```tsx
-import { useParams } from 'react-router';
+import { useParams, Navigate } from 'react-router';
 
 export default function BlogPostPage() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+
+  // Redirect if no ID provided
+  if (!id) {
+    return <Navigate to="/blog" replace />;
+  }
 
   return (
-    <div>
-      <h1>Blog Post: {id}</h1>
+    <div className="container mx-auto px-4 py-16">
+      <h1 className="text-4xl font-bold mb-6">Blog Post: {id}</h1>
+      <p>Loading post with ID: {id}...</p>
     </div>
   );
 }
 ```
 
-**route.ts:**
-```typescript
-export const route = {
-  path: '/blog/:id',
-  errorBoundary: true,
-};
+**Result:**
+- Folder: `src/app/blog/[id]/page.tsx`
+- Route: `/blog/:id`
+- URL Example: `/blog/123` → `id = "123"`
+
+### Example 2: Reset Password with Token
+
+This is a real example from the authentication feature using Next.js-style dynamic routing.
+
+**File structure:**
 ```
+src/app/(auth)/reset-password/[token]/
+└── page.tsx    # Uses useParams to extract token
+```
+
+**`src/app/(auth)/reset-password/[token]/page.tsx`:**
+```tsx
+import { useParams, Navigate } from 'react-router';
+import { ResetPasswordForm } from '@/features/auth/components/reset-password-form';
+
+export default function ResetPasswordPage() {
+  const { token } = useParams<{ token: string }>();
+
+  // If no token in URL, redirect to forgot password page
+  if (!token) {
+    return <Navigate to="/forgot-password" replace />;
+  }
+
+  return <ResetPasswordForm token={token} />;
+}
+```
+
+**Result:**
+- Folder: `src/app/(auth)/reset-password/[token]/page.tsx`
+- Route: `/reset-password/:token`
+- URL Example: `/reset-password/abc123xyz` → `token = "abc123xyz"`
+
+### Example 3: Multiple Dynamic Segments
+
+You can have multiple dynamic segments by nesting `[param]` folders:
+
+**Folder structure:**
+```bash
+mkdir -p src/app/users/[userId]/posts/[postId]
+```
+
+**`src/app/users/[userId]/posts/[postId]/page.tsx`:**
+```tsx
+import { useParams } from 'react-router';
+
+export default function UserPostPage() {
+  const { userId, postId } = useParams<{ userId: string; postId: string }>();
+
+  return (
+    <div className="container mx-auto px-4 py-16">
+      <h1>User {userId} - Post {postId}</h1>
+    </div>
+  );
+}
+```
+
+**Result:**
+- Folder: `src/app/users/[userId]/posts/[postId]/page.tsx`
+- Route: `/users/:userId/posts/:postId`
+- URL Example: `/users/john/posts/42` → `userId = "john"`, `postId = "42"`
+
+### Dynamic Route Best Practices
+
+1. **Always type your params:** Use `useParams<{ paramName: string }>()`
+2. **Handle missing params:** Check if params exist and redirect if needed
+3. **Validate params:** Ensure IDs/tokens are valid before using them
+4. **SEO-friendly:** Use slugs instead of IDs when possible (e.g., `/blog/my-post-title`)
+5. **Error handling:** Add error boundaries for invalid routes
 
 ## Troubleshooting
 

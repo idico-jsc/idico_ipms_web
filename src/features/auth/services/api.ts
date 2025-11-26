@@ -61,6 +61,50 @@ export async function logout(): Promise<void> {
   } catch (error) {
     throw error;
   }
+}
+
+/**
+ * Request password reset
+ * Sends password reset email to user
+ */
+export async function forgotPassword(email: string): Promise<{ message: string }> {
+  try {
+    const response = await apiPost<{ message: string }>(
+      AUTH_ENDPOINTS.FORGOT_PASSWORD,
+      { email },
+      {
+        requireAuth: false,
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+/**
+ * Reset password with token
+ * Updates user password using reset token
+ */
+export async function resetPassword(
+  token: string,
+  newPassword: string,
+): Promise<{ message: string }> {
+  try {
+    const response = await apiPost<{ message: string }>(
+      AUTH_ENDPOINTS.RESET_PASSWORD,
+      {
+        key: token,
+        new_password: newPassword,
+      },
+      {
+        requireAuth: false,
+      },
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
 } 
 
 /** Get current user profile */

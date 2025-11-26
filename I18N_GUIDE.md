@@ -537,7 +537,7 @@ Navigate to the home page and use the language switcher in the top-right corner.
 ## Tips
 
 1. **Use the right namespace** - Don't put button text in fields.json
-2. **Be specific** - Use nested objects for clarity (auth.login.title)
+2. **Be specific** - Use nested objects for clarity (loginPage.title)
 3. **Stay consistent** - Match structure across all languages
 4. **Think ahead** - Structure translations for easy expansion
 5. **Test both languages** - Verify all strings translate correctly

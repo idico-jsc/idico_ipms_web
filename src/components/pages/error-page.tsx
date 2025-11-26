@@ -4,6 +4,7 @@ import { Button } from "@/components/atoms";
 import { AlertTriangle, Home, RefreshCw, ArrowLeft } from "lucide-react";
 import { LanguageSwitcher } from "@molecules";
 import { ROUTES } from "@/constants/routes";
+import { IS_DEV } from "@/constants/env";
 
 interface ErrorPageProps {
   error?: Error | null;
@@ -32,9 +33,8 @@ export const ErrorPage = ({
 }: ErrorPageProps) => {
   const { t } = useTranslation(["buttons", "messages", "pages"]);
   const navigate = useNavigate();
-  const isDev = import.meta.env.DEV;
 
-  const errorDetails = isDev && error?.stack ? error.stack : "";
+  const errorDetails = IS_DEV && error?.stack ? error.stack : "";
 
   const handleGoBack = () => {
     navigate(-1);
@@ -72,7 +72,7 @@ export const ErrorPage = ({
         </h4>
 
         {/* Error Details (Dev only or when showDetails is true) */}
-        {(isDev || showDetails) && errorDetails && (
+        {(IS_DEV || showDetails) && errorDetails && (
           <div className="text-left mt-10">
             {/* Status Code */}
             {statusCode && (
@@ -86,7 +86,7 @@ export const ErrorPage = ({
             <details className="mt-6 text-left">
               <summary className="text-muted-foreground hover:text-foreground mb-2 cursor-pointer text-sm">
                 {t("pages:errorPage.showDetails", { defaultValue: "Show error details" })}
-                {isDev && " (dev only)"}
+                {IS_DEV && " (dev only)"}
               </summary>
               <pre className="bg-muted max-h-60 overflow-auto rounded-lg p-4 text-left text-xs">
                 {errorDetails}

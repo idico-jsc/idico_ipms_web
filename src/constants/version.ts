@@ -1,7 +1,9 @@
 // This file is auto-generated during build
 // Access the app version at runtime
 
-export const APP_VERSION = import.meta.env.VITE_APP_VERSION || '0.0.0';
+import { APP_VERSION as VERSION } from './env';
+
+export const APP_VERSION = VERSION;
 
 /**
  * Get the current application version

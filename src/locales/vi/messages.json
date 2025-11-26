@@ -32,6 +32,10 @@
       "title": "Thông tin đăng nhập không hợp lệ",
       "message": "Email hoặc mật khẩu bạn nhập không chính xác. Vui lòng thử lại."
     },
+    "reset_password_token_expired": {
+      "title": "Mã đặt lại mật khẩu đã hết hạn",
+      "message": "Mã đặt lại mật khẩu của bạn đã hết hạn. Vui lòng yêu cầu mã mới."
+    },
     "login_locked": {
       "title": "Tài khoản đã bị khóa tạm thời",
       "message": "Bạn đã gửi quá nhiều yêu cầu đăng nhập và sẽ được mở lại sau 60 giây."

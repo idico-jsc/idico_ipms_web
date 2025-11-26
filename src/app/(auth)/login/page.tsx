@@ -5,7 +5,9 @@
  * Redirects to home if already authenticated (handled by AuthLayout).
  * Layout is automatically applied by the router system.
  */
-import { LoginPage } from "@pages";
+
+import { LoginPage } from "@/components/pages";
+
 export default function Page() {
   return <LoginPage />;
 }

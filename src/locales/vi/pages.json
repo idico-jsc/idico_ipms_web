@@ -12,37 +12,72 @@
   "errorPage": {
     "showDetails": "Hiển thị chi tiết lỗi"
   },
-  "auth": {
-    "login": {
-      "welcome": "Chào mừng qúy phụ huynh! Vui lòng đăng nhập để tiếp tục",
-      "title": "Đăng Nhập",
-      "subtitle": "Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục",
-      "email": "Email",
-      "emailPlaceholder": "Nhập email của bạn",
-      "password": "Mật khẩu",
-      "passwordPlaceholder": "Nhập mật khẩu",
-      "rememberMe": "Ghi nhớ đăng nhập",
-      "forgotPassword": "Quên mật khẩu?",
-      "submitButton": "Đăng Nhập",
-      "submittingButton": "Đang đăng nhập...",
-      "orContinueWith": "Hoặc tiếp tục với",
-      "noAccount": "Chưa có tài khoản?",
-      "errors": {
-        "emailRequired": "Email là bắt buộc",
-        "emailInvalid": "Vui lòng nhập địa chỉ email hợp lệ",
-        "passwordRequired": "Mật khẩu là bắt buộc",
-        "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự",
-        "generic": "Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập và thử lại."
-      },
-      "googleButton": "Đăng nhập với Google"
+  "loginPage": {
+    "welcome": "Chào mừng đến với Wellspring Sài Gòn!",
+    "title": "Đăng Nhập",
+    "subtitle": "Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục",
+    "email": "Email",
+    "emailPlaceholder": "Nhập email của bạn",
+    "password": "Mật khẩu",
+    "passwordPlaceholder": "Nhập mật khẩu",
+    "rememberMe": "Ghi nhớ đăng nhập",
+    "forgotPassword": "Quên mật khẩu?",
+    "submitButton": "Đăng Nhập",
+    "submittingButton": "Đang đăng nhập...",
+    "orContinueWith": "Hoặc tiếp tục với",
+    "noAccount": "Chưa có tài khoản?",
+    "errors": {
+      "emailRequired": "Email là bắt buộc",
+      "emailInvalid": "Vui lòng nhập địa chỉ email hợp lệ",
+      "passwordRequired": "Mật khẩu là bắt buộc",
+      "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự",
+      "generic": "Đăng nhập thất bại. Vui lòng kiểm tra thông tin đăng nhập và thử lại."
     },
-    "register": {
-      "title": "Đăng Ký",
-      "subtitle": "Tạo tài khoản của bạn để bắt đầu",
-      "submitButton": "Đăng Ký",
-      "submittingButton": "Đang tạo tài khoản...",
-      "hasAccount": "Đã có tài khoản?",
-      "signInLink": "Đăng nhập"
+    "googleButton": "Đăng nhập với Google"
+  },
+  "forgotPasswordPage": {
+    "title": "Quên Mật Khẩu",
+    "subtitle": "Nhập địa chỉ email tài khoản và chúng tôi sẽ gửi cho bạn hướng dẫn để cài lại mật khẩu",
+    "email": "Email",
+    "emailPlaceholder": "Nhập email của bạn",
+    "submitButton": "Gửi Liên Kết Đặt Lại",
+    "submittingButton": "Đang gửi...",
+    "backToLogin": "Quay lại Đăng Nhập",
+    "errors": {
+      "emailRequired": "Email là bắt buộc",
+      "emailInvalid": "Vui lòng nhập địa chỉ email hợp lệ",
+      "generic": "Gửi liên kết đặt lại thất bại. Vui lòng thử lại."
+    },
+    "successMessage": {
+      "title": "Đã nhận yêu cầu đặt lại mật khẩu",
+      "message": "Kiểm tra email của bạn để nhận đường dẫn đặt lại mật khẩu.",
+      "not_received": "Không nhận được email? Kiểm tra thư mục spam hoặc thử lại"
     }
+  },
+  "resetPasswordPage": {
+    "title": "Đặt Lại Mật Khẩu",
+    "subtitle": "Vui lòng nhập mật khẩu mới cho tài khoản của bạn",
+    "password": "Mật khẩu Mới",
+    "passwordPlaceholder": "Nhập mật khẩu mới",
+    "confirmPassword": "Xác Nhận Mật Khẩu",
+    "confirmPasswordPlaceholder": "Nhập lại mật khẩu mới",
+    "submitButton": "Đặt Lại Mật Khẩu",
+    "submittingButton": "Đang đặt lại...",
+    "errors": {
+      "passwordRequired": "Mật khẩu là bắt buộc",
+      "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự",
+      "confirmPasswordRequired": "Xác nhận mật khẩu là bắt buộc",
+      "passwordsDoNotMatch": "Mật khẩu không khớp",
+      "generic": "Đặt lại mật khẩu thất bại. Vui lòng thử lại."
+    },
+    "successMessage": {
+      "title": "Đặt lại mật khẩu thành công",
+      "message": "Mật khẩu của bạn đã được đặt lại thành công. Bạn có thể đăng nhập bằng mật khẩu mới.",
+      "redirect": "Đang chuyển đến trang đăng nhập trong {{countdown}} giây..."
+    }
+  },
+  "offline": {
+    "indicator": "Bạn đang ngoại tuyến - xem dữ liệu đã lưu",
+    "formDisabled": "Cần kết nối Internet cho hành động này"
   }
 }

@@ -19,5 +19,10 @@
   "refresh": "Làm mới trang",
   "goHome": "Về trang chủ",
   "goBack": "Quay lại",
-  "logout": "Đăng xuất"
+  "backToLogin": "Quay lại đăng nhập",
+  "logout": "Đăng xuất",
+  "send_request": "Gửi yêu cầu",
+  "try_again": "Thử lại",
+  "reset_password": "Đặt lại mật khẩu",
+  "go_to_login": "Đến trang đăng nhập"
 }

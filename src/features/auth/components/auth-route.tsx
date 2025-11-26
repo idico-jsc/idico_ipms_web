@@ -20,9 +20,9 @@ export function AuthRoute({ children }: AuthRouteProps) {
   const { isAuthenticated, isLoading } = useAuth();
 
   // Show full-page loader while checking auth state
-  // if (!isAuthenticated && isLoading) {
-  //   return <FullPageLoader message="Loading..." />;
-  // }
+  if (!isAuthenticated && isLoading) {
+    return <FullPageLoader message="Loading..." />;
+  }
 
   if (isAuthenticated) {
     // User is already logged in, redirect to the page they came from or home

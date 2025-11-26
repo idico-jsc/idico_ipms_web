@@ -4,3 +4,5 @@ export { Contact } from './contact';
 export { NotFound } from './not-found';
 export { LoginPage } from './login-page';
 export { ErrorPage } from './error-page';
+export { ForgotPasswordPage } from './forgot-password-page';
+export { ResetPasswordPage } from './reset-password-page';

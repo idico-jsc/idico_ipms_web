@@ -18,6 +18,11 @@
   "darkMode": "Dark mode",
   "goHome": "Go Home",
   "goBack": "Go Back",
+  "backToLogin": "Back to Login",
   "refresh": "Refresh Page",
-  "logout": "Logout"
+  "logout": "Logout",
+  "send_request": "Send Request",
+  "try_again": "Try Again",
+  "reset_password": "Reset Password",
+  "go_to_login": "Go to Login"
 }

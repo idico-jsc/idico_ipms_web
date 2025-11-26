@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { Navigate, useLocation } from 'react-router';
-import { hasToken } from '@/features/auth/services/token-storage';
+import { ReactNode } from "react";
+import { Navigate, useLocation } from "react-router";
+import { useAuthStore } from "../store/auth-store";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -20,9 +20,15 @@ interface ProtectedRouteProps {
  */
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const location = useLocation();
+  const { isAuthenticated, isLoading } = useAuthStore();
 
   // Quick check: if no token at all, redirect immediately
-  if (!hasToken()) {
+
+  if (!isAuthenticated && isLoading) {
+    return <FullPageLoader message="Loading..." />;
+  }
+
+  if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

@@ -99,7 +99,9 @@ export const FRAPPE_ERROR_MESSAGES = {
 /**
  * Environment Variables
  */
+import { FRAPPE_URL, FRAPPE_USE_TOKEN } from './env';
+
 export const FRAPPE_ENV = {
-  URL: import.meta.env.VITE_FRAPPE_URL || '',
-  USE_TOKEN: import.meta.env.VITE_FRAPPE_USE_TOKEN === 'true',
+  URL: FRAPPE_URL,
+  USE_TOKEN: FRAPPE_USE_TOKEN,
 } as const;

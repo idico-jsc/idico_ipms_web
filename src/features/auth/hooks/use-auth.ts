@@ -3,6 +3,7 @@ import { useAuthStore } from "../store/auth-store";
 import { FrappeError } from "@/types";
 import { toast } from "sonner";
 import { useError } from "@/hooks";
+import { resetPassword } from "../services/api";
 
 /**
  * Auth Hook
@@ -23,6 +24,8 @@ export function useAuth() {
   const loginWithGoogleAction = useAuthStore((state) => state.loginWithGoogle);
   const logoutAction = useAuthStore((state) => state.logout);
 
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
+
   const { t } = useTranslation("messages");
   const { handleError } = useError();
 
@@ -31,7 +34,6 @@ export function useAuth() {
     try {
       await loginAction(email, password);
     } catch (error) {
-
       // Type guard for FrappeError
       const frappeError = error as FrappeError;
 
@@ -83,6 +85,31 @@ export function useAuth() {
     window.location.href = "/login";
   };
 
+  // Reset password wrapper
+  const reset = async (token: string, newPassword: string) => {
+    try {
+      setIsResettingPassword(true);
+      await resetPassword(token, newPassword);
+      return Promise.resolve();
+    } catch (error) {
+      // Type guard for FrappeError
+      const frappeError = error as FrappeError;
+
+      // Rethrow with translated message
+      if (frappeError?.message === "The reset password link has been expired") {
+        toast.error(t("error.reset_password_token_expired.title"), {
+          testId: "reset_password_token_expired",
+          description: t("error.reset_password_token_expired.message"),
+        });
+      } else {
+        handleError(frappeError);
+      }
+      return Promise.reject(frappeError);
+    } finally {
+      setIsResettingPassword(false);
+    }
+  };
+
   return {
     user,
     isLoading,
@@ -90,6 +117,8 @@ export function useAuth() {
     login,
     loginWithGoogle,
     logout,
+    reset,
     isAuthenticated,
+    isResettingPassword,
   };
 }

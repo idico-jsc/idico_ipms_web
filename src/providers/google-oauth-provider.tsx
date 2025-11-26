@@ -1,12 +1,13 @@
 import { GoogleOAuthProvider as GoogleProvider } from "@react-oauth/google";
 import type { ReactNode } from "react";
+import { GOOGLE_CLIENT_ID } from "@/constants/env";
 
 interface GoogleOAuthProviderProps {
   children: ReactNode;
 }
 
 export function GoogleOAuthProvider({ children }: GoogleOAuthProviderProps) {
-  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+  const clientId = GOOGLE_CLIENT_ID;
 
   // If no client ID, still wrap with provider using a dummy ID to prevent context errors
   // The login button will be disabled in the UI when client ID is missing

@@ -6,6 +6,7 @@ import {
   loginWithCredentials,
   loginWithGoogle as loginWithGoogleApi,
   logout,
+  resetPassword,
 } from "../services/api";
 import { getTokenExpirySeconds } from "../helpers";
 
@@ -118,6 +119,8 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     try {
       // Call login API
       const data = await loginWithCredentials(username, password);
+      console.log("data", data);
+
       if (!data.token) {
         throw new Error("No token received");
       }
@@ -129,6 +132,8 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       set({ isLoading: false, error: null });
     } catch (err) {
+      console.log("err", err);
+
       const errorMessage = err instanceof Error ? err.message : "Login failed";
       set({
         isLoading: false,
@@ -158,8 +163,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       set({ isLoading: false, error: null });
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "Google login failed";
+      const errorMessage = err instanceof Error ? err.message : "Google login failed";
       set({
         isLoading: false,
         error: errorMessage,

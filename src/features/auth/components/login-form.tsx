@@ -15,8 +15,10 @@ import {
 import { Input } from "@/components/atoms/input";
 import { PasswordInput } from "@/components/molecules/password-input";
 import { cn } from "@/utils";
+import { GOOGLE_CLIENT_ID } from "@/constants/env";
 import { useLoginForm } from "@/features/auth/hooks/use-login-form";
 import { useAuth } from "../hooks/use-auth";
+import { useNetworkStatus } from "@/providers/network-provider";
 
 interface LoginFormProps {
   onSubmit?: (email: string, password: string) => Promise<void>;
@@ -28,9 +30,10 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
   const { login, loginWithGoogle, isLoading } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const { isOnline } = useNetworkStatus();
 
   // Check if Google OAuth is configured
-  const isGoogleOAuthEnabled = Boolean(import.meta.env.VITE_GOOGLE_CLIENT_ID);
+  const isGoogleOAuthEnabled = Boolean(GOOGLE_CLIENT_ID);
 
   const handleSubmit = form.handleSubmit(async (values) => {
     const { email, password } = values;
@@ -44,7 +47,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
       // const from = (location.state as any)?.from?.pathname || "/";
       // navigate(from, { replace: true });
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : t("auth.login.errors.generic");
+      const errorMessage = err instanceof Error ? err.message : t("loginPage.errors.generic");
       setError(errorMessage);
     }
   });
@@ -60,8 +63,8 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
       // credential is the JWT ID token
       await loginWithGoogle(credentialResponse.credential);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Google login failed";
-      setError(errorMessage);
+      // const errorMessage = err instanceof Error ? err.message : "Google login failed";
+      // setError(errorMessage);
     } finally {
       setIsGoogleLoading(false);
     }
@@ -81,13 +84,13 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
             name="email"
             render={({ field, fieldState }) => (
               <FormItem>
-                <FormLabel>{t("auth.login.email")}</FormLabel>
+                <FormLabel>{t("loginPage.email")}</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder={t("auth.login.emailPlaceholder")}
+                    placeholder={t("loginPage.emailPlaceholder")}
                     autoComplete="email"
-                    disabled={isLoading}
+                    disabled={isLoading || !isOnline}
                     {...field}
                     className={cn(fieldState.invalid && "border-destructive")}
                   />
@@ -104,13 +107,13 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
             render={({ field, fieldState }) => (
               <FormItem>
                 <div className="flex items-center justify-between">
-                  <FormLabel>{t("auth.login.password")}</FormLabel>
+                  <FormLabel>{t("loginPage.password")}</FormLabel>
                 </div>
                 <FormControl>
                   <PasswordInput
-                    placeholder={t("auth.login.passwordPlaceholder")}
+                    placeholder={t("loginPage.passwordPlaceholder")}
                     autoComplete="current-password"
-                    disabled={isLoading}
+                    disabled={isLoading || !isOnline}
                     {...field}
                     className={cn(fieldState.invalid && "border-destructive")}
                   />
@@ -135,7 +138,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
                     />
                   </FormControl>
                   <FormLabel className="cursor-pointer text-sm font-normal">
-                    {t("auth.login.rememberMe")}
+                    {t("loginPage.rememberMe")}
                   </FormLabel>
                 </FormItem>
               )}
@@ -145,7 +148,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
               className="text-primary text-sm hover:underline"
               tabIndex={-1}
             >
-              {t("auth.login.forgotPassword")}
+              {t("loginPage.forgotPassword")}
             </Link>
           </div>
 
@@ -159,9 +162,10 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
             type="submit"
             className="w-full uppercase"
             loading={isLoading}
-            loadingText={t("auth.login.submittingButton")}
+            disabled={!isOnline}
+            loadingText={t("loginPage.submittingButton")}
           >
-            {t("auth.login.submitButton")}
+            {!isOnline ? t("offline.formDisabled") : t("loginPage.submitButton")}
           </LoadingButton>
         </form>
       </Form>
@@ -173,7 +177,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-card text-muted-foreground px-2">
-                {t("auth.login.orContinueWith")}
+                {t("loginPage.orContinueWith")}
               </span>
             </div>
           </div>
@@ -182,9 +186,9 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
               onSuccess={handleGoogleSuccess}
               onError={handleGoogleError}
               isLoading={isGoogleLoading}
-              disabled={isLoading}
+              disabled={isLoading || !isOnline}
             >
-              {t("auth.login.googleButton")}
+              {t("loginPage.googleButton")}
             </GoogleButton>
           </div>{" "}
         </>

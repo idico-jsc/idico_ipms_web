@@ -32,6 +32,10 @@
       "title": "Invalid Credentials",
       "message": "The email or password you entered is incorrect. Please try again."
     },
+    "reset_password_token_expired": {
+      "title": "Reset Password Token Expired",
+      "message": "Your reset password token has expired. Please request a new one."
+    },
     "login_locked": {
       "title": "Your account has been locked temporarily",
       "message": "You have made too many login requests and will be unlocked after 60 seconds."

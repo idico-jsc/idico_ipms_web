@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { Button } from "@/components/atoms/button";
 import { cn } from "@/utils";

@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { IS_DEV } from '@/constants/env';
 
 // Import English translation files
 import enCommon from '@/locales/en/common.json';
@@ -51,7 +52,7 @@ i18n
   .init({
     resources,
     fallbackLng: 'en',
-    debug: import.meta.env.DEV,
+    debug: IS_DEV,
 
     // Language detection options
     detection: {

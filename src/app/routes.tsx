@@ -33,6 +33,13 @@ const errorModules = import.meta.glob<{ default: React.ComponentType }>(
   { eager: true }
 );
 
+// Auto-discover all route.ts files (for custom route configurations)
+// Optional: Can be used to override auto-generated paths or add error boundaries
+const routeModules = import.meta.glob<{ route: { path?: string; errorBoundary?: boolean } }>(
+  './**/route.ts',
+  { eager: true }
+);
+
 interface RouteConfig {
   path: string;
   Component: React.ComponentType;
@@ -47,6 +54,7 @@ interface RouteConfig {
  * Example: ./page.tsx -> /
  * Example: ./(auth)/login/page.tsx -> /login (route groups excluded)
  * Example: ./auth/login/page.tsx -> /auth/login
+ * Example: ./(auth)/reset-password/[token]/page.tsx -> /reset-password/:token (Next.js dynamic segments)
  */
 function filePathToRoute(filePath: string): string {
   // Remove leading './' and trailing '/page.tsx'
@@ -59,6 +67,10 @@ function filePathToRoute(filePath: string): string {
   // Remove private folders (folders starting with underscore)
   // Example: _components/button -> (excluded entirely, but shouldn't have page.tsx)
   path = path.replace(/\/?_[^/]+\/?/g, '');
+
+  // Convert Next.js-style dynamic segments [param] to React Router style :param
+  // Example: reset-password/[token] -> reset-password/:token
+  path = path.replace(/\[([^\]]+)\]/g, ':$1');
 
   // Root page
   if (path === '') return '/';
@@ -102,6 +114,22 @@ function getLayoutsForPath(filePath: string): Array<React.ComponentType<{ childr
 }
 
 /**
+ * Get custom route configuration if available
+ * Looks for route.ts in the same directory as the page.tsx
+ */
+function getRouteConfig(filePath: string): { path?: string; errorBoundary?: boolean } | null {
+  // Convert page.tsx path to route.ts path
+  // Example: ./(auth)/reset-password/page.tsx -> ./(auth)/reset-password/route.ts
+  const routePath = filePath.replace(/\/page\.tsx$/, '/route.ts');
+
+  if (routeModules[routePath]) {
+    return routeModules[routePath].route;
+  }
+
+  return null;
+}
+
+/**
  * Check if a route has an error boundary
  * Note: Uses original file path to find error boundaries (including route groups)
  */
@@ -136,7 +164,10 @@ function hasErrorBoundary(filePath: string): boolean {
 
 // Build routes from discovered pages
 const routes: RouteConfig[] = Object.entries(pageModules).map(([filePath, module]) => {
-  const path = filePathToRoute(filePath);
+  const routeConfig = getRouteConfig(filePath);
+
+  // Use custom path from route.ts if available, otherwise use auto-generated path
+  const path = routeConfig?.path ?? filePathToRoute(filePath);
   const layouts = getLayoutsForPath(filePath);
   const hasError = hasErrorBoundary(filePath);
 
