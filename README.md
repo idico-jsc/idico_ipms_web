@@ -76,4 +76,50 @@ export function Counter() {
 ```
 
 #### Note: If you need SEO or Server Side Rendering you can use Next.js, Nuxtjs, Remix, Astro Etc SSR based framework. This template is just for vite-react.
-# Version management via pre-commit hook
+
+## Version Management
+
+This project uses **automatic version bumping via pre-commit hook**.
+
+### How It Works
+
+- **Version automatically increases** every time you commit code to Git
+- Uses Husky pre-commit hook to run `scripts/bump-version.js`
+- The bumped version is automatically included in the commit
+
+### When Version Increases
+
+✅ **Version INCREASES when:**
+- Running `git commit -m "message"`
+- Running `git commit -am "message"`
+- Running `git commit --amend`
+
+❌ **Version DOES NOT increase when:**
+- Running `npm run build` or any build commands
+- Running `npm run dev` or development commands
+- Running `git add` (only staging, not committing)
+
+### Example Workflow
+
+```bash
+# Current version: 0.0.89
+
+# Make changes to code
+vim src/app.tsx
+
+# Stage and commit
+git add .
+git commit -m "feat: add new feature"
+
+# Pre-commit hook runs automatically:
+# ✓ Version bumped: 0.0.89 → 0.0.90
+# ✓ package.json automatically added to commit
+
+# Version is now 0.0.90 in package.json
+```
+
+### Version Format
+
+Versions follow the pattern: `0.0.X` where X increments by 1 on each commit.
+
+For more details, see `scripts/bump-version.js`
