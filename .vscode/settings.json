@@ -11,7 +11,7 @@
     "vite.config.ts": "auto-imports.d.ts, .eslintrc-auto-import.json ",
     ".env.example": ".env.development,.env.example,.env.production",
     "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, eslint.config*, .prettier*, prettier*, .editorconfig",
-    "README.md": "ARCHITECTURE.md,AUTH_GUIDE.md,ROUTING_GUIDE.md,I18N_GUIDE.md,CREATE_PAGE.md,PWA_SETUP.md,CAPACITOR_GUIDE.md,BUILD_ANDROID_APK.md,MOBILE_DEVELOPMENT.md,CAPACITOR_IMPLEMENTATION_GUIDE.md,FRAPPE_INTEGRATION.md,GOOGLE_OAUTH_SETUP.md,CYPRESS_TESTING_GUIDE.md"
+    "README.md": "ARCHITECTURE.md,AUTH_GUIDE.md,ROUTING_GUIDE.md,I18N_GUIDE.md,CREATE_PAGE.md,PWA_SETUP.md,CAPACITOR_GUIDE.md,BUILD_ANDROID_APK.md,MOBILE_DEVELOPMENT.md,CAPACITOR_IMPLEMENTATION_GUIDE.md,FRAPPE_INTEGRATION.md,GOOGLE_OAUTH_SETUP.md,GOOGLE_AUTH_NATIVE_SETUP.md,CYPRESS_TESTING_GUIDE.md"
   },
   "explorer.sortOrder": "type"
 }

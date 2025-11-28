@@ -225,6 +225,51 @@ export const exitApp = (): void => {
 };
 
 /**
+ * Safe Area Utilities
+ */
+
+/**
+ * Get the status bar height for the current platform
+ * Returns appropriate padding value to avoid status bar overlap
+ */
+export const getStatusBarHeight = (): string => {
+  if (!isNative()) return '0px';
+
+  // iOS typically has status bar height of ~44px (20px on older devices)
+  // Android varies but typically ~24px
+  if (isIOS()) {
+    return 'env(safe-area-inset-top, 44px)';
+  }
+
+  if (isAndroid()) {
+    return 'env(safe-area-inset-top, 24px)';
+  }
+
+  return '0px';
+};
+
+/**
+ * Get safe area insets for all sides
+ */
+export const getSafeAreaInsets = () => {
+  if (!isNative()) {
+    return {
+      top: '0px',
+      bottom: '0px',
+      left: '0px',
+      right: '0px',
+    };
+  }
+
+  return {
+    top: 'env(safe-area-inset-top, 0px)',
+    bottom: 'env(safe-area-inset-bottom, 0px)',
+    left: 'env(safe-area-inset-left, 0px)',
+    right: 'env(safe-area-inset-right, 0px)',
+  };
+};
+
+/**
  * Initialization Utilities
  */
 

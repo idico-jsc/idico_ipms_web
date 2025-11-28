@@ -25,6 +25,7 @@ export const API_TIMEOUT = Number(import.meta.env.VITE_API_TIMEOUT) || 30000;
 
 // Google OAuth
 export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
+export const GOOGLE_SERVER_CLIENT_ID = import.meta.env.VITE_GOOGLE_SERVER_CLIENT_ID || '';
 
 // Frappe Configuration
 export const FRAPPE_URL = import.meta.env.VITE_FRAPPE_URL || '';

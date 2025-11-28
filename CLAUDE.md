@@ -19,6 +19,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Features
 - **[AUTH_GUIDE.md](../AUTH_GUIDE.md)** - Authentication system with token storage, Zustand, and API client
+- **[GOOGLE_OAUTH_SETUP.md](../GOOGLE_OAUTH_SETUP.md)** - Google OAuth for web
+- **[GOOGLE_AUTH_NATIVE_SETUP.md](../GOOGLE_AUTH_NATIVE_SETUP.md)** - Google OAuth for native mobile apps (Android/iOS)
 - **[I18N_GUIDE.md](../I18N_GUIDE.md)** - Internationalization
 - **[CREATE_PAGE.md](../CREATE_PAGE.md)** - Create new pages
 - **[PWA_SETUP.md](../PWA_SETUP.md)** - PWA features

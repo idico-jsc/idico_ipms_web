@@ -25,6 +25,12 @@ const config: CapacitorConfig = {
     StatusBar: {
       style: 'dark',
       backgroundColor: '#000000',
+      overlaysWebView: false,
+    },
+    GoogleAuth: {
+      scopes: ['profile', 'email'],
+      serverClientId: process.env.VITE_GOOGLE_SERVER_CLIENT_ID || '378977509840-buhc8em6abfr9acit471eom94i0daes2.apps.googleusercontent.com',
+      forceCodeForRefreshToken: true,
     },
   },
 };
