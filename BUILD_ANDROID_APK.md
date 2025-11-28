@@ -21,18 +21,27 @@ This guide covers building Android application packages:
 
 ### Build Outputs
 
-After building, you'll find the files at:
+After building, APK files are automatically renamed to follow the naming convention: `pp-<version>-<buildType>.apk`
+
+You'll find the files at:
 ```
-android/app/build/outputs/
+build/android/app/build/outputs/
 ├── apk/
 │   ├── debug/
-│   │   └── app-debug.apk          # Debug APK (~5-10 MB)
+│   │   └── pp-0.0.90-debug.apk          # Debug APK (~5-10 MB)
 │   └── release/
-│       └── app-release.apk        # Release APK (unsigned)
+│       └── pp-0.0.90-release.apk        # Release APK (unsigned)
 └── bundle/
     └── release/
-        └── app-release.aab        # Release AAB for Play Store
+        └── app-release.aab                # Release AAB for Play Store
 ```
+
+**Naming Convention:**
+- `pp` = Parent Portal
+- `<version>` = Current version from package.json
+- `<buildType>` = debug or release
+
+Examples: `pp-0.0.90-debug.apk`, `pp-1.2.5-release.apk`
 
 ## Prerequisites
 

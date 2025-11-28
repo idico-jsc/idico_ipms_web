@@ -23,7 +23,7 @@ const createSVGIcon = (size) => `
     text-anchor="middle"
     dominant-baseline="middle"
   >
-    PWA
+    PP WELLSPRING
   </text>
   <text
     x="50%"
