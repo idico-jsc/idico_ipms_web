@@ -6,3 +6,4 @@ npm run lint-staged --concurrent false
 
 # Add package.json if version was bumped
 git add package.json
+# Test version bump on commit
