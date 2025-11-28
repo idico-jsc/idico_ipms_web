@@ -1,9 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
 # Bump version before commit
 node scripts/bump-version.js
 
-# Run lint-staged
-npm run lint-staged --concurrent false
-
 # Add package.json if version was bumped
 git add package.json
-# Test version bump on commit
+
+# Run lint-staged
+npm run lint-staged --concurrent false

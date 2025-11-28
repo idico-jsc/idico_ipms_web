@@ -76,3 +76,4 @@ export function Counter() {
 ```
 
 #### Note: If you need SEO or Server Side Rendering you can use Next.js, Nuxtjs, Remix, Astro Etc SSR based framework. This template is just for vite-react.
+# Version management via pre-commit hook
