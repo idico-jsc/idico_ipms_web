@@ -4,7 +4,7 @@ import { cn, isNative, signInWithGoogleNative } from "@/utils";
 
 interface GoogleButtonProps {
   onSuccess: (credentialResponse: CredentialResponse) => void;
-  onError: () => void;
+  onError: (error?: any) => void;
   isLoading?: boolean;
   disabled?: boolean;
   className?: string;
@@ -42,9 +42,10 @@ export function GoogleButton({
       const idToken = await signInWithGoogleNative();
       // Call onSuccess with the same format as web
       onSuccess({ credential: idToken } as CredentialResponse);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Native Google sign in failed:', error);
-      onError();
+      // Pass error to parent component for display
+      onError(error);
     }
   };
 

@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/atoms/input";
 import { PasswordInput } from "@/components/molecules/password-input";
 import { cn } from "@/utils";
-import { GOOGLE_CLIENT_ID } from "@/constants/env";
+import { GOOGLE_CLIENT_ID, FRAPPE_URL } from "@/constants/env";
 import { useLoginForm } from "@/features/auth/hooks/use-login-form";
 import { useAuth } from "../hooks/use-auth";
 import { useNetworkStatus } from "@/providers/network-provider";
@@ -70,14 +70,25 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
     }
   };
 
-  const handleGoogleError = () => {
-    console.error("Google OAuth error");
-    setError("Failed to authenticate with Google");
+  const handleGoogleError = (error?: any) => {
+    console.error("Google OAuth error:", error);
+
+    // Extract detailed error message
+    let errorMessage = "Failed to authenticate with Google";
+
+    if (error?.message) {
+      errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
+    }
+
+    setError(errorMessage);
     setIsGoogleLoading(false);
   };
 
   return (
     <div className="space-y-6">
+      <p>{FRAPPE_URL}</p>
       <Form {...form}>
         <form onSubmit={handleSubmit} className="space-y-4">
           <FormField
@@ -153,7 +164,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
           </div>
 
           {error && (
-            <div className="text-destructive bg-destructive/10 border-destructive/20 rounded-md border p-3 text-sm">
+            <div className="text-destructive bg-destructive/10 border-destructive/20 rounded-md border p-3 text-sm whitespace-pre-line">
               {error}
             </div>
           )}

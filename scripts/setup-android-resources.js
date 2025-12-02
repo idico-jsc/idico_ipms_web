@@ -7,7 +7,7 @@
  * It runs automatically during the build process before syncing to Android.
  *
  * Purpose:
- * - Generate strings.xml with server_client_id from VITE_GOOGLE_SERVER_CLIENT_ID
+ * - Generate strings.xml with server_client_id from VITE_GOOGLE_CLIENT_ID
  * - Ensures Android native resources are always in sync with .env files
  * - Prevents manual edits in build/ directory that get lost on rebuild
  */
@@ -25,10 +25,10 @@ const envPath = join(__dirname, `../.env.${process.env.NODE_ENV || 'development'
 dotenv.config({ path: envPath });
 
 // Get Google Server Client ID from environment
-const serverClientId = process.env.VITE_GOOGLE_SERVER_CLIENT_ID || '';
+const serverClientId = process.env.VITE_GOOGLE_CLIENT_ID || '';
 
 if (!serverClientId) {
-  console.warn('⚠️  VITE_GOOGLE_SERVER_CLIENT_ID not found in environment variables');
+  console.warn('⚠️  VITE_GOOGLE_CLIENT_ID not found in environment variables');
   console.warn('   Google login on native mobile apps may not work');
 }
 

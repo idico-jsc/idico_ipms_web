@@ -1,6 +1,5 @@
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { isNative } from './capacitor';
-import { GOOGLE_SERVER_CLIENT_ID } from '@/constants/env';
 
 /**
  * Google Authentication Utilities
@@ -13,20 +12,24 @@ import { GOOGLE_SERVER_CLIENT_ID } from '@/constants/env';
 /**
  * Initialize Google Auth for native platforms
  * Must be called on app startup for native platforms
+ *
+ * Note: The plugin will automatically use configuration from capacitor.config.ts
+ * We only need to call initialize() to trigger the setup
  */
 export const initializeGoogleAuth = async (): Promise<void> => {
   if (!isNative()) return;
 
   try {
-    // Initialize the plugin with server client ID from environment
+    // Initialize the plugin with grantOfflineAccess to enable refresh tokens
+    // The plugin will automatically use serverClientId from capacitor.config.json
+    // and server_client_id from Android strings.xml
     await GoogleAuth.initialize({
-      clientId: GOOGLE_SERVER_CLIENT_ID,
-      scopes: ['profile', 'email'],
       grantOfflineAccess: true,
     });
     console.log('Google Auth initialized for native platform');
   } catch (error) {
     console.error('Failed to initialize Google Auth:', error);
+    // Don't throw - app should continue even if Google Auth fails to initialize
   }
 };
 
@@ -40,20 +43,46 @@ export const signInWithGoogleNative = async (): Promise<string> => {
   }
 
   try {
+    console.log('[GoogleAuth] Starting sign in...');
+
     // Sign in with Google
     const response = await GoogleAuth.signIn();
 
-    console.log('Google Auth response:', response);
+    console.log('[GoogleAuth] Sign in response:', JSON.stringify(response, null, 2));
 
     // The authentication property contains the ID token
     if (!response.authentication?.idToken) {
-      throw new Error('No ID token received from Google');
+      console.error('[GoogleAuth] No ID token in response. Full response:', response);
+      const errorMessage = `No ID token received. Response: ${JSON.stringify(response)}`;
+      throw new Error(errorMessage);
     }
 
+    console.log('[GoogleAuth] Sign in successful, ID token received');
     return response.authentication.idToken;
-  } catch (error) {
-    console.error('Google sign in error:', error);
-    throw error;
+  } catch (error: any) {
+    console.error('[GoogleAuth] Sign in error:', error);
+    console.error('[GoogleAuth] Error details:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
+
+    // Create detailed error message for display
+    let errorMessage = 'Google Sign-In failed';
+
+    if (error?.message) {
+      errorMessage += `: ${error.message}`;
+    }
+
+    if (error?.code) {
+      errorMessage += ` (Error code: ${error.code})`;
+    }
+
+    // Add error type if available
+    if (error?.type) {
+      errorMessage += ` [${error.type}]`;
+    }
+
+    // Throw error with detailed message
+    const detailedError = new Error(errorMessage);
+    (detailedError as any).originalError = error;
+    throw detailedError;
   }
 };
 
