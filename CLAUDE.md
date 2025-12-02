@@ -10,6 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Core Architecture
 - **[ARCHITECTURE.md](../ARCHITECTURE.md)** - Project structure, naming conventions, principles
+- **[VERSION_MANAGEMENT.md](../VERSION_MANAGEMENT.md)** - Automatic version bumping with smart detection
 
 ### Mobile Development
 - **[CAPACITOR_IMPLEMENTATION_GUIDE.md](../CAPACITOR_IMPLEMENTATION_GUIDE.md)** - Implement Capacitor step-by-step
