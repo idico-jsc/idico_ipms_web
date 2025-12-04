@@ -40,6 +40,7 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: "autoUpdate",
+      // injectRegister: "auto",
       includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
       manifest: {
         name: "Parent Portal",
@@ -121,6 +122,7 @@ export default defineConfig({
         ],
         // Import custom push notification handlers
         importScripts: ["sw-custom.js"],
+        
       },
       devOptions: {
         enabled: true,

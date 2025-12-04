@@ -4,6 +4,8 @@ import { Link } from "react-router";
 import { CredentialResponse } from "@react-oauth/google";
 import { LoadingButton } from "@/components/molecules/loading-button";
 import { GoogleButton } from "./google-button";
+import { PhoneAuthButton } from "./phone-auth-button";
+import { PhoneAuthModal } from "./phone-auth-modal";
 import {
   Form,
   FormControl,
@@ -30,6 +32,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
   const { login, loginWithGoogle, isLoading } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false);
   const { isOnline } = useNetworkStatus();
 
   // Check if Google OAuth is configured
@@ -84,6 +87,16 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
 
     setError(errorMessage);
     setIsGoogleLoading(false);
+  };
+
+  const handlePhoneAuthSuccess = (phoneNumber: string, verificationId: string) => {
+    console.log("Phone authentication successful!");
+    console.log("Phone Number:", phoneNumber);
+    console.log("Verification ID:", verificationId);
+
+    // Here you would typically send the verification ID to your backend
+    // to complete the authentication process and get a token
+    setError(null);
   };
 
   return (
@@ -201,9 +214,22 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
             >
               {t("loginPage.googleButton")}
             </GoogleButton>
+            <PhoneAuthButton
+              onClick={() => setIsPhoneModalOpen(true)}
+              disabled={isLoading || !isOnline}
+            >
+              Continue with Phone
+            </PhoneAuthButton>
           </div>{" "}
         </>
       )}
+
+      {/* Phone Authentication Modal */}
+      <PhoneAuthModal
+        isOpen={isPhoneModalOpen}
+        onClose={() => setIsPhoneModalOpen(false)}
+        onSuccess={handlePhoneAuthSuccess}
+      />
     </div>
   );
 }
