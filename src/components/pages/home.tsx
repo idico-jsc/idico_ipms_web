@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 import { Button } from "@/components/atoms/button";
 import { useAuth } from "@/features/auth/hooks/use-auth";
+import { Bell } from "lucide-react";
 
 interface Props extends React.ComponentProps<"div"> {}
 
@@ -9,9 +11,14 @@ export const Home = ({ ...rest }: Props) => {
   const [count, setCount] = useState(0);
   const { t } = useTranslation(["pages", "fields", "buttons"]);
   const { user, isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleIncrement = () => {
     setCount(count + 1);
+  };
+
+  const goToDebugNotifications = () => {
+    navigate('/debug-notifications');
   };
 
   return (
@@ -122,6 +129,18 @@ export const Home = ({ ...rest }: Props) => {
             </p>
           </div>
         )}
+
+        {/* Push Notifications Section */}
+        <div className="bg-card border-border rounded-lg border p-6">
+          <h2 className="mb-4 text-2xl font-bold">Push Notifications</h2>
+          <p className="text-muted-foreground mb-4">
+            Test and debug push notifications for mobile and web
+          </p>
+          <Button onClick={goToDebugNotifications} variant="default">
+            <Bell className="mr-2 h-4 w-4" />
+            Debug Notifications
+          </Button>
+        </div>
 
         {/* Counter Demo Section */}
         <div className="bg-card border-border rounded-lg border p-6">

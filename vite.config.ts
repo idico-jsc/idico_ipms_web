@@ -14,7 +14,7 @@ import Inspect from "vite-plugin-inspect";
 import { VitePWA } from "vite-plugin-pwa";
 import svgr from "vite-plugin-svgr";
 
-import { fonts } from "./configs/fonts.config";
+import { fonts } from "./config/fonts.config";
 
 // Read version from package.json
 const packageJson = JSON.parse(readFileSync("./package.json", "utf-8"));
@@ -120,9 +120,9 @@ export default defineConfig({
             },
           },
         ],
-        // Import custom push notification handlers
-        importScripts: ["sw-custom.js"],
-        
+        importScripts: ['./sw-custom.js'],
+        // Exclude firebase-messaging-sw.js from being controlled by Workbox
+        // navigateFallbackDenylist: [/^\/firebase-messaging-sw\.js$/],
       },
       devOptions: {
         enabled: true,

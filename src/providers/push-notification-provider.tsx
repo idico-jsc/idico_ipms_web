@@ -1,10 +1,36 @@
-import { PropsWithChildren, type FC } from "react";
-import { usePushNotification } from "@/hooks";
+import { PropsWithChildren, createContext, useContext } from "react";
+import { usePushNotifications } from "@/features/push-notifications/hooks/use-push-notifications";
 
-export type PushNotificationProviderProps = PropsWithChildren & {};
+interface PushNotificationContextValue {
+  token: string | null;
+  permission: NotificationPermission;
+  isLoading: boolean;
+  error: string | null;
+  isSubscribed: boolean;
+  subscribe: () => Promise<void>;
+  unsubscribe: () => Promise<void>;
+  sendTestNotification: () => Promise<void>;
+  isSupported: boolean;
+}
 
-export const PushNotificationProvider: FC<PushNotificationProviderProps> = ({ children }) => {
-  const { } = usePushNotification();
+const PushNotificationContext = createContext<PushNotificationContextValue | undefined>(undefined);
 
-  return children;
+export const usePushNotificationContext = () => {
+  const context = useContext(PushNotificationContext);
+  if (!context) {
+    throw new Error('usePushNotificationContext must be used within PushNotificationProvider');
+  }
+  return context;
+};
+
+export type PushNotificationProviderProps = PropsWithChildren;
+
+export const PushNotificationProvider = ({ children }: PushNotificationProviderProps) => {
+  const pushNotifications = usePushNotifications();
+
+  return (
+    <PushNotificationContext.Provider value={pushNotifications}>
+      {children}
+    </PushNotificationContext.Provider>
+  );
 };

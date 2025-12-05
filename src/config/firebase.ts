@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { getMessaging, isSupported as isMessagingSupported } from "firebase/messaging";
 
 /**
  * Firebase Configuration
@@ -25,3 +26,30 @@ if (import.meta.env.VITE_USE_FIREBASE_EMULATOR === 'true' && import.meta.env.DEV
   connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
   console.log('🔥 Connected to Firebase Auth Emulator');
 }
+
+// Initialize Firebase Messaging (web only)
+let messaging: ReturnType<typeof getMessaging> | null = null;
+
+/**
+ * Initialize Firebase Cloud Messaging
+ * @returns Messaging instance or null if not supported
+ */
+export const initializeMessaging = async () => {
+  // Check if messaging is supported (web only, not in service worker context)
+  const supported = await isMessagingSupported();
+
+  if (supported && typeof window !== 'undefined') {
+    messaging = getMessaging(app);
+    return messaging;
+  }
+
+  return null;
+};
+
+/**
+ * Get the current messaging instance
+ * @returns Messaging instance or null if not initialized
+ */
+export const getMessagingInstance = () => messaging;
+
+export { messaging };

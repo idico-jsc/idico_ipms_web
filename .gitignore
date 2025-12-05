@@ -52,3 +52,6 @@ cypress/downloads
 build/android/
 build/ios/
 *.local.properties
+
+# Firebase & Sensitive Service Config Files
+config/service-files/**/*
