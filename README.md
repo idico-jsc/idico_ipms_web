@@ -123,3 +123,53 @@ git commit -m "feat: add new feature"
 Versions follow the pattern: `0.0.X` where X increments by 1 on each commit.
 
 For more details, see `scripts/bump-version.js`
+
+## Available Scripts
+
+### Development
+
+- **`npm run dev`** - Start Vite development server with hot reload
+- **`npm run build`** - Build production-ready web app (TypeScript check + Vite build)
+- **`npm run preview`** - Preview the production build locally
+- **`npm run lint`** - Run ESLint to check code quality
+
+### Git Hooks
+
+- **`npm run prepare`** - Install Husky git hooks (runs automatically after npm install)
+- **`npm run lint-staged`** - Run linters on staged files (used by pre-commit hook)
+
+### Testing
+
+- **`npm run test`** - Run all Cypress tests in headless mode
+- **`npm run e2e`** - Start dev server and run E2E tests
+
+### Mobile Development (Android)
+
+- **`npm run build:mobile`** - Build web app + setup Android resources + sync Capacitor
+- **`npm run build:apk:debug`** - Build debug APK with automatic naming (includes version)
+- **`npm run build:apk:release`** - Build release APK with automatic naming (includes version)
+- **`npm run setup:android`** - Setup Android resources (icons, splash screens)
+- **`npm run copy:config`** - Copy Firebase config files to Android project
+
+### Capacitor Commands
+
+- **`npm run cap:sync`** - Sync web code to native apps (Android + iOS)
+- **`npm run cap:sync:android`** - Sync only to Android
+- **`npm run cap:open:android`** - Open project in Android Studio
+- **`npm run cap:run:android`** - Build and run on Android device/emulator
+
+### Quick Start Examples
+
+```bash
+# Start development
+npm run dev
+
+# Build for production web
+npm run build
+
+# Build Android debug APK
+npm run build:apk:debug
+
+# Open in Android Studio for testing
+npm run cap:open:android
+```

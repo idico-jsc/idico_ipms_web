@@ -1,33 +1,21 @@
-# Routing Guide - Next.js-Style App Router
+# Routing & Page Creation Guide
 
-This project uses a **Next.js-inspired file-based routing system** for React applications. Routes are automatically generated based on folder structure, making it intuitive and easy to maintain.
-
-## Table of Contents
-
-- [Overview](#overview)
-- [File Conventions](#file-conventions)
-- [Folder Structure](#folder-structure)
-- [Creating Routes](#creating-routes)
-- [Layouts](#layouts)
-- [Route Groups](#route-groups)
-- [Error Boundaries](#error-boundaries)
-- [Examples](#examples)
-- [Best Practices](#best-practices)
+Complete guide for Next.js-style file-based routing and page creation with Atomic Design pattern.
 
 ## Overview
 
-The routing system automatically discovers routes from the `src/app/` directory. Each route is defined by:
-
-1. **Folder structure** = URL path
-2. **Special files** = Route behavior
+This project uses a Next.js-inspired file-based routing system where:
+- **Routes automatically discovered** from `src/app/` folder structure
+- **File conventions** define route behavior (page, layout, error)
+- **Atomic Design separation**: Route entry points in `src/app/`, actual page components in `src/components/pages/`
 
 ### Key Principles
 
-✅ **File-based routing**: Folders define URL segments
-✅ **Convention over configuration**: No manual route registration
-✅ **Automatic layout cascading**: Layouts wrap child routes automatically
-✅ **Route groups**: Organize without affecting URLs
-✅ **Type-safe**: Full TypeScript support
+- File-based routing: Folders define URL segments
+- Convention over configuration: No manual route registration
+- Automatic layout cascading: Layouts wrap child routes
+- Route groups: Organize without affecting URLs
+- Two-layer architecture: Route entry + Page component
 
 ## File Conventions
 
@@ -35,9 +23,9 @@ The routing system automatically discovers routes from the `src/app/` directory.
 
 | File | Purpose | Example |
 |------|---------|---------|
-| `page.tsx` | Makes route publicly accessible | `app/about/page.tsx` → `/about` |
-| `layout.tsx` | Shared UI wrapper for routes | `app/layout.tsx` wraps all routes |
-| `error.tsx` | Error boundary for route | Catches errors in route segment |
+| `page.tsx` | Route entry point | `app/about/page.tsx` → `/about` |
+| `layout.tsx` | Shared UI wrapper | `app/layout.tsx` wraps all routes |
+| `error.tsx` | Error boundary | Catches errors in route segment |
 | `not-found.tsx` | 404 page | Catch-all route fallback |
 
 ### Special Folders
@@ -45,135 +33,50 @@ The routing system automatically discovers routes from the `src/app/` directory.
 | Folder | Purpose | Example |
 |--------|---------|---------|
 | `(folder)` | Route group (not in URL) | `app/(auth)/login` → `/login` |
-| `_folder` | Private folder (excluded) | `app/_components/` (not routable) |
+| `_folder` | Private folder (excluded from routing) | `app/_components/` |
+| `[param]` | Dynamic route parameter | `app/blog/[id]` → `/blog/:id` |
 
-## Folder Structure
+## Creating a New Page
 
-### Basic Structure
+### Quick Start (4 Steps)
+
+**1. Create page component** in `src/components/pages/your-page.tsx`
+- Use named export (PascalCase)
+- Extend `React.ComponentProps<'div'>`
+- Include responsive container
+
+**2. Export from pages index**
+- Add to `src/components/pages/index.ts`: `export { YourPage } from './your-page';`
+
+**3. Create route config**
+- Create folder: `src/app/your-page-name/`
+- Add `route.ts` with path and optional errorBoundary setting
+
+**4. Create route entry point**
+- Create `page.tsx` that imports and renders your page component
+
+**Result**: Route automatically registered at `/your-page-name`
+
+### Why Two Layers?
+
+**Benefits**:
+1. **Reusability** - Page components can be used outside routes
+2. **Testing** - Easier to test components independently
+3. **Atomic Design** - Components organized in design system
+4. **Flexibility** - Route layer handles route-specific logic (params, guards)
+
+### File Structure Pattern
 
 ```
-src/app/
-├── layout.tsx           # Root layout (wraps all routes)
-├── page.tsx             # Home page → /
-├── not-found.tsx        # 404 page → /*
-├── error.tsx            # Root error boundary
-│
-├── about/
-│   └── page.tsx         # /about
-│
-├── contact/
-│   └── page.tsx         # /contact
-│
-└── (auth)/              # Route group (not in URL)
-    ├── layout.tsx       # Auth layout (wraps /login, /register)
-    ├── login/
-    │   └── page.tsx     # /login
-    └── register/
-        └── page.tsx     # /register
-```
-
-### Advanced Structure
-
-```
-src/app/
-├── layout.tsx                  # Root layout
-├── page.tsx                    # / (home)
-├── routes.tsx                  # Router (auto-generated, don't edit)
-│
-├── (marketing)/                # Route group
-│   ├── layout.tsx              # Marketing layout
-│   ├── about/
-│   │   └── page.tsx            # /about
-│   ├── pricing/
-│   │   └── page.tsx            # /pricing
-│   └── contact/
-│       └── page.tsx            # /contact
-│
-├── (auth)/                     # Route group
-│   ├── layout.tsx              # Auth layout
-│   ├── login/
-│   │   └── page.tsx            # /login
-│   ├── register/
-│   │   └── page.tsx            # /register
-│   └── forgot-password/
-│       └── page.tsx            # /forgot-password
-│
-├── dashboard/
-│   ├── layout.tsx              # Dashboard layout
-│   ├── page.tsx                # /dashboard
-│   ├── profile/
-│   │   └── page.tsx            # /dashboard/profile
-│   └── settings/
-│       └── page.tsx            # /dashboard/settings
-│
-└── _components/                # Private folder (not routed)
-    └── shared-component.tsx
-```
-
-## Creating Routes
-
-### 1. Simple Page Route
-
-**Create**: `src/app/about/page.tsx`
-
-```tsx
-export default function AboutPage() {
-  return (
-    <div>
-      <h1>About Us</h1>
-      <p>Welcome to our about page</p>
-    </div>
-  );
-}
-```
-
-**Result**: Accessible at `/about`
-
-### 2. Nested Route
-
-**Create**: `src/app/blog/posts/page.tsx`
-
-```tsx
-export default function BlogPostsPage() {
-  return (
-    <div>
-      <h1>Blog Posts</h1>
-      <ul>
-        <li>Post 1</li>
-        <li>Post 2</li>
-      </ul>
-    </div>
-  );
-}
-```
-
-**Result**: Accessible at `/blog/posts`
-
-### 3. Route with Data Fetching
-
-```tsx
-import { useFrappeGetDocList } from 'frappe-react-sdk';
-
-export default function ProductsPage() {
-  const { data, error, isLoading } = useFrappeGetDocList('Product', {
-    fields: ['name', 'title', 'price'],
-    limit: 20
-  });
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
-  return (
-    <div>
-      <h1>Products</h1>
-      <ul>
-        {data?.map(product => (
-          <li key={product.name}>{product.title} - ${product.price}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+src/
+├── app/
+│   └── your-page-name/        # Route folder
+│       ├── page.tsx           # Route entry (imports from components)
+│       └── route.ts           # Route config
+└── components/
+    └── pages/
+        ├── your-page.tsx      # Actual page component
+        └── index.ts          # Export your page here
 ```
 
 ## Layouts
@@ -182,78 +85,36 @@ Layouts wrap child routes and maintain state across navigation.
 
 ### Root Layout (Required)
 
-**File**: `src/app/layout.tsx`
+Location: `src/app/layout.tsx`
+- Wraps all routes in the application
+- Contains common UI: Header, Footer, Theme providers
+- Renders `{children}` prop for route content
 
-```tsx
-import { ReactNode } from 'react';
-import { Header } from '@/components/organisms/header';
-import { VersionDisplay } from '@/components/atoms/version-display';
+### Nested Layouts
 
-interface RootLayoutProps {
-  children: ReactNode;
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
-  return (
-    <div className="min-h-screen">
-      <Header />
-      <main>{children}</main>
-      <VersionDisplay position="bottom-right" />
-    </div>
-  );
-}
-```
-
-### Nested Layout
-
-**File**: `src/app/dashboard/layout.tsx`
-
-```tsx
-import { ReactNode } from 'react';
-import { Sidebar } from '@/features/dashboard/components/sidebar';
-
-interface DashboardLayoutProps {
-  children: ReactNode;
-}
-
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
-  return (
-    <div className="flex">
-      <Sidebar />
-      <div className="flex-1 p-8">
-        {children}
-      </div>
-    </div>
-  );
-}
-```
-
-**Result**: Wraps all `/dashboard/*` routes
+Location: `src/app/[section]/layout.tsx`
+- Wraps all routes under that section
+- Can contain section-specific UI: Sidebar, Navigation
+- Cascades from root: Root Layout → Section Layout → Page
 
 ### Layout Cascading
 
-Layouts automatically nest from root to leaf:
+For route `/dashboard/profile`:
+1. Root Layout (`app/layout.tsx`)
+2. Dashboard Layout (`app/dashboard/layout.tsx`)
+3. Profile Page (`app/dashboard/profile/page.tsx`)
 
-```
-Root Layout
-└── Dashboard Layout
-    └── Page Content
-```
-
-Example for `/dashboard/profile`:
-1. Root Layout wraps everything
-2. Dashboard Layout wraps dashboard pages
-3. Profile Page is the content
+Layouts automatically nest from root to leaf.
 
 ## Route Groups
 
-Route groups organize files without affecting the URL.
+Route groups organize files without affecting URLs using `(folder)` syntax.
 
 ### Use Cases
 
-✅ Organize routes by feature
-✅ Apply different layouts to different sections
-✅ Logical grouping without URL impact
+- Organize routes by feature (marketing, auth, dashboard)
+- Apply different layouts to different sections
+- Logical grouping without URL impact
 
 ### Example: Auth Routes
 
@@ -261,43 +122,52 @@ Route groups organize files without affecting the URL.
 ```
 app/
 └── (auth)/
-    ├── layout.tsx
+    ├── layout.tsx        # Auth layout
     ├── login/
-    │   └── page.tsx
+    │   └── page.tsx      # /login (NOT /auth/login)
     └── register/
-        └── page.tsx
+        └── page.tsx      # /register (NOT /auth/register)
 ```
 
 **URLs**:
-- `/login` (not `/auth/login`)
-- `/register` (not `/auth/register`)
+- `/login` - Parentheses removed from URL
+- `/register` - Clean URLs without group name
 
-**Layout**: `(auth)/layout.tsx` applies to both login and register
+**Layout**: `(auth)/layout.tsx` applies to both login and register pages.
 
-### Auth Layout Example
+## Dynamic Routes
 
-**File**: `src/app/(auth)/layout.tsx`
+Use Next.js-style `[param]` folder naming for dynamic URL segments.
 
-```tsx
-import { ReactNode } from 'react';
-import { AuthRoute } from '@/features/auth/components/auth-route';
+### How It Works
 
-interface AuthLayoutProps {
-  children: ReactNode;
-}
+- `[id]` folder → `:id` URL parameter
+- `[slug]` folder → `:slug` URL parameter
+- `[token]` folder → `:token` URL parameter
 
-export default function AuthLayout({ children }: AuthLayoutProps) {
-  return (
-    <AuthRoute>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted/20">
-        <div className="relative z-10 w-full">
-          {children}
-        </div>
-      </div>
-    </AuthRoute>
-  );
-}
-```
+Access parameters using React Router's `useParams()` hook.
+
+### Example: Blog Post by ID
+
+**Folder**: `src/app/blog/[id]/page.tsx`
+**Route**: `/blog/:id`
+**URL**: `/blog/123` → `id = "123"`
+
+**Implementation**: Use `useParams<{ id: string }>()` to access the parameter, handle missing params with redirect
+
+### Multiple Dynamic Segments
+
+**Folder**: `src/app/users/[userId]/posts/[postId]/page.tsx`
+**Route**: `/users/:userId/posts/:postId`
+**URL**: `/users/john/posts/42` → `userId = "john"`, `postId = "42"`
+
+### Best Practices for Dynamic Routes
+
+1. Always type params: `useParams<{ paramName: string }>()`
+2. Handle missing params with redirects
+3. Validate params before using them
+4. Use slugs instead of IDs for SEO (e.g., `/blog/my-post-title`)
+5. Add error boundaries for invalid routes
 
 ## Error Boundaries
 
@@ -305,328 +175,225 @@ Error boundaries catch errors in route segments.
 
 ### Root Error Boundary
 
-**File**: `src/app/error.tsx`
-
-```tsx
-import { Link } from 'react-router';
-
-export default function ErrorBoundary() {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Something went wrong</h1>
-        <p className="text-muted-foreground mb-8">
-          An error occurred while rendering this page
-        </p>
-        <Link
-          to="/"
-          className="px-4 py-2 bg-primary text-primary-foreground rounded-md"
-        >
-          Go Home
-        </Link>
-      </div>
-    </div>
-  );
-}
-```
+Location: `src/app/error.tsx`
+- Catches errors across entire application
+- Provides fallback UI with error message
+- Typically includes "Go Home" link
 
 ### Nested Error Boundary
 
-**File**: `src/app/dashboard/error.tsx`
+Location: `src/app/[section]/error.tsx`
+- Catches errors only in that section
+- Can provide section-specific error handling
+- Allows rest of app to continue working
 
-```tsx
-export default function DashboardErrorBoundary() {
-  return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-4">Dashboard Error</h2>
-      <p>Something went wrong in the dashboard</p>
-      <button onClick={() => window.location.reload()}>
-        Reload Dashboard
-      </button>
-    </div>
-  );
-}
-```
+## Route Protection
 
-## Examples
+Protect routes at the layout level for efficiency.
 
-### Example 1: Marketing Website
+### Dashboard Protection Example
 
-```
-app/
-├── layout.tsx              # Header + Footer
-├── page.tsx                # Home (/)
-├── about/
-│   └── page.tsx            # /about
-├── pricing/
-│   └── page.tsx            # /pricing
-└── contact/
-    └── page.tsx            # /contact
-```
+Location: `src/app/dashboard/layout.tsx`
+- Wrap layout children with `<ProtectedRoute>`
+- All dashboard pages automatically protected
+- Single point of authentication check
 
-### Example 2: Dashboard App
+### Auth Route Protection
 
-```
-app/
-├── layout.tsx                     # Root layout
-├── page.tsx                       # Landing page (/)
-│
-├── (auth)/                        # Route group
-│   ├── layout.tsx                 # Auth layout
-│   ├── login/
-│   │   └── page.tsx               # /login
-│   └── register/
-│       └── page.tsx               # /register
-│
-└── dashboard/
-    ├── layout.tsx                 # Dashboard layout
-    ├── page.tsx                   # /dashboard
-    ├── profile/
-    │   └── page.tsx               # /dashboard/profile
-    └── settings/
-        └── page.tsx               # /dashboard/settings
-```
+Location: `src/app/(auth)/layout.tsx`
+- Wrap with `<AuthRoute>` to redirect logged-in users
+- Prevents access to login/register when already authenticated
 
-### Example 3: Protected Routes
+## Route Configuration
 
-**Dashboard Layout with Protection**:
+**File**: `route.ts` in each route folder
 
-```tsx
-// app/dashboard/layout.tsx
-import { ReactNode } from 'react';
-import { ProtectedRoute } from '@/features/auth/components/protected-route';
-import { Sidebar } from './sidebar';
+**Properties**:
+- `path` (required) - URL path string
+- `errorBoundary` (optional) - Enable error boundary (boolean)
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
-  return (
-    <ProtectedRoute>
-      <div className="flex">
-        <Sidebar />
-        <main className="flex-1">{children}</main>
-      </div>
-    </ProtectedRoute>
-  );
-}
-```
+**Examples**:
+- Home: `path: '/'` with `errorBoundary: true`
+- Standard: `path: '/about'`
+- 404 catch-all: `path: '*'`
+
+## Navigation
+
+### Add to Header
+
+Add new pages to navigation array in `src/components/organisms/header.tsx` with label and path
+
+### Programmatic Navigation
+
+**React Router Hooks**:
+- `useNavigate()` - Navigate programmatically
+- `useParams()` - Access URL parameters
+- `NavLink` - Navigation link with active state
 
 ## Best Practices
 
-### 1. Route Organization
+### Route Organization
+✅ Group related routes with `(folder)` syntax
+❌ Don't scatter related routes across project
 
-✅ **DO**: Group related routes
-```
-app/(auth)/
-  ├── login/
-  ├── register/
-  └── forgot-password/
-```
+### Layout Usage
+✅ Use layouts for shared UI (sidebar, nav)
+❌ Don't repeat UI in every page
 
-❌ **DON'T**: Scatter auth routes
-```
-app/
-  ├── login/
-  ├── register/
-  └── forgot-password/
-```
+### Private Folders
+✅ Use `_folder` for non-routable utilities and components
+❌ Don't put utilities in routable folders
 
-### 2. Layout Usage
+### File Naming
+✅ Use exact names: `page.tsx`, `layout.tsx`, `error.tsx`
+❌ Don't use custom names or wrong casing
 
-✅ **DO**: Use layouts for shared UI
-```tsx
-// app/dashboard/layout.tsx
-<div>
-  <Sidebar />    {/* Shared across all dashboard pages */}
-  {children}
-</div>
-```
+### Component Organization
+✅ Keep page logic minimal, import from components
+❌ Don't put business logic in page files
 
-❌ **DON'T**: Repeat UI in every page
-```tsx
-// app/dashboard/profile/page.tsx
-<div>
-  <Sidebar />    {/* Repeated! */}
-  <ProfileContent />
-</div>
-```
+### Route Protection
+✅ Protect at layout level (covers all children)
+❌ Don't protect individual pages
 
-### 3. Private Folders
-
-✅ **DO**: Use private folders for utilities
-```
-app/
-  ├── _components/      # Shared page components
-  ├── _utils/          # Page-specific utils
-  └── dashboard/
-      └── page.tsx
-```
-
-❌ **DON'T**: Put utilities in routable folders
-```
-app/
-  ├── components/      # Will try to route!
-  └── dashboard/
-      └── page.tsx
-```
-
-### 4. File Naming
-
-✅ **DO**: Use exact file names
-- `page.tsx` (not `index.tsx`)
-- `layout.tsx` (not `Layout.tsx`)
-- `error.tsx` (not `ErrorBoundary.tsx`)
-
-❌ **DON'T**: Use custom names
-- `index.tsx` ❌
-- `Layout.tsx` ❌
-- `ErrorPage.tsx` ❌
-
-### 5. Component Organization
-
-✅ **DO**: Keep page logic minimal
-```tsx
-// app/products/page.tsx
-import { ProductList } from '@/features/products/components/product-list';
-
-export default function ProductsPage() {
-  return <ProductList />;
-}
-```
-
-❌ **DON'T**: Put business logic in pages
-```tsx
-// app/products/page.tsx
-export default function ProductsPage() {
-  // 200 lines of business logic...
-  return <div>...</div>;
-}
-```
-
-### 6. Route Protection
-
-✅ **DO**: Protect at layout level
-```tsx
-// app/dashboard/layout.tsx
-export default function DashboardLayout({ children }) {
-  return (
-    <ProtectedRoute>
-      {children}
-    </ProtectedRoute>
-  );
-}
-```
-
-❌ **DON'T**: Protect individual pages
-```tsx
-// app/dashboard/profile/page.tsx
-export default function ProfilePage() {
-  return (
-    <ProtectedRoute>    {/* Repeated! */}
-      <Profile />
-    </ProtectedRoute>
-  );
-}
-```
-
-## Migration Guide
-
-### From React Router
-
-**Before** (manual routes):
-```tsx
-<Routes>
-  <Route path="/" element={<Home />} />
-  <Route path="/about" element={<About />} />
-  <Route path="/contact" element={<Contact />} />
-</Routes>
-```
-
-**After** (file-based):
-```
-app/
-├── page.tsx       # Home
-├── about/
-│   └── page.tsx   # About
-└── contact/
-    └── page.tsx   # Contact
-```
-
-### From Next.js Pages Router
-
-**Before** (pages/):
-```
-pages/
-├── index.tsx
-├── about.tsx
-└── blog/
-    └── [slug].tsx
-```
-
-**After** (app/):
-```
-app/
-├── page.tsx
-├── about/
-│   └── page.tsx
-└── blog/
-    └── [slug]/
-        └── page.tsx
-```
-
-## How It Works
-
-The routing system uses **Vite's `import.meta.glob`** to auto-discover files:
-
-1. **Discover Pages**: Finds all `page.tsx` files
-2. **Discover Layouts**: Finds all `layout.tsx` files
-3. **Generate Routes**: Maps folder structure to URL paths
-4. **Apply Layouts**: Cascades layouts from root to leaf
-5. **Handle Errors**: Wraps routes with error boundaries
-
-### Example Flow
-
-For route `/dashboard/profile`:
-
-1. Find `app/dashboard/profile/page.tsx` ✅
-2. Find layouts: `app/layout.tsx` + `app/dashboard/layout.tsx` ✅
-3. Generate URL: `/dashboard/profile` ✅
-4. Cascade: `RootLayout` → `DashboardLayout` → `ProfilePage` ✅
+### Naming Conventions
+- Route folders: kebab-case (`my-page`)
+- Component files: PascalCase (`MyPage`)
+- Private folders: underscore prefix (`_utils`)
 
 ## Troubleshooting
 
 ### Route Not Found
 
-**Problem**: Page doesn't load
+**Symptoms**: Page doesn't load, 404 error
 
-**Solution**:
-1. Ensure file is named `page.tsx` (not `index.tsx`)
-2. Check file is in correct folder
-3. Restart dev server
+**Solutions**:
+- Ensure file named `page.tsx` (not `index.tsx`)
+- Verify both `page.tsx` and `route.ts` exist
+- Check `path` in `route.ts` matches URL
+- Restart dev server
+- Check browser console for errors
 
 ### Layout Not Applying
 
-**Problem**: Layout doesn't wrap page
+**Symptoms**: Layout doesn't wrap page
 
-**Solution**:
-1. Ensure file is named `layout.tsx`
-2. Check layout is in parent folder
-3. Verify layout exports default function
+**Solutions**:
+- Ensure file named `layout.tsx`
+- Verify layout in parent folder
+- Check layout exports default function
+- Restart dev server
 
-### Route Group Not Working
+### Dynamic Route Not Working
 
-**Problem**: URL includes group name
+**Symptoms**: 404 or params undefined
 
-**Solution**:
-1. Ensure folder name has parentheses: `(auth)`
-2. Check no typos in folder name
+**Solutions**:
+- Use `[param]` syntax in folder name
+- Access params with `useParams()`
+- Check param type definitions
+- Verify route path doesn't have typos
+
+### Changes Not Reflecting
+
+**Symptoms**: Code changes not visible
+
+**Solutions**:
+- Restart dev server
+- Clear browser cache
+- Check for compilation errors in terminal
+- Verify file saved correctly
+
+## Testing Your Route
+
+1. Start dev server: `npm run dev`
+2. Navigate to your page URL
+3. Check browser console for route registration logs
+4. Verify layout applies correctly
+5. Test navigation to/from your page
+6. Test on mobile viewport
+
+## Available Utilities
+
+### Styling
+- Tailwind CSS classes
+- shadcn/ui components
+
+### i18n
+- `useTranslation()` from react-i18next
+- Translation namespaces in `src/locales/`
+
+### Routing
+- `useNavigate()` - Programmatic navigation
+- `useParams()` - URL parameters
+- `NavLink` - Active link component
+- `Navigate` - Redirect component
+
+### Theme & Language
+- `useTheme()` - Dark mode toggle
+- `useLanguage()` - Language switching
+
+### Platform Detection
+- `usePlatform()` - Web vs native detection
+- `isNative()`, `isAndroid()`, `isIOS()` utilities
+
+## How It Works
+
+The routing system uses Vite's `import.meta.glob` to auto-discover:
+
+1. **Discover Pages**: Find all `page.tsx` files
+2. **Discover Layouts**: Find all `layout.tsx` files
+3. **Generate Routes**: Map folder structure to URL paths
+4. **Apply Layouts**: Cascade layouts from root to leaf
+5. **Handle Errors**: Wrap routes with error boundaries
+
+### Auto-Discovery Flow
+
+For route `/dashboard/profile`:
+1. Find `app/dashboard/profile/page.tsx` ✅
+2. Find layouts: `app/layout.tsx` + `app/dashboard/layout.tsx` ✅
+3. Generate URL: `/dashboard/profile` ✅
+4. Cascade: RootLayout → DashboardLayout → ProfilePage ✅
+
+## Examples in This Project
+
+**Route entry points** (`src/app/`):
+- `app/home/page.tsx` - Imports Home component
+- `app/about/page.tsx` - Imports About component
+- `app/contact/page.tsx` - Imports Contact component
+- `app/not-found/page.tsx` - Imports NotFound component
+
+**Page components** (`src/components/pages/`):
+- `pages/home.tsx` - Home page with counter
+- `pages/about.tsx` - Static content page
+- `pages/contact.tsx` - Form page
+- `pages/not-found.tsx` - 404 page
+
+## Migration From Other Routers
+
+### From React Router
+Change from manual route registration to file-based structure. Each route becomes a folder with `page.tsx`
+
+### From Next.js Pages Router
+Change `pages/index.tsx` → `app/page.tsx` and `pages/about.tsx` → `app/about/page.tsx`
 
 ## Related Documentation
 
-- [ARCHITECTURE.md](./ARCHITECTURE.md) - Overall architecture
-- [CREATE_PAGE.md](./CREATE_PAGE.md) - Create new pages
+- [ARCHITECTURE.md](./ARCHITECTURE.md) - Overall project architecture
 - [FRAPPE_INTEGRATION.md](./FRAPPE_INTEGRATION.md) - API integration
+- [I18N_GUIDE.md](./I18N_GUIDE.md) - Internationalization setup
+
+## Need Help?
+
+If you encounter issues:
+1. Check this guide's troubleshooting section
+2. Verify file naming conventions
+3. Check browser console for errors
+4. Ensure both `page.tsx` and `route.ts` exist
+5. Restart dev server after structural changes
 
 ---
 
-**Version**: 1.0
-**Last Updated**: 2025-10-17
+**Version**: 2.0
+**Last Updated**: 2025-12-09
 **Next.js Compatibility**: App Router conventions

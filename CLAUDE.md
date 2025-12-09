@@ -12,20 +12,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **[ARCHITECTURE.md](../ARCHITECTURE.md)** - Project structure, naming conventions, principles
 - **[VERSION_MANAGEMENT.md](../VERSION_MANAGEMENT.md)** - Automatic version bumping with smart detection
 
-### Mobile Development
-- **[CAPACITOR_IMPLEMENTATION_GUIDE.md](../CAPACITOR_IMPLEMENTATION_GUIDE.md)** - Implement Capacitor step-by-step
-- **[CAPACITOR_GUIDE.md](../CAPACITOR_GUIDE.md)** - Use Capacitor features
-- **[BUILD_ANDROID_APK.md](../BUILD_ANDROID_APK.md)** - Build Android apps
-- **[MOBILE_DEVELOPMENT.md](../MOBILE_DEVELOPMENT.md)** - Mobile workflow
+### Development
+- **[ROUTING_GUIDE.md](../ROUTING_GUIDE.md)** - File-based routing & page creation with Next.js-style App Router
+- **[MOBILE_GUIDE.md](../MOBILE_GUIDE.md)** - Mobile development with Capacitor (setup, workflow, build APK/AAB)
+- **[I18N_GUIDE.md](../I18N_GUIDE.md)** - Internationalization setup and usage
+- **[PWA_SETUP.md](../PWA_SETUP.md)** - Progressive Web App features
 
-### Features
-- **[AUTH_GUIDE.md](../AUTH_GUIDE.md)** - Authentication system with token storage, Zustand, and API client
-- **[GOOGLE_OAUTH_SETUP.md](../GOOGLE_OAUTH_SETUP.md)** - Google OAuth for web
-- **[GOOGLE_AUTH_NATIVE_SETUP.md](../GOOGLE_AUTH_NATIVE_SETUP.md)** - Google OAuth for native mobile apps (Android/iOS)
-- **[GOOGLE_AUTH_ANDROID_SETUP.md](../GOOGLE_AUTH_ANDROID_SETUP.md)** - Android Google OAuth setup with SHA-1 configuration
-- **[I18N_GUIDE.md](../I18N_GUIDE.md)** - Internationalization
-- **[CREATE_PAGE.md](../CREATE_PAGE.md)** - Create new pages
-- **[PWA_SETUP.md](../PWA_SETUP.md)** - PWA features
+### Authentication & Integration
+- **[AUTH_GUIDE.md](../AUTH_GUIDE.md)** - JWT authentication with Zustand, hybrid token storage, auto-init
+- **[GOOGLE_AUTH_SETUP.md](../GOOGLE_AUTH_SETUP.md)** - Google OAuth setup for web and native mobile (Android/iOS)
+- **[FCM_SETUP.md](../FCM_SETUP.md)** - Firebase Cloud Messaging push notifications for web and mobile
 - **[FRAPPE_INTEGRATION.md](../FRAPPE_INTEGRATION.md)** - Frappe Framework integration with bearer token auth
 
 ## Workflow
