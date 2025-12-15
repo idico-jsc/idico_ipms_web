@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Button } from '@/components/atoms';
 import { Home, ArrowLeft } from 'lucide-react';
+import { getPath } from '@/features/navigation';
 
 /**
  * 404 Not Found Page
@@ -15,7 +16,7 @@ import { Home, ArrowLeft } from 'lucide-react';
  * - i18n support
  */
 export const NotFound = () => {
-  const { t } = useTranslation('pages');
+  const { t } = useTranslation(['pages', 'buttons']);
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -23,7 +24,7 @@ export const NotFound = () => {
   };
 
   const handleGoHome = () => {
-    navigate('/');
+    navigate(getPath.home());
   };
 
   return (
@@ -53,11 +54,11 @@ export const NotFound = () => {
             className="gap-2"
           >
             <ArrowLeft className="h-4 w-4" />
-            {t('notFound.goBack', { defaultValue: 'Go Back' })}
+            {t('buttons:goBack', { defaultValue: 'Go Back' })}
           </Button>
           <Button onClick={handleGoHome} className="gap-2">
             <Home className="h-4 w-4" />
-            {t('notFound.goHome', { defaultValue: 'Go Home' })}
+            {t('buttons:goHome', { defaultValue: 'Go Home' })}
           </Button>
         </div>
 

@@ -14,12 +14,12 @@ import { PasswordInput } from "@/components/molecules/password-input";
 import { PasswordStrengthIndicator } from "@/components/molecules/password-strength-indicator";
 import { cn } from "@/utils";
 import { useResetPasswordForm } from "../hooks/use-reset-password-form";
-import { ROUTES } from "@/constants/routes";
 import { useNetworkStatus } from "@/providers/network-provider";
 import { useAuth } from "../hooks/use-auth";
 import { CircleCheck } from "lucide-react";
 import { Button } from "@/components/atoms/button";
 import { AUTO_REDIRECT_DELAY } from "@/constants/env";
+import { getPath } from "@/features/navigation";
 
 interface ResetPasswordFormProps {
   token: string;
@@ -121,7 +121,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
       </Form>
 
       <div className="text-center text-sm">
-        <Link to={ROUTES.LOGIN} className="text-primary hover:underline">
+        <Link to={getPath.login()} className="text-primary hover:underline">
           ← {t("buttons:backToLogin") || "Back to login"}
         </Link>
       </div>
@@ -141,7 +141,7 @@ const ResetPasswordSuccess = () => {
       }, 1000);
       return () => clearTimeout(timer);
     } else {
-      navigate(ROUTES.LOGIN);
+      navigate(getPath.login());
     }
   }, [countdown, navigate]);
 
@@ -166,7 +166,7 @@ const ResetPasswordSuccess = () => {
       </div>
 
       <div className="flex flex-col gap-4 text-center">
-        <Button onClick={() => navigate(ROUTES.LOGIN)}>
+        <Button onClick={() => navigate(getPath.login())}>
           {t("buttons:go_to_login") || "Go to Login"}
         </Button>
       </div>

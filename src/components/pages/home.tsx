@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/atoms/button";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 import { Bell } from "lucide-react";
+import { getPath } from "@/features/navigation";
 
 interface Props extends React.ComponentProps<"div"> {}
 
@@ -17,12 +18,11 @@ export const Home = ({ ...rest }: Props) => {
     setCount(count + 1);
   };
 
-  const goToDebugNotifications = () => {
-    navigate('/debug-notifications');
-  };
+  console.log(getPath.resetPassword({ token: "abc123", qs: { redirect: true } }));
+  
 
   return (
-    <div className="bg-background text-foreground relative min-h-screen p-8" {...rest}>
+    <div className="bg-background text-foreground relative min-h-screen" {...rest}>
       <div className="mx-auto max-w-4xl space-y-8">
         {/* User Profile Section */}
         {isAuthenticated && user ? (
@@ -136,7 +136,7 @@ export const Home = ({ ...rest }: Props) => {
           <p className="text-muted-foreground mb-4">
             Test and debug push notifications for mobile and web
           </p>
-          <Button onClick={goToDebugNotifications} variant="default">
+          <Button onClick={() => navigate(getPath.debugNotifications())} variant="default">
             <Bell className="mr-2 h-4 w-4" />
             Debug Notifications
           </Button>

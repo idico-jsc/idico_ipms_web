@@ -11,6 +11,7 @@ import enMessages from '@/locales/en/messages.json';
 import enModals from '@/locales/en/modals.json';
 import enDialogs from '@/locales/en/dialogs.json';
 import enPages from '@/locales/en/pages.json';
+import enMenu from '@/locales/en/menu.json';
 
 // Import Vietnamese translation files
 import viCommon from '@/locales/vi/common.json';
@@ -20,6 +21,7 @@ import viMessages from '@/locales/vi/messages.json';
 import viModals from '@/locales/vi/modals.json';
 import viDialogs from '@/locales/vi/dialogs.json';
 import viPages from '@/locales/vi/pages.json';
+import viMenu from '@/locales/vi/menu.json';
 
 // Define resources with multiple namespaces
 const resources = {
@@ -31,6 +33,7 @@ const resources = {
     modals: enModals,
     dialogs: enDialogs,
     pages: enPages,
+    menu: enMenu,
   },
   vi: {
     common: viCommon,
@@ -40,6 +43,7 @@ const resources = {
     modals: viModals,
     dialogs: viDialogs,
     pages: viPages,
+    menu: viMenu,
   },
 };
 
@@ -66,7 +70,7 @@ i18n
     },
 
     // Namespace configuration
-    ns: ['common', 'buttons', 'fields', 'messages', 'modals', 'dialogs', 'pages'],
+    ns: ['common', 'buttons', 'fields', 'messages', 'modals', 'dialogs', 'pages', 'menu'],
     defaultNS: 'common',
   });
 

@@ -17,7 +17,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         paddingBottom: 'env(safe-area-inset-bottom, 0px)',
       } : undefined}
     >
-      <main className="">{children}</main>
+     {children}
       <VersionDisplay position="bottom-right" variant="default" />
     </div>
   );

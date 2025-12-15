@@ -1,5 +1,5 @@
 import { ResetPasswordPage } from "@/components/pages";
-import { ROUTES } from "@/constants/routes";
+import { getPath } from "@/features/navigation";
 import { useParams, Navigate } from "react-router";
 
 /**
@@ -18,7 +18,7 @@ export default function Page() {
 
   // If no token in URL, redirect to forgot password page
   if (!token) {
-    return <Navigate to={ROUTES.FORGOT_PASSWORD} replace />;
+    return <Navigate to={getPath.forgotPassword()} replace />;
   }
 
   return <ResetPasswordPage  />;

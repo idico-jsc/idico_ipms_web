@@ -115,7 +115,7 @@ export default function DebugNotificationsPage() {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6 max-w-4xl">
+    <div className="container mx-auto space-y-6 max-w-4xl">
       <div>
         <div className="flex items-center gap-3 mb-2">
           <h1 className="text-3xl font-bold">Push Notifications Debug</h1>

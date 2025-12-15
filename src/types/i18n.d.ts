@@ -8,6 +8,7 @@ import messages from '@/locales/en/messages.json';
 import modals from '@/locales/en/modals.json';
 import dialogs from '@/locales/en/dialogs.json';
 import pages from '@/locales/en/pages.json';
+import menu from '@/locales/en/menu.json';
 
 declare module 'i18next' {
   interface CustomTypeOptions {
@@ -20,6 +21,7 @@ declare module 'i18next' {
       modals: typeof modals;
       dialogs: typeof dialogs;
       pages: typeof pages;
+      menu: typeof menu;
     };
   }
 }

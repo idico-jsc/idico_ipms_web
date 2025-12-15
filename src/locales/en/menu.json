@@ -1,0 +1,18 @@
+{
+  "groups": {
+    "main": "Main",
+    "management": "Management",
+    "system": "System"
+  },
+  "items": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "reports": "Reports",
+    "salesReport": "Sales Report",
+    "userReport": "User Report",
+    "settings": "Settings",
+    "debugNotifications": "Debug Notifications",
+    "notifications": "Notifications"
+  }
+}

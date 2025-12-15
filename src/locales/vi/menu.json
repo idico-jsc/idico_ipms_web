@@ -1,0 +1,18 @@
+{
+  "groups": {
+    "main": "Chính",
+    "management": "Quản lý",
+    "system": "Hệ thống"
+  },
+  "items": {
+    "home": "Trang chủ",
+    "dashboard": "Bảng điều khiển",
+    "users": "Người dùng",
+    "reports": "Báo cáo",
+    "salesReport": "Báo cáo bán hàng",
+    "userReport": "Báo cáo người dùng",
+    "settings": "Cài đặt",
+    "debugNotifications": "Kiểm tra thông báo",
+    "notifications": "Thông báo"
+  }
+}

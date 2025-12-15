@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
-import { Header } from "@/components/organisms/header";
 import { ProtectedRoute } from "@features";
 import { FullPageLoader } from "@/components/molecules";
+import { SidebarLayout } from "@/components/templates";
 import { useAuthStore } from "@/features/auth/store/auth-store";
-import { usePlatform } from "@/hooks/use-capacitor";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -18,7 +17,6 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   const isInitialized = useAuthStore((state) => state.isInitialized);
   const isLoading = useAuthStore((state) => state.isLoading);
-  const { isNative } = usePlatform();
 
   return (
     <ProtectedRoute>
@@ -26,17 +24,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       {!isInitialized || isLoading ? (
         <FullPageLoader message="Loading..." />
       ) : (
-        <div className="flex w-full flex-col">
-          <Header />
-          <div
-            className="container mx-auto w-full flex-1"
-            style={isNative ? {
-              paddingTop: '0.5rem', // Additional spacing after header on mobile
-            } : undefined}
-          >
-            {children}
-          </div>
-        </div>
+        <SidebarLayout>{children}</SidebarLayout>
       )}
     </ProtectedRoute>
   );

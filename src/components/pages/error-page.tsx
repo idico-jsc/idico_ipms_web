@@ -3,8 +3,8 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/atoms";
 import { AlertTriangle, Home, RefreshCw, ArrowLeft } from "lucide-react";
 import { LanguageSwitcher } from "@molecules";
-import { ROUTES } from "@/constants/routes";
 import { IS_DEV } from "@/constants/env";
+import { getPath } from "@/features/navigation";
 
 interface ErrorPageProps {
   error?: Error | null;
@@ -45,7 +45,7 @@ export const ErrorPage = ({
   };
 
   const handleGoHome = () => {
-    navigate(ROUTES.HOME);
+    navigate(getPath.home());
   };
 
   return (

@@ -38,13 +38,19 @@ src/features/auth/
 
 ## API Authentication
 
-**Automatic Token Injection**: All API requests automatically include `Authorization: Bearer <token>` header
+All API requests auto-inject: `Authorization: Bearer <token>`
 
-**API Functions**: Use `apiGet`, `apiPost`, `apiPut`, `apiDelete` from `@/lib/api`
-- Default: Authenticated requests
-- Optional: Disable auth for public endpoints (pass `false` as second parameter)
+```tsx
+import { apiGet, apiPost } from '@/lib/api';
 
-**Auto-logout**: 401/403 responses trigger automatic logout → clear state → redirect to /login
+// Authenticated request
+const data = await apiGet<User>('/api/user');
+
+// Public endpoint (disable auth)
+const publicData = await apiGet<Data>('/public', false);
+```
+
+**Auto-logout**: 401/403 responses → clear state → redirect to /login
 
 ## Auth Store (Zustand)
 
