@@ -4,6 +4,14 @@
 
 #### Don't forget to give a ⭐ `star` if you like it. and feel to contribute. Thank you.
 
+## System Requirements
+
+- **Node.js**: v20.x or higher (required for Vite 7 compatibility)
+- **npm**: v9.x or higher
+- **Docker**: v20.10+ (for containerized deployment)
+- **Android Studio**: Latest stable (for mobile development)
+- **Java JDK**: 17+ (required for Android builds)
+
 ### Features
 
 - **Next.js-Style App Router** - File-based routing with automatic route discovery
