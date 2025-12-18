@@ -46,9 +46,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
       await login(email, password);
 
       await onSubmit?.(values.email, values.password);
-      // Redirect to the page user was trying to access, or home
-      // const from = (location.state as any)?.from?.pathname || "/";
-      // navigate(from, { replace: true });
+
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : t("loginPage.errors.generic");
       setError(errorMessage);
