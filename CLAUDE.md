@@ -11,6 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Core Architecture
 - **[ARCHITECTURE.md](../ARCHITECTURE.md)** - Project structure, naming conventions, principles
 - **[VERSION_MANAGEMENT.md](../VERSION_MANAGEMENT.md)** - Automatic version bumping with smart detection
+- **[BRANCH_PROTECTION.md](../BRANCH_PROTECTION.md)** - GitHub branch protection setup and team workflow
 
 ### Development
 - **[ROUTING_GUIDE.md](../ROUTING_GUIDE.md)** - File-based routing & page creation with Next.js-style App Router
@@ -50,7 +51,3 @@ This ensures:
 - The new documentation is discoverable in VS Code's file explorer (nested under README.md)
 - Claude Code knows about the documentation and can reference it
 - Documentation is organized and maintainable
-
----
-
-All architectural decisions, conventions, and best practices are documented in the files above. Read them before making changes.

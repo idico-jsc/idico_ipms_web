@@ -1,3 +1,6 @@
+# Update component index files
+node scripts/update-component-indexes.js
+
 # Bump version only if there are actual code changes
 node scripts/bump-version.js
 

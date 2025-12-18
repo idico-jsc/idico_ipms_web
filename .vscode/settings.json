@@ -11,7 +11,11 @@
     "vite.config.ts": "auto-imports.d.ts, .eslintrc-auto-import.json ",
     ".env.example": ".env.development,.env.example,.env.production",
     "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, eslint.config*, .prettier*, prettier*, .editorconfig",
-    "README.md": "ARCHITECTURE.md,VERSION_MANAGEMENT.md,AUTH_GUIDE.md,ROUTING_GUIDE.md,MOBILE_GUIDE.md,GOOGLE_AUTH_SETUP.md,FCM_SETUP.md,I18N_GUIDE.md,PWA_SETUP.md,FRAPPE_INTEGRATION.md,CYPRESS_TESTING_GUIDE.md"
+    "README.md": "ARCHITECTURE.md,VERSION_MANAGEMENT.md,AUTH_GUIDE.md,ROUTING_GUIDE.md,MOBILE_GUIDE.md,GOOGLE_AUTH_SETUP.md,FCM_SETUP.md,I18N_GUIDE.md,PWA_SETUP.md,FRAPPE_INTEGRATION.md,CYPRESS_TESTING_GUIDE.md,BRANCH_PROTECTION.md"
   },
-  "explorer.sortOrder": "type"
+  "explorer.sortOrder": "type",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifierEnding": "auto",
+  "javascript.preferences.importModuleSpecifierEnding": "auto"
 }

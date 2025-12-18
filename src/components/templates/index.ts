@@ -1,3 +1,2 @@
-// Export templates here
-export { ScreenLayout } from './screen-layout';
-export { SidebarLayout } from './sidebar-layout';
+export * from "./screen-layout";
+export * from "./sidebar-layout";

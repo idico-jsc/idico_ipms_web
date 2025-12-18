@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/atoms/input";
 import { PasswordInput } from "@/components/molecules/password-input";
 import { cn } from "@/utils";
-import { GOOGLE_CLIENT_ID, FRAPPE_URL } from "@/constants/env";
+import { GOOGLE_CLIENT_ID } from "@/constants/env";
 import { useLoginForm } from "@/features/auth/hooks/use-login-form";
 import { useAuth } from "../hooks/use-auth";
 import { useNetworkStatus } from "@/providers/network-provider";
@@ -101,7 +101,6 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
 
   return (
     <div className="space-y-6">
-      <p>{FRAPPE_URL}</p>
       <Form {...form}>
         <form onSubmit={handleSubmit} className="space-y-4">
           <FormField

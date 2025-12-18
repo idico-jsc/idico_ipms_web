@@ -81,7 +81,7 @@ function NavItemRenderer({ item }: { item: NavItem }) {
                 return (
                   <SidebarMenuSubItem key={child.id}>
                     <SidebarMenuSubButton asChild isActive={isChildActive}>
-                      <NavLink to={child.path}>
+                      <NavLink to={child.path??""}>
                         {ChildIcon && <ChildIcon />}
                         <span>{child.label}</span>
                       </NavLink>
@@ -100,7 +100,7 @@ function NavItemRenderer({ item }: { item: NavItem }) {
   return (
     <SidebarMenuItem>
       <SidebarMenuButton asChild tooltip={item.label} isActive={isActive}>
-        <NavLink to={item.path}>
+        <NavLink to={item.path??""}>
           {Icon && <Icon />}
           <span>{item.label}</span>
           {item.badge && (

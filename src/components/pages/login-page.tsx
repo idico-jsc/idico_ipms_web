@@ -2,10 +2,9 @@ import { HTMLAttributes, type FC } from "react";
 import { cn } from "@/utils";
 import { ScreenLayout } from "@templates";
 import { useTranslation } from "react-i18next";
-import { LoginForm } from "@/features/auth/components/login-form";
-import { LoginSlider } from "@/features/auth/components/login-slider";
-import { LanguageSwitcher } from "@molecules";
-import { ThemeToggle } from "@molecules";
+import { LoginForm, LoginSlider } from "@/features/auth";
+import { LanguageSwitcher, ThemeToggle } from "@molecules";
+import { Card, CardContent } from "@atoms";
 
 export type LoginPageProps = HTMLAttributes<HTMLDivElement> & {};
 

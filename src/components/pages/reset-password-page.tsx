@@ -1,4 +1,5 @@
 import { ResetPasswordForm } from "@/features/auth/components/reset-password-form";
+import { useParams } from "react-router";
 
 export function ResetPasswordPage() {
   const { token } = useParams<{ token: string }>();

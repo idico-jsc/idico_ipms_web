@@ -1,6 +1,7 @@
 
 import { Button } from '@/components/atoms/button';
 import { usePushNotificationContext } from '@/providers/push-notification-provider';
+import { Card } from '@atoms';
 import { Bell, BellOff, Loader2 } from 'lucide-react';
 
 /**

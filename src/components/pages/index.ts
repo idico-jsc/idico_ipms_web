@@ -1,8 +1,8 @@
-export { Home } from './home';
-export { About } from './about';
-export { Contact } from './contact';
-export { NotFound } from './not-found';
-export { LoginPage } from './login-page';
-export { ErrorPage } from './error-page';
-export { ForgotPasswordPage } from './forgot-password-page';
-export { ResetPasswordPage } from './reset-password-page';
+export * from "./about";
+export * from "./contact";
+export * from "./error-page";
+export * from "./forgot-password-page";
+export * from "./home";
+export * from "./login-page";
+export * from "./not-found";
+export * from "./reset-password-page";
