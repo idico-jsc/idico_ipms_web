@@ -1,11 +1,35 @@
 # docker-compose.yml
+# Production deployment using Docker Hub image
+# No source code needed on server - just pull and run!
+
 version: '3.8'
 
 services:
   vite-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # Docker Hub repository
+    image: cdsidico/idico-ipms-web:latest
+
     ports:
-      - "5173:80" # Map Nginx port to localhost port
-    container_name: vite-react-app
+      - "80:80"  # Map container port 80 to host port 80
+
+    container_name: idico-ipms-web
+
+    restart: unless-stopped  # Auto-restart on failure
+
+    # Optional: Add health check
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Optional: Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
