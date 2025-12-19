@@ -2,9 +2,9 @@ name: CI - Continuous Integration
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, develop, staging]
   push:
-    branches-ignore: [main]
+    branches: [main, develop, staging]
 
 jobs:
   lint:
