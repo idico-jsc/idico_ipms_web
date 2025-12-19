@@ -7,7 +7,6 @@ import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
 import Fonts from "unplugin-fonts/vite";
-// @ts-ignore
 import imagemin from "unplugin-imagemin/vite";
 import { compression } from "vite-plugin-compression2";
 import Inspect from "vite-plugin-inspect";
