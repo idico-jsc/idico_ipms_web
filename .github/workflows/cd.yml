@@ -5,15 +5,13 @@ on:
     workflows: ["CI - Continuous Integration"] 
     types:
       - completed
-  push:
-    branches: [main]
-
 env:
   DOCKER_IMAGE: cdsidico/idico-ipms-web
 
 jobs:
   deploy:
     name: Deploy to Server
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Deploy via SSH
@@ -25,7 +23,6 @@ jobs:
           port: ${{ secrets.SERVER_PORT || 22 }}
           script: |   
             echo "🚀 Starting deployment..."
-            cd ~/idico-ipms-web || { echo "❌ Directory not found!"; exit 1; }
 
             echo "📦 Pulling latest Docker image..."
             docker-compose pull
