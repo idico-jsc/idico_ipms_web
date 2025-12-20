@@ -28,12 +28,6 @@ VITE_GOOGLE_CLIENT_ID=your-web-client-id.apps.googleusercontent.com
 # Native mobile apps (Android/iOS)
 VITE_GOOGLE_SERVER_CLIENT_ID=your-server-client-id.apps.googleusercontent.com
 
-# Android configuration (optional, for reference)
-VITE_ANDROID_PACKAGE_NAME=com.wellspring.parentportal
-VITE_ANDROID_DEBUG_SHA1=your-debug-sha1-here
-VITE_ANDROID_RELEASE_SHA1=your-release-sha1-here
-```
-
 ## Google Cloud Console Setup
 
 ### 1. Configure OAuth Consent Screen

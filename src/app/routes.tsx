@@ -91,7 +91,7 @@ function getLayoutsForPath(filePath: string): Array<React.ComponentType<{ childr
   layouts.push(RootLayout);
 
   // Remove './' prefix and '/page.tsx' suffix to get the folder path
-  let path = filePath.replace(/^\.\//, '').replace(/\/page\.tsx$/, '');
+  const path = filePath.replace(/^\.\//, '').replace(/\/page\.tsx$/, '');
 
   // If empty (root page), no additional layouts
   if (path === '') return layouts;
@@ -140,7 +140,7 @@ function hasErrorBoundary(filePath: string): boolean {
   }
 
   // Remove './' prefix and '/page.tsx' suffix
-  let path = filePath.replace(/^\.\//, '').replace(/\/page\.tsx$/, '');
+  const path = filePath.replace(/^\.\//, '').replace(/\/page\.tsx$/, '');
 
   // If empty (root page) and no root error, no error boundary
   if (path === '') return false;

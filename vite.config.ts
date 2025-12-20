@@ -7,13 +7,11 @@ import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
 import Fonts from "unplugin-fonts/vite";
-// @ts-ignore
 import imagemin from "unplugin-imagemin/vite";
 import { compression } from "vite-plugin-compression2";
 import Inspect from "vite-plugin-inspect";
 import { VitePWA } from "vite-plugin-pwa";
 import svgr from "vite-plugin-svgr";
-
 import { fonts } from "./config/fonts.config";
 
 // Read version from package.json
@@ -156,5 +154,13 @@ export default defineConfig({
         drop_debugger: true,
       },
     },
+  },
+  server: {
+    port: 5173,
+    strictPort: true, // Fail if port is already in use
+  },
+  preview: {
+    port: 3000,
+    strictPort: true, // Fail if port is already in use
   },
 });

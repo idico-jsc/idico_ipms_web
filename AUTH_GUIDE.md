@@ -103,7 +103,7 @@ Auto: 401/403 response → handleUnauthorized() → Same as manual logout
 
 **Environment Variables Required**:
 - `VITE_API_BASE_URL` - API base URL
-- `VITE_FRAPPE_URL` - Frappe instance URL
+- `VITE_FRAPPE_DOMAIN` - Frappe instance URL
 - `VITE_FRAPPE_TOKEN_EXPIRY_DAYS` - Token expiry (default: 7 days)
 
 ## Security
