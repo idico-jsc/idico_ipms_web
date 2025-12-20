@@ -1,7 +1,46 @@
+# Dependencies
 node_modules
-npm-debug.log
-build
-.dockerignore
-**/.git
-**/.DS_Store
 **/node_modules
+
+# Logs
+npm-debug.log
+*.log
+
+# Git
+**/.git
+.gitignore
+.gitattributes
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+**/.DS_Store
+
+# CI/CD
+.github
+.dockerignore
+
+# Documentation
+*.md
+!README.md
+
+# Test files
+cypress
+**/__tests__
+**/*.test.js
+**/*.test.ts
+**/*.spec.js
+**/*.spec.ts
+
+# Environment files (these should be in CI secrets)
+.env
+.env.*
+
+# Misc
+.prettierrc
+.eslintrc*
+tsconfig.json
+
+# NOTE: build/web is NOT ignored - needed for Dockerfile.prod
