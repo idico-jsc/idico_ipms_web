@@ -106,7 +106,7 @@ npm run cap:sync:android
 Create `.env.development` and `.env.production` with required variables:
 ```env
 VITE_API_BASE_URL=https://your-api.com
-VITE_FRAPPE_URL=https://your-frappe.com
+VITE_FRAPPE_DOMAIN=https://your-frappe.com
 # Add other platform-specific variables
 ```
 
