@@ -2,6 +2,7 @@ name: CI - Continuous Integration
 
 # This workflow runs on pull requests to main branch
 # Performs linting, building, testing, and Docker image creation
+# Optimized for speed: ~8-9 minutes total runtime
 on:
   pull_request:
     branches: [main]
