@@ -3,8 +3,9 @@ name: CD - Continuous Deployment
 on:
   workflow_run:
     workflows: ["CI - Continuous Integration"] 
-    types:
-      - completed
+    types: [completed]
+    branches:
+      - 'main'
 env:
   DOCKER_IMAGE: cdsidico/idico-ipms-web
 
@@ -20,20 +21,30 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password:  ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT || 22 }}
-          script: |   
+          script: |
             echo "🚀 Starting deployment..."
 
             echo "📦 Pulling latest Docker image..."
-            docker-compose pull
+            docker pull cdsidico/idico-ipms-web:latest
 
-            echo "🔄 Restarting services..."
-            docker-compose up -d --remove-orphans
+            echo "🛑 Stopping old container..."
+            docker stop idico-ipms-web-prod || true
 
-            echo "⏳ Waiting for services to be healthy..."
+            echo "🗑️ Removing old container..."
+            docker rm idico-ipms-web-prod || true
+
+            echo "🔄 Starting new container..."
+            docker run -d \
+              --name idico-ipms-web-prod \
+              -p 3000:80 \
+              --restart unless-stopped \
+              cdsidico/idico-ipms-web:latest
+
+            echo "⏳ Waiting for container to be healthy..."
             sleep 10
 
-            echo "📊 Service status:"
-            docker-compose ps
+            echo "📊 Container status:"
+            docker ps --filter name=idico-ipms-web-prod
 
             echo "✅ Deployment successful!"
 
