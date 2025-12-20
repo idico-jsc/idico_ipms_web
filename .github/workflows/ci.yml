@@ -3,6 +3,8 @@ name: CI - Continuous Integration
 on:
   pull_request:
     branches: [main]
+env:
+  DOCKER_IMAGE: cdsidico/idico-ipms-web
 jobs:
   lint:
     name: Lint Code
