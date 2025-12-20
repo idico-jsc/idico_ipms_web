@@ -1,5 +1,7 @@
 name: CI - Continuous Integration
 
+# This workflow runs on pull requests to main branch
+# Performs linting, building, testing, and Docker image creation
 on:
   pull_request:
     branches: [main]
