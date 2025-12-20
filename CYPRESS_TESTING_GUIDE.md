@@ -55,7 +55,7 @@ Ensure your dev server is configured in `cypress.config.ts`:
 ```typescript
 export default defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:5173',
+    baseUrl: process.env.CYPRESS_DOMAIN_TESTING || 'http://localhost:3000',
   },
 });
 ```
@@ -486,8 +486,9 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v5
         with:
-          start: npm run dev
-          wait-on: 'http://localhost:5173'
+          build: npm run build
+          start: npm run preview
+          wait-on: 'http://localhost:3000'
           browser: chrome
 
       - name: Upload screenshots
