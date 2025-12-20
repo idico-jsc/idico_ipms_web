@@ -10,7 +10,6 @@ env:
 jobs:
   deploy:
     name: Deploy to Server
-    needs: build-and-push
     runs-on: ubuntu-latest
     steps:
       - name: Deploy via SSH
