@@ -7,12 +7,15 @@
   "items": {
     "home": "Home",
     "dashboard": "Dashboard",
+    "customers": "Customers",
     "users": "Users",
     "reports": "Reports",
     "salesReport": "Sales Report",
     "userReport": "User Report",
     "settings": "Settings",
     "debugNotifications": "Debug Notifications",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "profile": "Account Profile",
+    "logout": "Logout"
   }
 }

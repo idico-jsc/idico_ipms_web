@@ -7,12 +7,15 @@
   "items": {
     "home": "Trang chủ",
     "dashboard": "Bảng điều khiển",
+    "customers": "Khách hàng",
     "users": "Người dùng",
     "reports": "Báo cáo",
     "salesReport": "Báo cáo bán hàng",
     "userReport": "Báo cáo người dùng",
     "settings": "Cài đặt",
     "debugNotifications": "Kiểm tra thông báo",
-    "notifications": "Thông báo"
+    "notifications": "Thông báo",
+    "profile": "Hồ Sơ Tài Khoản",
+    "logout": "Đăng Xuất"
   }
 }

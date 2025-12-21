@@ -49,7 +49,7 @@ export function MobileBottomNav() {
               "before:pointer-events-none"
             )}
           >
-            <div className="relative flex items-center justify-between px-2 py-3 gap-2">
+            <div className="relative flex items-center justify-between p-2 gap-2">
               {/* Main navigation items */}
               {mainItems.map((item) => {
                 const Icon = item.icon;
@@ -63,8 +63,8 @@ export function MobileBottomNav() {
                       "relative flex flex-1 flex-col items-center justify-center gap-1 text-muted-foreground",
                       "transition-all duration-200 aspect-square"
                     ,{
-                      "text-brand-primary-foreground": isActive,
-                      "before:content-[''] before:absolute before:inset-0 before:rounded-sm before:transition-colors before:duration-200 before:pointer-events-none before:bg-brand-primary":isActive
+                      "text-primary-foreground": isActive,
+                      "before:content-[''] before:absolute before:inset-0 before:rounded-sm before:transition-colors before:duration-200 before:pointer-events-none before:bg-primary":isActive
                     })}
                     aria-label={item.label}
                     aria-current={isActive ? "page" : undefined}

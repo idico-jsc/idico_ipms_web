@@ -186,7 +186,7 @@ export default function DebugNotificationsPage() {
                 <div className="text-sm text-muted-foreground">Platform Info</div>
                 <div className="text-xs bg-muted p-2 rounded mt-1">
                   <div><strong>Platform:</strong> {getPlatform()}</div>
-                  <div><strong>Package:</strong> com.wellspring.parentportal</div>
+                  <div><strong>Package:</strong> com.idico.crm</div>
                   <div><strong>Push Provider:</strong> Firebase Cloud Messaging (FCM)</div>
                 </div>
               </div>

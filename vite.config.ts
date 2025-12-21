@@ -39,12 +39,12 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       // injectRegister: "auto",
-      includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
+      includeAssets: ["favicon.svg", "favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
       manifest: {
-        name: "Parent Portal",
-        short_name: "Parent Portal",
-        description: "Parent Portal Application - Wellspring Bilingual International School",
-        theme_color: "#000000",
+        name: "IDICO CRM",
+        short_name: "IDICO CRM",
+        description: "IDICO CRM - Customer Relationship Management System",
+        theme_color: "#074747",
         background_color: "#ffffff",
         display: "standalone",
         scope: "/",

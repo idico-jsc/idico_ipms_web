@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.wellspring.parentportal',
-  appName: 'Parent Portal',
+  appId: 'com.idico.crm',
+  appName: 'IDICO CRM',
   webDir: 'build/web',
   android: {
     path: 'build/android',

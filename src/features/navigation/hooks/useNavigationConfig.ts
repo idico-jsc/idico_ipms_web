@@ -17,6 +17,7 @@ import {
   Bell,
   BarChart,
   AlertCircle,
+  Building2,
 } from "lucide-react";
 import type { NavigationConfig } from "@/types/navigation.types";
 
@@ -48,6 +49,13 @@ export function useNavigationConfig(): NavigationConfig {
               icon: LayoutDashboard,
               showInMobileNav: true,
               // No roles = visible to all authenticated users
+            },
+            {
+              id: "customers",
+              label: t("items.customers"),
+              path: "/customers",
+              icon: Building2,
+              showInMobileNav: true,
             },
           ],
         },

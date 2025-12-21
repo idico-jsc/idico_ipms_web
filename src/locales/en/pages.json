@@ -13,7 +13,7 @@
     "showDetails": "Show error details"
   },
   "loginPage": {
-    "welcome": "Welcome to Wellspring Saigon!",
+    "welcome": "Welcome to IDICO CRM!",
     "title": "Sign In",
     "subtitle": "Welcome back! Please sign in to continue",
     "email": "Email",
@@ -79,5 +79,58 @@
   "offline": {
     "indicator": "You're offline - viewing cached data",
     "formDisabled": "Internet connection required for this action"
+  },
+  "customers": {
+    "title": "Customers",
+    "addCustomer": "Add Customer",
+    "editCustomer": "Edit Customer",
+    "deleteCustomer": "Delete Customer",
+    "searchPlaceholder": "Search customers...",
+    "statusFilter": "Filter by status",
+    "allStatuses": "All Statuses",
+    "activeStatus": "Active",
+    "inactiveStatus": "Inactive",
+    "confirmDelete": "Are you sure you want to delete this customer?",
+    "confirmDeleteMessage": "This action cannot be undone. This will permanently delete the customer record.",
+    "table": {
+      "customerName": "Customer Name",
+      "representative": "Representative",
+      "companyName": "Company Name",
+      "taxCode": "Tax Code",
+      "address": "Address",
+      "status": "Status",
+      "tags": "Tags",
+      "created": "Created",
+      "modified": "Modified",
+      "actions": "Actions"
+    },
+    "form": {
+      "customerName": "Customer Name",
+      "customerNamePlaceholder": "Enter customer name",
+      "companyName": "Company Name",
+      "companyNamePlaceholder": "Enter company name",
+      "taxCode": "Tax Code",
+      "taxCodePlaceholder": "Enter tax code (10-13 digits)",
+      "address": "Address",
+      "addressPlaceholder": "Enter address",
+      "status": "Status",
+      "statusPlaceholder": "Select status",
+      "tags": "Tags",
+      "tagsPlaceholder": "Enter tags (comma-separated)",
+      "save": "Save",
+      "cancel": "Cancel",
+      "errors": {
+        "nameRequired": "Customer name is required",
+        "companyRequired": "Company name is required",
+        "taxCodeRequired": "Tax code is required",
+        "taxCodeInvalid": "Tax code must be 10-13 digits",
+        "addressRequired": "Address is required"
+      }
+    },
+    "pagination": {
+      "showing": "Showing {{from}}-{{to}} of {{total}} customers",
+      "previous": "Previous",
+      "next": "Next"
+    }
   }
 }
