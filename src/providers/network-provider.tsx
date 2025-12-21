@@ -18,6 +18,7 @@ export const NetworkProvider = ({ children }: { children: ReactNode }) => {
  * Hook to access network status from context
  * @throws Error if used outside NetworkProvider
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export const useNetworkStatus = (): NetworkStatus => {
   const context = useContext(NetworkContext);
   if (context === undefined) {

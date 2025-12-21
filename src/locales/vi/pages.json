@@ -13,7 +13,7 @@
     "showDetails": "Hiển thị chi tiết lỗi"
   },
   "loginPage": {
-    "welcome": "Chào mừng đến với Wellspring Sài Gòn!",
+    "welcome": "Chào mừng đến với IDICO CRM!",
     "title": "Đăng Nhập",
     "subtitle": "Chào mừng trở lại! Vui lòng đăng nhập để tiếp tục",
     "email": "Email",
@@ -79,5 +79,58 @@
   "offline": {
     "indicator": "Bạn đang ngoại tuyến - xem dữ liệu đã lưu",
     "formDisabled": "Cần kết nối Internet cho hành động này"
+  },
+  "customers": {
+    "title": "Khách hàng",
+    "addCustomer": "Thêm khách hàng",
+    "editCustomer": "Sửa khách hàng",
+    "deleteCustomer": "Xóa khách hàng",
+    "searchPlaceholder": "Tìm kiếm khách hàng...",
+    "statusFilter": "Lọc theo trạng thái",
+    "allStatuses": "Tất cả trạng thái",
+    "activeStatus": "Hoạt động",
+    "inactiveStatus": "Ngừng hoạt động",
+    "confirmDelete": "Bạn có chắc chắn muốn xóa khách hàng này?",
+    "confirmDeleteMessage": "Hành động này không thể hoàn tác. Dữ liệu khách hàng sẽ bị xóa vĩnh viễn.",
+    "table": {
+      "customerName": "Tên khách hàng",
+      "representative": "Người đại diện",
+      "companyName": "Tên công ty",
+      "taxCode": "Mã số thuế",
+      "address": "Địa chỉ",
+      "status": "Trạng thái",
+      "tags": "Nhãn",
+      "created": "Ngày tạo",
+      "modified": "Ngày sửa",
+      "actions": "Thao tác"
+    },
+    "form": {
+      "customerName": "Tên khách hàng",
+      "customerNamePlaceholder": "Nhập tên khách hàng",
+      "companyName": "Tên công ty",
+      "companyNamePlaceholder": "Nhập tên công ty",
+      "taxCode": "Mã số thuế",
+      "taxCodePlaceholder": "Nhập mã số thuế (10-13 chữ số)",
+      "address": "Địa chỉ",
+      "addressPlaceholder": "Nhập địa chỉ",
+      "status": "Trạng thái",
+      "statusPlaceholder": "Chọn trạng thái",
+      "tags": "Nhãn",
+      "tagsPlaceholder": "Nhập nhãn (phân cách bằng dấu phẩy)",
+      "save": "Lưu",
+      "cancel": "Hủy",
+      "errors": {
+        "nameRequired": "Tên khách hàng là bắt buộc",
+        "companyRequired": "Tên công ty là bắt buộc",
+        "taxCodeRequired": "Mã số thuế là bắt buộc",
+        "taxCodeInvalid": "Mã số thuế phải có 10-13 chữ số",
+        "addressRequired": "Địa chỉ là bắt buộc"
+      }
+    },
+    "pagination": {
+      "showing": "Hiển thị {{from}}-{{to}} trong tổng số {{total}} khách hàng",
+      "previous": "Trước",
+      "next": "Sau"
+    }
   }
 }

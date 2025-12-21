@@ -5,6 +5,7 @@ import { Button } from "@/components/atoms/button";
 import { useAuth } from "@/features/auth/hooks/use-auth";
 import { Bell } from "lucide-react";
 import { getPath } from "@/features/navigation";
+import { FontTester } from "@/components/organisms/font-tester";
 
 interface Props extends React.ComponentProps<"div"> {}
 
@@ -140,6 +141,12 @@ export const Home = ({ ...rest }: Props) => {
             <Bell className="mr-2 h-4 w-4" />
             Debug Notifications
           </Button>
+        </div>
+
+        {/* Font Testing Section */}
+        <div className="bg-card border-border rounded-lg border p-6">
+          <h2 className="mb-4 text-2xl font-bold">Alexandria Font Testing</h2>
+          <FontTester />
         </div>
 
         {/* Counter Demo Section */}

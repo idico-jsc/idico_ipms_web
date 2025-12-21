@@ -1,5 +1,6 @@
 export * from "./about";
 export * from "./contact";
+export * from "./customers-page";
 export * from "./error-page";
 export * from "./forgot-password-page";
 export * from "./home";

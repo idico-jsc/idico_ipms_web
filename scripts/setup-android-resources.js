@@ -8,13 +8,15 @@
  *
  * Purpose:
  * - Generate strings.xml with server_client_id from VITE_GOOGLE_CLIENT_ID
- * - Ensures Android native resources are always in sync with .env files
+ * - Generate app launcher icons from IDICO logo
+ * - Ensures Android native resources are always in sync with .env files and logo
  * - Prevents manual edits in build/ directory that get lost on rebuild
  */
 
 import { writeFileSync, mkdirSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import { execSync } from 'child_process';
 import dotenv from 'dotenv';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -43,10 +45,10 @@ if (!existsSync(androidResPath)) {
 // Generate strings.xml content
 const stringsXml = `<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Parent Portal</string>
-    <string name="title_activity_main">Parent Portal</string>
-    <string name="package_name">com.wellspring.parentportal</string>
-    <string name="custom_url_scheme">com.wellspring.parentportal</string>
+    <string name="app_name">IDICO CRM</string>
+    <string name="title_activity_main">IDICO CRM</string>
+    <string name="package_name">com.idico.crm</string>
+    <string name="custom_url_scheme">com.idico.crm</string>
     <string name="server_client_id">${serverClientId}</string>
 </resources>
 `;
@@ -59,4 +61,15 @@ console.log('✓ Android resources generated');
 console.log(`  - strings.xml created at ${stringsXmlPath}`);
 if (serverClientId) {
   console.log(`  - server_client_id: ${serverClientId.substring(0, 20)}...`);
+}
+
+// Generate Android app icons
+console.log('\n📱 Generating Android app icons...');
+try {
+  execSync('node scripts/generate-android-icons.cjs', {
+    cwd: join(__dirname, '..'),
+    stdio: 'inherit'
+  });
+} catch (error) {
+  console.warn('⚠️  Failed to generate Android icons:', error.message);
 }
