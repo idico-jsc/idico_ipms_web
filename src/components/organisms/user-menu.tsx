@@ -17,6 +17,7 @@ import {
 } from '@/components/atoms/dropdown-menu';
 import { Button } from '@/components/atoms/button';
 import { useAuth } from '@/features/auth/hooks/use-auth';
+import { getInitials } from '@/utils';
 
 interface UserMenuProps {
   className?: string;
@@ -27,16 +28,6 @@ export const UserMenu = ({ className }: UserMenuProps) => {
   const { user, logout } = useAuth();
 
   if (!user) return null;
-
-  // Get user initials for avatar fallback
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map((n) => n[0])
-      .join('')
-      .toUpperCase()
-      .slice(0, 2);
-  };
 
   const handleLogout = () => {
     logout();
@@ -52,7 +43,7 @@ export const UserMenu = ({ className }: UserMenuProps) => {
           <Avatar className="h-8 w-8">
             <AvatarImage src={user.user_image} alt={user.full_name} />
             <AvatarFallback className="bg-primary text-primary-foreground">
-              {getInitials(user.full_name)}
+              {user.full_name && getInitials(user.full_name)}
             </AvatarFallback>
           </Avatar>
           <ChevronDown className="h-4 w-4 text-muted-foreground" />
@@ -64,7 +55,7 @@ export const UserMenu = ({ className }: UserMenuProps) => {
             <Avatar className="h-12 w-12">
               <AvatarImage src={user.user_image} alt={user.full_name} />
               <AvatarFallback className="bg-primary text-primary-foreground">
-                {getInitials(user.full_name)}
+                {user.full_name && getInitials(user.full_name)}
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col space-y-1">
