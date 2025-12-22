@@ -12,13 +12,28 @@ This project is configured as a Progressive Web App (PWA) using `vite-plugin-pwa
 
 ## PWA Icons
 
-To generate PWA icons, you need to create two icons:
+### Automatic Icon Generation (Recommended)
+
+The project automatically generates PWA icons from the IDICO logo:
+
+```bash
+# Generate all PWA icons from logo
+npm run pwa:icons
+```
+
+This script copies the IDICO logo (`src/assets/images/logo/logo-icon-ver.svg`) to:
+- `public/favicon.svg` - Browser favicon
+- `public/pwa-192x192.svg` - PWA icon (192x192)
+- `public/pwa-512x512.svg` - PWA icon (512x512)
 
 ### Required Icons:
-- `public/pwa-192x192.png` - 192x192 pixels
-- `public/pwa-512x512.png` - 512x512 pixels
+- `public/favicon.svg` - Browser favicon (SVG format)
+- `public/pwa-192x192.svg` - 192x192 pixels (SVG format)
+- `public/pwa-512x512.svg` - 512x512 pixels (SVG format)
 
-### How to Create Icons:
+### Manual Icon Creation (Alternative):
+
+If you need to use PNG format or custom icons:
 
 **Option 1: Using online tools**
 1. Go to https://www.pwabuilder.com/imageGenerator
@@ -37,15 +52,6 @@ convert icon.png -resize 512x512 public/pwa-512x512.png
 - Use any image editor (Photoshop, GIMP, Figma, etc.)
 - Export as PNG with dimensions 192x192 and 512x512
 - Place in `public/` folder
-
-### Temporary Setup (for development):
-
-If you don't have icons yet, create placeholder icons:
-
-```bash
-# Create simple placeholder icons
-npm run pwa:icons
-```
 
 ## Configuration
 

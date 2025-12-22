@@ -11,3 +11,21 @@ export function isAbsoluteURL(url: string): boolean {
 export function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+/**
+ * Get user initials from full name
+ * @param name - Full name of the user
+ * @returns Initials (max 2 characters, uppercase)
+ * @example
+ * getInitials('John Doe') // 'JD'
+ * getInitials('John') // 'J'
+ * getInitials('John Paul Smith') // 'JP'
+ */
+export function getInitials(name: string): string {
+  return name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+}

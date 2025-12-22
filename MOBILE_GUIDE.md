@@ -110,6 +110,61 @@ VITE_FRAPPE_DOMAIN=https://your-frappe.com
 # Add other platform-specific variables
 ```
 
+## App Icons and Assets
+
+### Android App Icons
+
+Android app icons are automatically generated from the IDICO logo when you run `npm run cap:sync:android`. The setup script:
+
+1. **Automatically generates launcher icons** from `src/assets/images/logo/logo-icon-ver.svg`
+2. **Creates icons for all densities**:
+   - `mipmap-mdpi` (48x48)
+   - `mipmap-hdpi` (72x72)
+   - `mipmap-xhdpi` (96x96)
+   - `mipmap-xxhdpi` (144x144)
+   - `mipmap-xxxhdpi` (192x192)
+3. **Includes all required icon types**:
+   - `ic_launcher.png` - Standard launcher icon
+   - `ic_launcher_round.png` - Round launcher icon (Android 7.1+)
+   - `ic_launcher_foreground.png` - Adaptive icon foreground
+
+**How it works**:
+- Icons are generated automatically by `scripts/setup-android-resources.js`
+- The script is run automatically during `npm run cap:sync:android`
+- Icons are placed in `build/android/app/src/main/res/mipmap-*/`
+
+**Manual icon generation** (if needed):
+```bash
+# Generate Android icons only
+node scripts/generate-android-icons.cjs
+```
+
+### PWA Icons
+
+PWA icons for the web app are generated separately:
+
+```bash
+# Generate PWA icons from logo
+npm run pwa:icons
+```
+
+This creates:
+- `public/favicon.svg` - Browser favicon
+- `public/pwa-192x192.svg` - PWA home screen icon
+- `public/pwa-512x512.svg` - PWA home screen icon
+
+See [PWA_SETUP.md](PWA_SETUP.md) for more details.
+
+### Custom Icons (Advanced)
+
+To use custom icons instead of the logo:
+
+1. Replace the logo file at `src/assets/images/logo/logo-icon-ver.svg`
+2. Run `npm run cap:sync:android` to regenerate Android icons
+3. Run `npm run pwa:icons` to regenerate PWA icons
+
+**Note**: For production builds, consider converting SVG to PNG format using tools like `sharp` or `@capacitor/assets` for optimal sizing and compatibility.
+
 ## Daily Development Workflow
 
 ### Recommended Workflow

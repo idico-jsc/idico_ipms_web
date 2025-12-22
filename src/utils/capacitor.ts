@@ -142,8 +142,8 @@ import { APP_VERSION } from '@/constants/env';
 export const getAppInfo = async () => {
   if (!isNative()) {
     return {
-      name: 'Parent Portal',
-      id: 'com.wellspring.parentportal',
+      name: 'IDICO CRM',
+      id: 'com.idico.crm',
       version: APP_VERSION,
       build: '1',
     };

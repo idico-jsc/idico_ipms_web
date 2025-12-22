@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
-import { useTheme } from "@/hooks";
+import { ThemeProvider, useTheme } from "./theme-provider";
 import { I18nProvider } from "./i18n-provider";
 import { SWRProvider } from "./swr-provider";
 import { FrappeProvider } from "./frappe-provider";
@@ -13,24 +13,34 @@ interface ProvidersProps {
   children: ReactNode;
 }
 
-export function Providers({ children }: ProvidersProps) {
+function ProvidersInner({ children }: ProvidersProps) {
   const { theme } = useTheme();
   return (
-    <I18nProvider>
-      <NetworkProvider>
-        <GoogleOAuthProvider>
-          <PushNotificationProvider>
-            <SWRProvider>
-              <FrappeProvider>
-                <AuthProvider>
-                  {children}
-                  <Toaster richColors={true} theme={theme} />
-                </AuthProvider>
-              </FrappeProvider>
-            </SWRProvider>
-          </PushNotificationProvider>
-        </GoogleOAuthProvider>
-      </NetworkProvider>
-    </I18nProvider>
+    <>
+      {children}
+      <Toaster richColors={true} theme={theme} />
+    </>
+  );
+}
+
+export function Providers({ children }: ProvidersProps) {
+  return (
+    <ThemeProvider>
+      <I18nProvider>
+        <NetworkProvider>
+          <GoogleOAuthProvider>
+            <PushNotificationProvider>
+              <SWRProvider>
+                <FrappeProvider>
+                  <AuthProvider>
+                    <ProvidersInner>{children}</ProvidersInner>
+                  </AuthProvider>
+                </FrappeProvider>
+              </SWRProvider>
+            </PushNotificationProvider>
+          </GoogleOAuthProvider>
+        </NetworkProvider>
+      </I18nProvider>
+    </ThemeProvider>
   );
 }

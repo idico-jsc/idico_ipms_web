@@ -37,6 +37,7 @@ import {
 } from "@/components/atoms/collapsible";
 import { useFilteredNavigation } from "../hooks/use-filtered-navigation";
 import type { NavItem } from "@/types/navigation.types";
+import { Logo, LogoPath } from "@atoms";
 
 interface AppSidebarProps {
   children: ReactNode;
@@ -119,21 +120,26 @@ function NavItemRenderer({ item }: { item: NavItem }) {
  * Wraps sidebar with provider and accepts children as content
  */
 export function AppSidebar({ children }: AppSidebarProps) {
+
   const { groups, footer } = useFilteredNavigation();
 
   return (
     <SidebarProvider>
-      <Sidebar collapsible="icon">
-        {/* Header */}
+      <Sidebar className="bg-brand-primary overflow-hidden" collapsible="icon">
+       <div className="flex flex-col relative w-full h-full z-20 ">
+         {/* Header */}
         <SidebarHeader>
-          <div className="flex items-center py-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <span className="text-lg font-bold">P</span>
+          <div className="flex items-center py-2 gap-2">
+            {/* Logo Icon - Only visible when collapsed */}
+            <div className="transition-all duration-200 opacity-0 w-0 group-data-[collapsible=icon]:opacity-100 group-data-[collapsible=icon]:w-auto">
+              <div className="flex h-8 w-8 p-1.5 items-center justify-center rounded-md bg-brand-secondary text-primary-foreground">
+                <Logo variant={"icon"} className="brightness-0 invert"/>
+              </div>
             </div>
-            <div className="flex flex-col transition-all duration-200 delay-100 group-data-[collapsible=icon]:w-0 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:delay-0 group-data-[collapsible=icon]:ml-0 ml-2  overflow-hidden">
-              <span className="text-sm font-semibold whitespace-nowrap">Parent Portal</span>
-              {/* Version - hidden on mobile, shown in header instead */}
-              <span className="hidden md:inline text-xs text-muted-foreground whitespace-nowrap">v0.0.99</span>
+
+            {/* Logo Text - Only visible when expanded */}
+            <div className="transition-all duration-200 opacity-100 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:w-0">
+              <Logo variant={"white"} />
             </div>
           </div>
         </SidebarHeader>
@@ -164,6 +170,12 @@ export function AppSidebar({ children }: AppSidebarProps) {
             </SidebarMenu>
           </SidebarFooter>
         )}
+       </div>
+       {/*Decor */}
+        <div className="absolute top-0 left-0 z-1 min-w-75 w-full h-full">
+          <LogoPath className="absolute top-0 left-0 w-full h-[52.5%] bg-brand-primary"/>
+          <LogoPath className="absolute bottom-0 left-0 w-full h-[52.5%] rotate-180 bg-brand-primary"/>
+        </div>
       </Sidebar>
 
       {/* Children rendered in SidebarInset */}
