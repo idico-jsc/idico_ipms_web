@@ -7,7 +7,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { type ColumnDef } from '@tanstack/react-table';
-import { Plus, Edit, Trash2 } from 'lucide-react';
+import { Plus, Edit, Trash2, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/atoms/button';
 import { Input } from '@/components/atoms/input';
 import { Badge } from '@/components/atoms/badge';
@@ -36,11 +36,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/atoms/alert-dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/atoms/dropdown-menu';
 import { DataTable, DataTableColumnHeader } from '@/components/organisms';
 import { mockCustomers } from '@/data/mock-customers';
 import type { Customer, CustomerFormData, CustomerStatus } from '@/types/customer.types';
 
-interface Props extends React.ComponentProps<'div'> {}
+interface Props extends React.ComponentProps<'div'> { }
 
 export const CustomersPage = ({ ...rest }: Props) => {
   const { t } = useTranslation('pages');
@@ -72,50 +78,50 @@ export const CustomersPage = ({ ...rest }: Props) => {
           <DataTableColumnHeader column={column} title={t('customers.table.companyName')} />
         ),
         cell: ({ row }) => <div className="font-medium">{row.getValue('company_name')}</div>,
+        size: 300,
+        minSize: 150,
+        maxSize: 500,
       },
       {
         accessorKey: 'name',
         header: t('customers.table.representative'),
         cell: ({ row }) => <div>{row.getValue('name')}</div>,
+        enableResizing: true,
       },
       {
         accessorKey: 'tax_code',
         header: t('customers.table.taxCode'),
         cell: ({ row }) => <div className="font-mono text-sm">{row.getValue('tax_code')}</div>,
+        enableResizing: true,
       },
       {
         accessorKey: 'address',
         header: t('customers.table.address'),
         cell: ({ row }) => (
-          <div className="max-w-xs truncate" title={row.getValue('address')}>
+          <div className="truncate" title={row.getValue('address')}>
             {row.getValue('address')}
           </div>
         ),
+        enableResizing: true,
       },
       {
         accessorKey: 'status',
         header: t('customers.table.status'),
+        enableResizing: true,
         cell: ({ row }) => {
           const status = row.getValue('status') as CustomerStatus;
           return (
-            <Badge variant={status === 'active' ? 'default' : 'destructive'}>
-              {status === 'active' ? t('customers.activeStatus') : t('customers.inactiveStatus')}
-            </Badge>
-          );
-        },
-      },
-      {
-        accessorKey: 'tags',
-        header: t('customers.table.tags'),
-        cell: ({ row }) => {
-          const tags = row.getValue('tags') as string[];
-          return (
-            <div className="flex flex-wrap gap-1">
-              {tags.map((tag) => (
-                <Badge key={tag} variant="outline" className="text-xs">
-                  {tag}
+            <div className="">
+              {
+                status === 'active' && <Badge variant={"default"}>
+                  {t('customers.activeStatus')}
                 </Badge>
-              ))}
+              }
+              {
+                status === 'inactive' && <Badge variant={"destructive"}>
+                  {t('customers.inactiveStatus')}
+                </Badge>
+              }
             </div>
           );
         },
@@ -129,6 +135,7 @@ export const CustomersPage = ({ ...rest }: Props) => {
           const date = new Date(row.getValue('created'));
           return <div className="text-sm">{date.toLocaleDateString('vi-VN')}</div>;
         },
+        enableResizing: true,
       },
       {
         accessorKey: 'modified',
@@ -139,30 +146,47 @@ export const CustomersPage = ({ ...rest }: Props) => {
           const date = new Date(row.getValue('modified'));
           return <div className="text-sm">{date.toLocaleDateString('vi-VN')}</div>;
         },
+        enableResizing: false,
       },
       {
         id: 'actions',
         enableHiding: false,
+        enableResizing: false,
+        size: 80,
+        minSize: 60,
+        maxSize: 100,
+        meta: {
+          sticky: true
+        },
         cell: ({ row }) => {
           const customer = row.original;
           return (
-            <div className="flex justify-end gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => openEditDialog(customer)}
-                title={t('customers.editCustomer')}
-              >
-                <Edit className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => openDeleteDialog(customer)}
-                title={t('customers.deleteCustomer')}
-              >
-                <Trash2 className="h-4 w-4 text-destructive" />
-              </Button>
+            <div className="flex justify-end">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="md:opacity-0 md:transition-opacity md:group-hover/row:opacity-100 md:focus-visible:opacity-100 md:data-[state=open]:opacity-100"
+                  >
+                    <MoreHorizontal className="h-4 w-4" />
+                    <span className="sr-only">{t('customers.table.actions')}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => openEditDialog(customer)}>
+                    <Edit className="mr-2 h-4 w-4" />
+                    {t('customers.editCustomer')}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => openDeleteDialog(customer)}
+                    className="text-destructive focus:text-destructive"
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    {t('customers.deleteCustomer')}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           );
         },
@@ -232,18 +256,18 @@ export const CustomersPage = ({ ...rest }: Props) => {
     const updatedCustomers = customers.map((customer) =>
       customer.id === selectedCustomer.id
         ? {
-            ...customer,
-            name: formData.name.trim(),
-            company_name: formData.company_name.trim(),
-            tax_code: formData.tax_code.trim(),
-            address: formData.address.trim(),
-            status: formData.status,
-            tags: formData.tags
-              .split(',')
-              .map((tag) => tag.trim())
-              .filter((tag) => tag !== ''),
-            modified: new Date().toISOString(),
-          }
+          ...customer,
+          name: formData.name.trim(),
+          company_name: formData.company_name.trim(),
+          tax_code: formData.tax_code.trim(),
+          address: formData.address.trim(),
+          status: formData.status,
+          tags: formData.tags
+            .split(',')
+            .map((tag) => tag.trim())
+            .filter((tag) => tag !== ''),
+          modified: new Date().toISOString(),
+        }
         : customer
     );
 
@@ -339,13 +363,6 @@ export const CustomersPage = ({ ...rest }: Props) => {
           pageSize={10}
           searchColumn="company_name"
           searchValue={searchValue}
-          stickyFirstColumn
-          paginationText={{
-            showing: (from, to, total) =>
-              t('customers.pagination.showing', { from, to, total }),
-            previous: t('customers.pagination.previous'),
-            next: t('customers.pagination.next'),
-          }}
         />
       </div>
 
