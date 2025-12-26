@@ -6,8 +6,8 @@
 
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { type ColumnDef } from '@tanstack/react-table';
 import { Plus, Edit, Trash2, MoreHorizontal } from 'lucide-react';
+import type { FilterableColumnDef } from '@/types/table';
 import { Button } from '@/components/atoms/button';
 import { Input } from '@/components/atoms/input';
 import { Badge } from '@/components/atoms/badge';
@@ -70,7 +70,7 @@ export const CustomersPage = ({ ...rest }: Props) => {
   const [formErrors, setFormErrors] = useState<Partial<Record<keyof CustomerFormData, string>>>({});
 
   // Define columns with useMemo for performance
-  const columns: ColumnDef<Customer>[] = useMemo(
+  const columns: FilterableColumnDef<Customer>[] = useMemo(
     () => [
       {
         accessorKey: 'company_name',
@@ -81,18 +81,30 @@ export const CustomersPage = ({ ...rest }: Props) => {
         size: 300,
         minSize: 150,
         maxSize: 500,
+        filter: {
+          label: t('customers.table.companyName'),
+          type: 'text',
+        },
       },
       {
         accessorKey: 'name',
         header: t('customers.table.representative'),
         cell: ({ row }) => <div>{row.getValue('name')}</div>,
         enableResizing: true,
+        filter: {
+          label: t('customers.table.representative'),
+          type: 'text',
+        },
       },
       {
         accessorKey: 'tax_code',
         header: t('customers.table.taxCode'),
-        cell: ({ row }) => <div className="font-mono text-sm">{row.getValue('tax_code')}</div>,
+        cell: ({ row }) => <div className="text-sm">{row.getValue('tax_code')}</div>,
         enableResizing: true,
+        filter: {
+          label: t('customers.table.taxCode'),
+          type: 'text',
+        },
       },
       {
         accessorKey: 'address',
@@ -103,6 +115,10 @@ export const CustomersPage = ({ ...rest }: Props) => {
           </div>
         ),
         enableResizing: true,
+        filter: {
+          label: t('customers.table.address'),
+          type: 'text',
+        },
       },
       {
         accessorKey: 'status',
@@ -125,6 +141,14 @@ export const CustomersPage = ({ ...rest }: Props) => {
             </div>
           );
         },
+        filter: {
+          label: t('customers.table.status'),
+          type: 'select',
+          options: [
+            { value: 'active', label: t('customers.activeStatus') },
+            { value: 'inactive', label: t('customers.inactiveStatus') },
+          ],
+        },
       },
       {
         accessorKey: 'created',
@@ -136,6 +160,10 @@ export const CustomersPage = ({ ...rest }: Props) => {
           return <div className="text-sm">{date.toLocaleDateString('vi-VN')}</div>;
         },
         enableResizing: true,
+        filter: {
+          label: t('customers.table.created'),
+          type: 'date',
+        },
       },
       {
         accessorKey: 'modified',
@@ -147,6 +175,10 @@ export const CustomersPage = ({ ...rest }: Props) => {
           return <div className="text-sm">{date.toLocaleDateString('vi-VN')}</div>;
         },
         enableResizing: false,
+        filter: {
+          label: t('customers.table.modified'),
+          type: 'date',
+        },
       },
       {
         id: 'actions',
@@ -155,9 +187,7 @@ export const CustomersPage = ({ ...rest }: Props) => {
         size: 80,
         minSize: 60,
         maxSize: 100,
-        meta: {
-          sticky: true
-        },
+        sticky: true,
         cell: ({ row }) => {
           const customer = row.original;
           return (

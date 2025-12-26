@@ -1,88 +1,17 @@
-@import 'tailwindcss';
-
-@plugin 'tailwindcss-animate';
-
-/* Alexandria Font Family */
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Thin.ttf') format('truetype');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-ExtraLight.ttf') format('truetype');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-ExtraBold.ttf') format('truetype');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Black.ttf') format('truetype');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
+/**
+ * Tailwind Theme Configuration
+ * Custom variants, theme definitions, and CSS variables
+ */
 
 @theme {
-  --font-sans: 'Alexandria', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Lexend', 'Alexandria', system-ui, -apple-system, sans-serif;
 }
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
   --radius: 0.625rem;
+  --cell-size: 2rem;
   --background: oklch(100% 0 0);
   --foreground: oklch(14.5% 0 0);
   --card: oklch(100% 0 0);
@@ -99,7 +28,8 @@
   --muted-foreground: oklch(55.6% 0 0);
   --accent: oklch(97% 0 0);
   --accent-foreground: oklch(20.5% 0 0);
-  --destructive: oklch(57.7% 0.245 27.325);
+  --destructive: oklch(58% 0.2 25.9);
+  --destructive-foreground: oklch(100% 0 0);
   --border: oklch(92.2% 0 0);
   --input: oklch(92.2% 0 0);
   --ring: oklch(70.8% 0 0);
@@ -139,24 +69,26 @@
   --brand-neutral: oklch(92.748% 0.00181 248.522);
   --brand-neutral-foreground: oklch(14.5% 0 0);
 }
+
 .dark {
-  --background: oklch(0.25 0 0);
-  --foreground: oklch(98.5% 0 0);
-  --card: oklch(20.5% 0 0);
+  --background: oklch(0.18 0.01 258.39);
+  --foreground: var(--brand-neutral);
+  --card: oklch(21.634% 0.01334 258.401);
   --card-foreground: oklch(98.5% 0 0);
-  --popover: oklch(26.9% 0 0);
+  --popover: oklch(0.18 0.01 258.39);
   --popover-foreground: oklch(98.5% 0 0);
-  --primary: var(--brand-secondary);
+  --primary: oklch(0.55 0.08 194.99);
   --primary-foreground: var(--brand-secondary-foreground);
   --secondary: var(--brand-neutral);
   --secondary-foreground: var(--brand-neutral-foreground);
   --tertiary: var(--brand-tertiary);
   --tertiary-foreground: var(--brand-tertiary-foreground);
-  --muted: oklch(26.9% 0 0);
+  --muted: oklch(26% 0.01 248);
   --muted-foreground: oklch(70.8% 0 0);
-  --accent: oklch(37.1% 0 0);
+  --accent: oklch(0.22 0.02 255.74);
   --accent-foreground: oklch(98.5% 0 0);
   --destructive: oklch(70.4% 0.191 22.216);
+  --destructive-foreground: oklch(100% 0 0);
   --border: oklch(100% 0 0/0.1);
   --input: oklch(100% 0 0/0.15);
   --ring: oklch(55.6% 0 0);
@@ -184,19 +116,6 @@
   --code-number: oklch(72% 0 0);
   --selection: oklch(92.2% 0 0);
   --selection-foreground: oklch(20.5% 0 0);
-
-  --brand-primary: oklch(36.170% 0.05880 194.899);
-  --brand-primary-foreground: oklch(100% 0 0);
-  --brand-primary-dark: oklch(22.5% 0.045 195);
-  --brand-primary-dark-foreground: oklch(100% 0 0);
-  --brand-secondary: oklch(58.464% 0.20561 28.903);
-  --brand-secondary-foreground: oklch(100% 0 0);
-  --brand-tertiary: oklch(66.130% 0.11342 192.543);
-  --brand-tertiary-foreground: oklch(14.5% 0 0);
-  --brand-neutral: oklch(92.748% 0.00181 248.522);
-  --brand-neutral-foreground: oklch(14.5% 0 0);
-
-
 }
 
 @theme inline {
@@ -230,6 +149,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --cell-size: var(--cell-size);
   --color-sidebar: #003A38;
   --color-sidebar-foreground: var(--color-brand-primary-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -259,31 +179,4 @@
   --color-brand-tertiary-foreground: var(--brand-tertiary-foreground);
   --color-brand-neutral: var(--brand-neutral);
   --color-brand-neutral-foreground: var(--brand-neutral-foreground);
-}
-
-@layer components {
-  .bg-glass {
-    @apply bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground font-sans;
-  }
-  button {
-    @apply cursor-pointer
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
 }

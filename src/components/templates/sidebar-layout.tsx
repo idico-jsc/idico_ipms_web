@@ -9,8 +9,7 @@
  */
 
 import { ReactNode } from "react";
-import { AppSidebar, MobileBottomNav } from "@/features/navigation";
-import { Header } from "@/components/organisms/header";
+import { AppSidebar, Header, MobileBottomNav } from "@/features/navigation";
 import { usePlatform } from "@/hooks/use-capacitor";
 
 interface SidebarLayoutProps {

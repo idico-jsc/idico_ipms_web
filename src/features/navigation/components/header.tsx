@@ -1,6 +1,6 @@
 import { LanguageSwitcher } from '@/components/molecules/language-switcher';
 import { ThemeToggle } from '@/components/molecules/theme-toggle';
-import { UserMenu } from '@/components/organisms/user-menu';
+import { UserMenu } from '@/features/auth';
 import { SidebarTrigger } from '@/components/atoms/sidebar';
 import { useTheme } from '@/hooks';
 import { Logo } from '@atoms';

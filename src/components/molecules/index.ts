@@ -1,3 +1,4 @@
+export * from "./date-picker";
 export * from "./full-page-loader";
 export * from "./language-switcher";
 export * from "./loading-button";

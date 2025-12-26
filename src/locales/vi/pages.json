@@ -89,7 +89,7 @@
     "statusFilter": "Lọc theo trạng thái",
     "allStatuses": "Tất cả trạng thái",
     "activeStatus": "Hoạt động",
-    "inactiveStatus": "Ngừng hoạt động",
+    "inactiveStatus": "Ngừng HĐ",
     "confirmDelete": "Bạn có chắc chắn muốn xóa khách hàng này?",
     "confirmDeleteMessage": "Hành động này không thể hoàn tác. Dữ liệu khách hàng sẽ bị xóa vĩnh viễn.",
     "table": {

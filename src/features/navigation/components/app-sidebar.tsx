@@ -37,7 +37,8 @@ import {
 } from "@/components/atoms/collapsible";
 import { useFilteredNavigation } from "../hooks/use-filtered-navigation";
 import type { NavItem } from "@/types/navigation.types";
-import { Logo, LogoPath } from "@atoms";
+import { Logo, LogoPath, VersionDisplay } from "@atoms";
+import { cn } from "@/utils";
 
 interface AppSidebarProps {
   children: ReactNode;
@@ -161,15 +162,23 @@ export function AppSidebar({ children }: AppSidebarProps) {
         </SidebarContent>
 
         {/* Footer */}
-        {footer.length > 0 && (
-          <SidebarFooter>
+        <SidebarFooter>
+          {footer.length > 0 && (
             <SidebarMenu>
               {footer.map((item) => (
                 <NavItemRenderer key={item.id} item={item} />
               ))}
             </SidebarMenu>
-          </SidebarFooter>
-        )}
+          )}
+          {/* Version Display */}
+          <div className="px-4 py-2">
+            <VersionDisplay
+              position="inline"
+              variant="minimal"
+              className="text-sidebar-foreground/50 group-data-[collapsible=icon]:text-center"
+            />
+          </div>
+        </SidebarFooter>
        </div>
        {/*Decor */}
         <div className="absolute top-0 left-0 z-1 min-w-75 w-full h-full">
@@ -179,7 +188,20 @@ export function AppSidebar({ children }: AppSidebarProps) {
       </Sidebar>
 
       {/* Children rendered in SidebarInset */}
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset
+            className={cn(
+              // Set content container, so we can use container queries
+              '@container/content',
+
+              // If layout is fixed, set the height
+              // to 100svh to prevent overflow
+              'has-data-[layout=fixed]:h-svh',
+
+              // If layout is fixed and sidebar is inset,
+              // set the height to 100svh - spacing (total margins) to prevent overflow
+              'peer-data-[variant=inset]:has-data-[layout=fixed]:h-[calc(100svh-(var(--spacing)*4))]'
+            )}
+          >{children}</SidebarInset>
     </SidebarProvider>
   );
 }

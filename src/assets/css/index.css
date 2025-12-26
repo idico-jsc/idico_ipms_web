@@ -1,0 +1,17 @@
+/**
+ * Main CSS Entry Point
+ * Imports all CSS modules in order
+ */
+
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-animate';
+
+/* Font Definitions */
+@import './fonts.css';
+
+/* Tailwind Theme Configuration */
+@import './theme.css';
+
+/* Global Styles */
+@import './global.css';

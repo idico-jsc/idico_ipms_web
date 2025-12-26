@@ -4,6 +4,7 @@
 
 // Components
 export * from "./components/app-sidebar";
+export * from "./components/header";
 export * from "./components/mobile-bottom-nav";
 
 // Hooks

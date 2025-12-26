@@ -56,7 +56,7 @@ jobs:
           retention-days: 1
 
   test:
-    name: Automation Tests (Cypress)
+    name: Automation Tests
     runs-on: ubuntu-latest
     needs: lint-and-build
     steps:
