@@ -18,12 +18,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState, useEffect, useMemo } from 'react';
+import { Archive, ChevronLeft, ChevronRight, Columns3Cog, FunnelPlus, Search, Trash } from 'lucide-react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTableFilters } from '@/hooks/use-table-filters';
 import { extractFilterConfigsFromColumns } from '@/utils/table-filters';
 import { Button } from '@/components/atoms/button';
+import { Input } from '@/components/atoms/input';
 import {
   Table,
   TableBody,
@@ -47,6 +48,7 @@ interface DataTableProps<TData, TValue> {
   showPagination?: boolean;
   filterConfig?: FilterConfig[];
   onFiltersChange?: (filters: ActiveFilter[]) => void;
+  onRowSelectionChange?: (selectedRows: TData[]) => void;
 }
 
 export function DataTable<TData, TValue>({
@@ -60,13 +62,32 @@ export function DataTable<TData, TValue>({
   showPagination = true,
   filterConfig,
   onFiltersChange,
+  onRowSelectionChange,
 }: DataTableProps<TData, TValue>) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('components');
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
   const [columnSizing, setColumnSizing] = useState<ColumnSizingState>({});
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Extract searchable columns
+  const searchableColumns = useMemo(() => {
+    return columns
+      .filter((col: any) => col.searchable === true)
+      .map((col: any) => {
+        // accessorKey could be a string or undefined
+        if (typeof col.accessorKey === 'string') {
+          return col.accessorKey;
+        }
+        if (typeof col.id === 'string') {
+          return col.id;
+        }
+        return null;
+      })
+      .filter((key): key is string => key !== null);
+  }, [columns]);
 
   // Extract filter configs from columns if not provided
   const finalFilterConfig = useMemo(() => {
@@ -96,6 +117,41 @@ export function DataTable<TData, TValue>({
     }
   }, [activeFilters, onFiltersChange]);
 
+  // Notify parent of row selection changes
+  useEffect(() => {
+    if (onRowSelectionChange) {
+      const selectedRowIndices = Object.keys(rowSelection).map(Number);
+      const selectedRowsData = selectedRowIndices.map(index => data[index]);
+      onRowSelectionChange(selectedRowsData);
+    }
+  }, [rowSelection, data, onRowSelectionChange]);
+
+  // Combined filter function that handles both search and advanced filters
+  const combinedFilterFn = useCallback((row: any) => {
+    // Apply search filter first
+    if (searchQuery && searchQuery.trim() !== '') {
+      const searchLower = searchQuery.toLowerCase();
+      const searchPassed = searchableColumns.some((colId) => {
+        const cellValue = row.getValue(colId);
+        if (cellValue == null) return false;
+        const stringValue = String(cellValue).toLowerCase();
+        const matches = stringValue.includes(searchLower);
+        return matches;
+      });
+
+      if (!searchPassed) return false;
+    }
+
+    // Then apply advanced filters
+    return tableFilterFn(row);
+  }, [searchQuery, searchableColumns, tableFilterFn]);
+
+  // Memoize global filter value to prevent re-render loops
+  const globalFilterValue = useMemo(() => ({
+    searchQuery,
+    activeFilters
+  }), [searchQuery, activeFilters]);
+
   const table = useReactTable({
     data,
     columns,
@@ -110,14 +166,14 @@ export function DataTable<TData, TValue>({
     onColumnSizingChange: setColumnSizing,
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
-    globalFilterFn: tableFilterFn,
+    globalFilterFn: combinedFilterFn,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
       columnSizing,
-      globalFilter: activeFilters,
+      globalFilter: globalFilterValue,
     },
     initialState: {
       pagination: {
@@ -181,18 +237,48 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      {/* Filter Toolbar */}
-      {finalFilterConfig.length > 0 && (
-        <DataTableFilterToolbar
-          filterConfigs={finalFilterConfig}
-          activeFilters={activeFilters}
-          onAddFilter={addFilter}
-          onRemoveFilter={removeFilter}
-          onClearAll={clearAllFilters}
-        />
-      )}
 
-      <div className="rounded-lg border border-border bg-card">
+
+      <div className="rounded-lg border border-border bg-card px-4">
+        {/* Filter Toolbar */}
+        <div className="flex items-start justify-between py-4 gap-4">
+          {(finalFilterConfig.length > 0 || searchableColumns.length > 0) && (
+            <DataTableFilterToolbar
+              filterConfigs={finalFilterConfig}
+              activeFilters={activeFilters}
+              onAddFilter={addFilter}
+              onRemoveFilter={removeFilter}
+              onClearAll={clearAllFilters}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              searchableColumns={searchableColumns}
+            />
+          )}
+
+          <div className="flex items-center gap-2">
+            {/* Archive/Delete Selected Button */}
+            {table.getFilteredSelectedRowModel().rows.length > 0 && (
+              <Button
+                variant="outline"
+                size="default"
+                onClick={() => {
+                  const selectedRows = table.getFilteredSelectedRowModel().rows;
+                  const selectedData = selectedRows.map(row => row.original);
+                  console.log('Selected rows:', selectedData);
+                  alert(`Selected ${selectedRows.length} row(s). Check console for details.`);
+                }}
+                className="text-destructive hover:text-destructive"
+              >
+                <Archive className="mr-2 h-4 w-4" />
+                {t('dataTable.actions.archive')}
+              </Button>
+            )}
+
+            {/* Column Visibility Toggle */}
+            <DataTableColumnVisibility table={table} />
+          </div>
+        </div>
+        <Separator />
         <div className="overflow-x-auto relative">
           {/* Resize indicator line - shows during column resizing */}
           {resizingColumn && (
@@ -222,7 +308,7 @@ export function DataTable<TData, TValue>({
                     return (
                       <TableHead
                         key={header.id}
-                        className={cn("text-brand-primary dark:text-foreground bg-gray-50 dark:bg-accent py-4 relative group/header overflow-hidden",{
+                        className={cn("px-5 text-brand-primary dark:text-foreground bg-gray-100! dark:bg-black/10! py-4 relative group/header overflow-hidden", {
                           'sticky left-0 z-10': isSticky && isFirstColumn,
                           'sticky right-0 z-10 ': isSticky && isLastColumn
                         })}
@@ -265,7 +351,7 @@ export function DataTable<TData, TValue>({
                       return (
                         <TableCell
                           key={cell.id}
-                          className={cn("bg-card overflow-hidden",{
+                          className={cn("px-5 bg-card overflow-hidden", {
                             'sticky left-0 z-10 bg-card': isSticky && isFirstColumn,
                             'sticky right-0 z-10 bg-card': isSticky && isLastColumn
                           })}
@@ -293,8 +379,19 @@ export function DataTable<TData, TValue>({
         {/* Pagination */}
         {showPagination && totalRows > 0 && (
           <div className="flex items-center justify-between border-t border-border px-4 py-4">
-            <div className="text-sm text-muted-foreground">
-              {t('pagination.showing', { from, to, total: totalRows })}
+            <div className="flex-1 text-sm text-muted-foreground">
+              {table.getFilteredSelectedRowModel().rows.length > 0 ? (
+                <div className="font-medium">
+                  {t('dataTable.selected', {
+                    count: table.getFilteredSelectedRowModel().rows.length,
+                    total: table.getFilteredRowModel().rows.length,
+                  })}
+                </div>
+              ) : (
+                <div>
+                  {t('pagination.showing', { from, to, total: totalRows })}
+                </div>
+              )}
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -365,6 +462,65 @@ export function DataTableColumnHeader<TData, TValue>({
 }
 
 // ============================================================================
+// Column Visibility Component
+// ============================================================================
+
+import { Checkbox } from '@/components/atoms/checkbox';
+
+interface DataTableColumnVisibilityProps<TData> {
+  table: ReturnType<typeof useReactTable<TData>>;
+}
+
+export function DataTableColumnVisibility<TData>({
+  table,
+}: DataTableColumnVisibilityProps<TData>) {
+  const { t } = useTranslation('components');
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="icon">
+          <Columns3Cog className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-[200px]">
+        <DropdownMenuLabel>{t('table.columns.toggle')}</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {/* Column Toggles */}
+        <div className="max-h-[300px] overflow-y-auto">
+          {table
+            .getAllColumns()
+            .filter((column) => column.getCanHide())
+            .map((column) => {
+              return (
+                <div
+                  key={column.id}
+                  className="flex items-center space-x-2 px-2 py-1.5 hover:bg-accent rounded-sm cursor-pointer"
+                  onClick={() => column.toggleVisibility(!column.getIsVisible())}
+                >
+                  <Checkbox
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                  <label
+                    className="text-sm font-normal cursor-pointer flex-1"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {'label' in column.columnDef && typeof column.columnDef.label === 'string'
+                      ? column.columnDef.label
+                      : column.id}
+                  </label>
+                </div>
+              );
+            })}
+        </div>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+// ============================================================================
 // Filter Components
 // ============================================================================
 
@@ -378,7 +534,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from '@/components/atoms/dropdown-menu';
-import { Input } from '@/components/atoms/input';
 import {
   Select,
   SelectContent,
@@ -389,6 +544,8 @@ import {
 import { DateInput } from '@/components/organisms/date-input';
 import { getOperatorsForType, getOperatorLabelKey } from '@/utils/table-filters';
 import { format } from 'date-fns';
+import { ButtonGroup } from '@/components/atoms/button-group';
+import { Separator } from '@/components/atoms/separator';
 
 // ============================================================================
 // DataTableFilterBadge
@@ -405,7 +562,7 @@ export function DataTableFilterBadge({
   filterConfig,
   onRemove,
 }: DataTableFilterBadgeProps) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('components');
 
   // Format the value for display
   const displayValue = Array.isArray(filter.value)
@@ -419,9 +576,9 @@ export function DataTableFilterBadge({
   const showOperator = filterConfig.type !== 'text';
 
   return (
-    <Badge variant="secondary" className="gap-1 pr-1">
+    <Badge variant="default" className="bg-primary/10! text-primary gap-1 py-1 px-2 rounded-full">
       <span className="text-xs">
-        <span className="font-medium">{filterConfig.label}:</span>{' '}
+        <span className="font-normal">{filterConfig.label}:</span>{' '}
         {showOperator && (
           <>
             <span className="text-muted-foreground">
@@ -429,15 +586,15 @@ export function DataTableFilterBadge({
             </span>{' '}
           </>
         )}
-        <span className="font-medium">{displayValue}</span>
+        <span className="font-light">{displayValue}</span>
       </span>
       <Button
         variant="ghost"
-        size="sm"
-        className="h-4 w-4 p-0 hover:bg-transparent"
+        size="icon"
+        className="ml-2 p-0 h-4 w-4 rounded-full bg-primary/70 hover:bg-primary/90 text-primary-foreground hover:text-primary-foreground"
         onClick={onRemove}
       >
-        <X className="h-3 w-3" />
+        <X className="h-3! w-3!" />
       </Button>
     </Badge>
   );
@@ -462,7 +619,7 @@ export function DataTableFilterValueInput({
   options,
   onChange,
 }: DataTableFilterValueInputProps) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('components');
 
   // Text and number inputs
   if (type === 'text' || type === 'number') {
@@ -566,6 +723,7 @@ interface DataTableFilterDropdownProps {
   onAddFilter: (filter: ActiveFilter) => void;
   onClearAll: () => void;
   hasActiveFilters: boolean;
+  activeFiltersCount?: number;
 }
 
 export function DataTableFilterDropdown({
@@ -573,8 +731,9 @@ export function DataTableFilterDropdown({
   onAddFilter,
   onClearAll,
   hasActiveFilters,
+  activeFiltersCount = 0,
 }: DataTableFilterDropdownProps) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['components', 'buttons']);
   const [open, setOpen] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState<FilterConfig | null>(null);
   const [selectedOperator, setSelectedOperator] = useState<FilterOperator | null>(null);
@@ -608,130 +767,112 @@ export function DataTableFilterDropdown({
   };
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8">
-          <Plus className="mr-2 h-4 w-4" />
-          {t('table.filters.addFilter')}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-80">
-        <div className="flex items-center justify-between px-2 py-1.5">
-          <DropdownMenuLabel className="p-0">{t('table.filters.addFilter')}</DropdownMenuLabel>
-          {hasActiveFilters && (
-            <button
-              onClick={() => {
-                onClearAll();
-                setOpen(false);
-              }}
-              className="text-xs text-destructive hover:text-destructive/80 transition-colors"
-            >
-              {t('table.filters.clearAll')}
-            </button>
-          )}
-        </div>
-        <DropdownMenuSeparator />
+    <div className="flex gap-1">
+      <DropdownMenu open={open} onOpenChange={setOpen}>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="default" className="text-primary! relative">
+             <Plus className="h-4 w-4" />{t('table.filters.addFilter')}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" className="w-80">
+          <div className="flex items-center bg-muted justify-between px-2 py-2">
+            <DropdownMenuLabel className="p-0">{t('table.filters.addFilter')}</DropdownMenuLabel>
+          </div>
+          <DropdownMenuSeparator />
 
-        {/* Step 1: Select Column */}
-        <div className="p-2">
-          <label className="text-xs text-muted-foreground mb-1 block">
-            {t('table.filters.selectColumn')}
-          </label>
-          <Select
-            value={selectedColumn?.id || ''}
-            onValueChange={(value) => {
-              const config = filterConfigs.find((c) => c.id === value);
-              setSelectedColumn(config || null);
-              setSelectedOperator(null);
-              setFilterValue('');
-            }}
-          >
-            <SelectTrigger className="h-8">
-              <SelectValue placeholder={t('table.filters.selectColumn')} />
-            </SelectTrigger>
-            <SelectContent>
-              {filterConfigs.map((config) => (
-                <SelectItem key={config.id} value={config.id}>
-                  {config.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Step 2: Select Operator (skip for text type) */}
-        {selectedColumn && selectedColumn.type !== 'text' && (
+          {/* Step 1: Select Column */}
           <div className="p-2">
             <label className="text-xs text-muted-foreground mb-1 block">
-              {t('table.filters.selectOperator')}
+              {t('table.filters.selectColumn')}
             </label>
             <Select
-              value={selectedOperator || ''}
+              value={selectedColumn?.id || ''}
               onValueChange={(value) => {
-                setSelectedOperator(value as FilterOperator);
+                const config = filterConfigs.find((c) => c.id === value);
+                setSelectedColumn(config || null);
+                setSelectedOperator(null);
                 setFilterValue('');
               }}
             >
               <SelectTrigger className="h-8">
-                <SelectValue placeholder={t('table.filters.selectOperator')} />
+                <SelectValue placeholder={t('table.filters.selectColumn')} />
               </SelectTrigger>
               <SelectContent>
-                {operators.map((op) => (
-                  <SelectItem key={op} value={op}>
-                    {t(getOperatorLabelKey(op) as never)}
+                {filterConfigs.map((config) => (
+                  <SelectItem key={config.id} value={config.id}>
+                    {config.label}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-        )}
 
-        {/* Step 3: Enter Value (for text: after column, for others: after operator) */}
-        {selectedColumn && (selectedColumn.type === 'text' || selectedOperator) && (
-          <div className="p-2">
-            <label className="text-xs text-muted-foreground mb-1 block">
-              {t('table.filters.enterValue')}
-            </label>
-            <DataTableFilterValueInput
-              type={selectedColumn.type}
-              operator={selectedColumn.type === 'text' ? 'contains' : selectedOperator!}
-              value={filterValue}
-              options={selectedColumn.options}
-              onChange={setFilterValue}
-            />
+          {/* Step 2: Select Operator (skip for text type) */}
+          {selectedColumn && selectedColumn.type !== 'text' && (
+            <div className="p-2">
+              <label className="text-xs text-muted-foreground mb-1 block">
+                {t('table.filters.selectOperator')}
+              </label>
+              <Select
+                value={selectedOperator || ''}
+                onValueChange={(value) => {
+                  setSelectedOperator(value as FilterOperator);
+                  setFilterValue('');
+                }}
+              >
+                <SelectTrigger className="h-8">
+                  <SelectValue placeholder={t('table.filters.selectOperator')} />
+                </SelectTrigger>
+                <SelectContent>
+                  {operators.map((op) => (
+                    <SelectItem key={op} value={op}>
+                      {t(getOperatorLabelKey(op) as never)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+
+          {/* Step 3: Enter Value (for text: after column, for others: after operator) */}
+          {selectedColumn && (selectedColumn.type === 'text' || selectedOperator) && (
+            <div className="p-2">
+              <label className="text-xs text-muted-foreground mb-1 block">
+                {t('table.filters.enterValue')}
+              </label>
+              <DataTableFilterValueInput
+                type={selectedColumn.type}
+                operator={selectedColumn.type === 'text' ? 'contains' : selectedOperator!}
+                value={filterValue}
+                options={selectedColumn.options}
+                onChange={setFilterValue}
+              />
+            </div>
+          )}
+
+          <DropdownMenuSeparator />
+
+          {/* Actions */}
+          <div className="flex gap-2 p-2">
+          
+            <Button
+              size="sm"
+              variant="ghost"
+              className="flex-1 h-8 hover:text-primary"
+              onClick={handleApply}
+              disabled={
+                !selectedColumn ||
+                !filterValue ||
+                (selectedColumn.type !== 'text' && !selectedOperator)
+              }
+            >
+              {t('buttons:apply')}
+            </Button>
           </div>
-        )}
-
-        <DropdownMenuSeparator />
-
-        {/* Actions */}
-        <div className="flex gap-2 p-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex-1 h-8"
-            onClick={() => {
-              handleReset();
-              setOpen(false);
-            }}
-          >
-            {t('cancel')}
-          </Button>
-          <Button
-            size="sm"
-            className="flex-1 h-8"
-            onClick={handleApply}
-            disabled={
-              !selectedColumn ||
-              !filterValue ||
-              (selectedColumn.type !== 'text' && !selectedOperator)
-            }
-          >
-            {t('apply')}
-          </Button>
-        </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </DropdownMenuContent>
+      </DropdownMenu>
+     
+    </div>
   );
 }
 
@@ -745,6 +886,9 @@ interface DataTableFilterToolbarProps {
   onAddFilter: (filter: ActiveFilter) => void;
   onRemoveFilter: (index: number) => void;
   onClearAll: () => void;
+  searchQuery?: string;
+  onSearchChange?: (value: string) => void;
+  searchableColumns?: string[];
 }
 
 export function DataTableFilterToolbar({
@@ -753,29 +897,58 @@ export function DataTableFilterToolbar({
   onAddFilter,
   onRemoveFilter,
   onClearAll,
+  searchQuery,
+  onSearchChange,
+  searchableColumns = [],
 }: DataTableFilterToolbarProps) {
+  const { t } = useTranslation('components');
+
   return (
-    <div className="flex items-center gap-2 flex-wrap">
-      {activeFilters.map((filter, index) => {
-        const config = filterConfigs.find((c) => c.id === filter.columnId);
-        if (!config) return null;
+    <div className="flex-col flex gap-2 flex-wrap">
+      <div className="flex items-center gap-2">
+        {/* Search Bar */}
+        {searchableColumns.length > 0 && onSearchChange && (
+          <div className="relative flex-1 max-w-sm">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              placeholder={t('table.search.placeholder')}
+              value={searchQuery || ''}
+              onChange={(e) => onSearchChange(e.target.value)}
+              className="pl-9"
+            />
+          </div>
+        )}
 
-        return (
-          <DataTableFilterBadge
-            key={index}
-            filter={filter}
-            filterConfig={config}
-            onRemove={() => onRemoveFilter(index)}
-          />
-        );
-      })}
+        {/* Filter Dropdown */}
+        <DataTableFilterDropdown
+          filterConfigs={filterConfigs}
+          onAddFilter={onAddFilter}
+          onClearAll={onClearAll}
+          hasActiveFilters={activeFilters.length > 0}
+          activeFiltersCount={activeFilters.length}
+        />
+      </div>
 
-      <DataTableFilterDropdown
-        filterConfigs={filterConfigs}
-        onAddFilter={onAddFilter}
-        onClearAll={onClearAll}
-        hasActiveFilters={activeFilters.length > 0}
-      />
+      {/* Filter Badges */}
+      {
+        activeFilters.length > 0 && (
+          <div className="mt-1 flex items-center gap-2 flex-wrap">
+            {activeFilters.map((filter, index) => {
+              const config = filterConfigs.find((c) => c.id === filter.columnId);
+              if (!config) return null;
+
+              return (
+                <DataTableFilterBadge
+                  key={index}
+                  filter={filter}
+                  filterConfig={config}
+                  onRemove={() => onRemoveFilter(index)}
+                />
+              );
+            })}
+          </div>
+        )
+      }
     </div>
   );
 }
