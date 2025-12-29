@@ -5,8 +5,7 @@
  */
 
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Phone, MapPin, Users, Shield, Headphones, Building2, Plus, LayoutGrid, List, Headset } from 'lucide-react';
+import { MapPin, Users, Shield, Building2, Plus, LayoutGrid, List, Headset } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/atoms/card';
 import { Badge } from '@/components/atoms/badge';
 import { Button } from '@/components/atoms/button';
@@ -19,7 +18,6 @@ interface Props extends React.ComponentProps<'div'> { }
 type ViewMode = 'grid' | 'list';
 
 export const IndustrialParksPage = ({ ...rest }: Props) => {
-  const { t } = useTranslation('pages');
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
@@ -28,13 +26,6 @@ export const IndustrialParksPage = ({ ...rest }: Props) => {
     park.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     park.address.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
-  // Get occupancy rate color
-  const getOccupancyColor = (rate: number) => {
-    if (rate >= 80) return 'bg-green-500';
-    if (rate >= 60) return 'bg-yellow-500';
-    return 'bg-red-500';
-  };
 
   return (
     <div className="min-h-screen bg-background" {...rest}>
@@ -88,7 +79,7 @@ export const IndustrialParksPage = ({ ...rest }: Props) => {
         {viewMode === 'grid' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {filteredParks.map((park) => (
-              <IndustrialParkCard key={park.id} park={park} getOccupancyColor={getOccupancyColor} />
+              <IndustrialParkCard key={park.id} park={park} />
             ))}
           </div>
         ) : (
@@ -115,10 +106,9 @@ export const IndustrialParksPage = ({ ...rest }: Props) => {
 // Industrial Park Card Component
 interface IndustrialParkCardProps {
   park: IndustrialPark;
-  getOccupancyColor: (rate: number) => string;
 }
 
-function IndustrialParkCard({ park, getOccupancyColor }: IndustrialParkCardProps) {
+function IndustrialParkCard({ park }: IndustrialParkCardProps) {
   return (
     <Card className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
       {/* Industrial Park Image */}

@@ -22,7 +22,7 @@ import {
   getExpandedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { Archive, ChevronLeft, ChevronRight, Columns3Cog, FunnelPlus, Search, Trash } from 'lucide-react';
+import { Archive, ChevronLeft, ChevronRight, Columns3Cog, Search } from 'lucide-react';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTableFilters } from '@/hooks/use-table-filters';
@@ -571,7 +571,6 @@ import {
 import { DateInput } from '@/components/organisms/date-input';
 import { getOperatorsForType, getOperatorLabelKey } from '@/utils/table-filters';
 import { format } from 'date-fns';
-import { ButtonGroup } from '@/components/atoms/button-group';
 import { Separator } from '@/components/atoms/separator';
 
 // ============================================================================
@@ -756,9 +755,9 @@ interface DataTableFilterDropdownProps {
 export function DataTableFilterDropdown({
   filterConfigs,
   onAddFilter,
-  onClearAll,
-  hasActiveFilters,
-  activeFiltersCount = 0,
+  onClearAll: _onClearAll,
+  hasActiveFilters: _hasActiveFilters,
+  activeFiltersCount: _activeFiltersCount = 0,
 }: DataTableFilterDropdownProps) {
   const { t } = useTranslation(['components', 'buttons']);
   const [open, setOpen] = useState(false);

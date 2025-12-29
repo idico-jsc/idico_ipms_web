@@ -9,16 +9,12 @@
  * - Security best practices
  */
 
-import { ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router';
-import { Button } from '@/components/atoms/button';
 import { cn } from '@/utils';
 import { ChangePasswordForm } from '@/features/auth/components/change-password-form';
 
 interface Props extends React.ComponentProps<'div'> { }
 
 export const ChangePasswordPage = ({ className, ...rest }: Props) => {
-  const navigate = useNavigate();
 
   return (
     <div className={cn('min-h-screen bg-background pb-10 md:pb-8', className)} {...rest}>

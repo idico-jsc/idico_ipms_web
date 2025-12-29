@@ -10,15 +10,13 @@
  */
 
 import { useState } from 'react';
-import { Camera, Mail, User as UserIcon, Lock, Save, Edit } from 'lucide-react';
-import { useNavigate } from 'react-router';
+import { Camera, Mail, User as UserIcon, Save, Edit } from 'lucide-react';
 import { Card } from '@/components/atoms/card';
 import { Button } from '@/components/atoms/button';
 import { Input } from '@/components/atoms/input';
 import { Label } from '@/components/atoms/label';
 import { UserAvatar } from '@/components/molecules/user-avatar';
 import { useAuth } from '@/features/auth';
-import { getPath } from '@/features/navigation';
 import { cn } from '@/utils';
 import { Separator } from '@/components/atoms/separator';
 
@@ -26,7 +24,6 @@ interface Props extends React.ComponentProps<'div'> { }
 
 export const ProfilePage = ({ className, ...rest }: Props) => {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     fullName: user?.full_name || '',
