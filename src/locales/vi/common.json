@@ -5,36 +5,7 @@
   "toggleTheme": "Chuyển đổi chủ đề",
   "darkMode": "Chế độ tối",
   "lightMode": "Chế độ sáng",
-  "cancel": "Hủy",
-  "apply": "Áp dụng",
-  "pagination": {
-    "showing": "Hiển thị {{from}}-{{to}} trong tổng số {{total}}",
-    "previous": "Trước",
-    "next": "Sau"
-  },
-  "table": {
-    "filters": {
-      "addFilter": "Thêm bộ lọc",
-      "clearAll": "Xóa tất cả",
-      "selectColumn": "Chọn cột",
-      "selectOperator": "Chọn điều kiện",
-      "enterValue": "Nhập giá trị",
-      "operators": {
-        "contains": "Chứa",
-        "equals": "Bằng",
-        "startsWith": "Bắt đầu bằng",
-        "endsWith": "Kết thúc bằng",
-        "is": "Là",
-        "isNot": "Không phải",
-        "isAnyOf": "Là một trong",
-        "dateIs": "Là",
-        "dateBefore": "Trước",
-        "dateAfter": "Sau",
-        "dateBetween": "Giữa",
-        "numberEquals": "Bằng",
-        "greaterThan": "Lớn hơn",
-        "lessThan": "Nhỏ hơn"
-      }
-    }
+  "breadcrumb": {
+    "home": "Trang chủ"
   }
 }

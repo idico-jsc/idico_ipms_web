@@ -132,5 +132,99 @@
       "previous": "Previous",
       "next": "Next"
     }
+  },
+  "contracts": {
+    "title": "Contracts",
+    "addContract": "Add Contract",
+    "editContract": "Edit Contract",
+    "deleteContract": "Delete Contract",
+    "viewPDF": "View PDF",
+    "confirmDelete": "Are you sure you want to delete this contract?",
+    "confirmDeleteMessage": "This action cannot be undone. This will permanently delete the contract record.",
+    "statusActive": "Active",
+    "statusExpired": "Expired",
+    "statusPending": "Pending",
+    "statusTerminated": "Terminated",
+    "table": {
+      "contractCode": "Contract Code",
+      "customerName": "Customer Name",
+      "rentalDuration": "Rental Duration",
+      "status": "Status",
+      "pdfFile": "PDF File",
+      "created": "Created",
+      "modified": "Modified",
+      "actions": "Actions"
+    },
+    "form": {
+      "cancel": "Cancel"
+    }
+  },
+  "serviceRequests": {
+    "title": "Service Requests",
+    "addRequest": "Create Request",
+    "editRequest": "Edit Request",
+    "deleteRequest": "Delete Request",
+    "requestTypes": {
+      "infrastructure": "Infrastructure",
+      "electricity_water": "Electricity & Water",
+      "security": "Security",
+      "it_internet": "IT & Internet"
+    },
+    "requestTypeDescriptions": {
+      "infrastructure": "Roads, buildings, facilities",
+      "electricity_water": "Power, water supply issues",
+      "security": "Safety and security concerns",
+      "it_internet": "Internet, network, IT support"
+    },
+    "priorities": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "urgent": "Urgent"
+    },
+    "statuses": {
+      "submitted": "Submitted",
+      "in_progress": "In Progress",
+      "resolved": "Resolved",
+      "closed": "Closed"
+    },
+    "table": {
+      "title": "Title",
+      "requestType": "Type",
+      "priority": "Priority",
+      "location": "Location",
+      "status": "Status",
+      "customerName": "Customer",
+      "created": "Created",
+      "modified": "Modified",
+      "actions": "Actions"
+    },
+    "form": {
+      "requestType": "Request Type",
+      "priority": "Priority Level",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe your service request in detail...",
+      "location": "Location",
+      "locationPlaceholder": "e.g., Building A, Floor 3",
+      "images": "Attach Images",
+      "imagesPlaceholder": "Drag and drop images or click to browse",
+      "imagesUploaded": "Images uploaded successfully",
+      "cancel": "Cancel",
+      "save": "Save",
+      "errors": {
+        "requestTypeRequired": "Please select a request type",
+        "priorityRequired": "Please select a priority level",
+        "descriptionRequired": "Description is required",
+        "descriptionTooShort": "Description must be at least 10 characters",
+        "descriptionTooLong": "Description cannot exceed 1000 characters",
+        "locationRequired": "Location is required",
+        "locationTooShort": "Location must be at least 3 characters",
+        "invalidImageFormat": "Invalid image format. Please use JPG, PNG, or WebP.",
+        "imageTooLarge": "Image size must be less than the maximum allowed size",
+        "uploadFailed": "Failed to upload images. Please try again."
+      }
+    },
+    "confirmDelete": "Delete Service Request?",
+    "confirmDeleteMessage": "This action cannot be undone. This will permanently delete the service request."
   }
 }

@@ -18,6 +18,10 @@ import {
   BarChart,
   AlertCircle,
   Building2,
+  Blocks,
+  FileText,
+  Factory,
+  Wrench,
 } from "lucide-react";
 import type { NavigationConfig } from "@/types/navigation.types";
 
@@ -55,6 +59,27 @@ export function useNavigationConfig(): NavigationConfig {
               label: t("items.customers"),
               path: "/customers",
               icon: Building2,
+              showInMobileNav: true,
+            },
+            {
+              id: "contracts",
+              label: t("items.contracts"),
+              path: "/contracts",
+              icon: FileText,
+              showInMobileNav: true,
+            },
+            {
+              id: "industrial-parks",
+              label: t("items.industrialParks"),
+              path: "/industrial-parks",
+              icon: Factory,
+              showInMobileNav: true,
+            },
+            {
+              id: "service-requests",
+              label: t("items.serviceRequests"),
+              path: "/service-requests",
+              icon: Wrench,
               showInMobileNav: true,
             },
           ],
@@ -102,10 +127,10 @@ export function useNavigationConfig(): NavigationConfig {
           roles: ["System Manager"],
           children: [
             {
-              id: "settings",
-              label: t("items.settings"),
-              path: "/settings",
-              icon: Settings,
+              id: "components",
+              label: t("items.components"),
+              path: "/components",
+              icon: Blocks,
             },
             {
               id: "debug-notifications",
@@ -124,7 +149,6 @@ export function useNavigationConfig(): NavigationConfig {
           label: t("items.notifications"),
           path: "/debug-notifications",
           icon: Bell,
-          showInMobileNav: true,
         },
         {
           id: "settings-footer",

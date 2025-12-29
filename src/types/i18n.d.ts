@@ -9,6 +9,7 @@ import modals from '@/locales/en/modals.json';
 import dialogs from '@/locales/en/dialogs.json';
 import pages from '@/locales/en/pages.json';
 import menu from '@/locales/en/menu.json';
+import components from '@/locales/en/components.json';
 
 declare module 'i18next' {
   interface CustomTypeOptions {
@@ -22,6 +23,7 @@ declare module 'i18next' {
       dialogs: typeof dialogs;
       pages: typeof pages;
       menu: typeof menu;
+      components: typeof components;
     };
   }
 }

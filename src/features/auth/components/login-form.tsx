@@ -21,6 +21,7 @@ import { GOOGLE_CLIENT_ID } from "@/constants/env";
 import { useLoginForm } from "@/features/auth/hooks/use-login-form";
 import { useAuth } from "../hooks/use-auth";
 import { useNetworkStatus } from "@/providers/network-provider";
+import { useAuthDemo } from "../hooks/use-auth-demo";
 
 interface LoginFormProps {
   onSubmit?: (email: string, password: string) => Promise<void>;
@@ -30,6 +31,7 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
   const { t } = useTranslation("pages");
   const form = useLoginForm();
   const { login, loginWithGoogle, isLoading } = useAuth();
+  const { loginDemo } = useAuthDemo()
   const [error, setError] = useState<string | null>(null);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false);
@@ -42,8 +44,13 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
     const { email, password } = values;
     try {
       setError(null);
-
-      await login(email, password);
+        console.log(" DEMO");
+        
+      await loginDemo(email).catch(async()=>{
+        console.log("WRONG DEMO");
+        
+        await login(email, password)
+      })
 
       await onSubmit?.(values.email, values.password);
 

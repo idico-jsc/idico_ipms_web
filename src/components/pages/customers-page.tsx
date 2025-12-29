@@ -43,6 +43,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/atoms/dropdown-menu';
 import { DataTable, DataTableColumnHeader } from '@/components/organisms';
+import { Checkbox } from '@/components/atoms/checkbox';
 import { mockCustomers } from '@/data/mock-customers';
 import type { Customer, CustomerFormData, CustomerStatus } from '@/types/customer.types';
 
@@ -53,8 +54,6 @@ export const CustomersPage = ({ ...rest }: Props) => {
 
   // State management
   const [customers, setCustomers] = useState<Customer[]>(mockCustomers);
-  const [searchValue, setSearchValue] = useState('');
-  const [statusFilter, setStatusFilter] = useState<'all' | CustomerStatus>('all');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -73,7 +72,34 @@ export const CustomersPage = ({ ...rest }: Props) => {
   const columns: FilterableColumnDef<Customer>[] = useMemo(
     () => [
       {
+        id: 'select',
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && 'indeterminate')
+            }
+            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+            aria-label="Select all"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+        enableResizing: false,
+        size: 50,
+        minSize: 50,
+        maxSize: 50,
+      },
+      {
         accessorKey: 'company_name',
+        label: t('customers.table.companyName'),
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title={t('customers.table.companyName')} />
         ),
@@ -85,9 +111,11 @@ export const CustomersPage = ({ ...rest }: Props) => {
           label: t('customers.table.companyName'),
           type: 'text',
         },
+        searchable: true
       },
       {
         accessorKey: 'name',
+        label: t('customers.table.representative'),
         header: t('customers.table.representative'),
         cell: ({ row }) => <div>{row.getValue('name')}</div>,
         enableResizing: true,
@@ -98,6 +126,7 @@ export const CustomersPage = ({ ...rest }: Props) => {
       },
       {
         accessorKey: 'tax_code',
+        label: t('customers.table.taxCode'),
         header: t('customers.table.taxCode'),
         cell: ({ row }) => <div className="text-sm">{row.getValue('tax_code')}</div>,
         enableResizing: true,
@@ -108,6 +137,7 @@ export const CustomersPage = ({ ...rest }: Props) => {
       },
       {
         accessorKey: 'address',
+        label: t('customers.table.address'),
         header: t('customers.table.address'),
         cell: ({ row }) => (
           <div className="truncate" title={row.getValue('address')}>
@@ -122,6 +152,7 @@ export const CustomersPage = ({ ...rest }: Props) => {
       },
       {
         accessorKey: 'status',
+        label: t('customers.table.status'),
         header: t('customers.table.status'),
         enableResizing: true,
         cell: ({ row }) => {
@@ -152,6 +183,7 @@ export const CustomersPage = ({ ...rest }: Props) => {
       },
       {
         accessorKey: 'created',
+        label: t('customers.table.created'),
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title={t('customers.table.created')} />
         ),
@@ -167,6 +199,7 @@ export const CustomersPage = ({ ...rest }: Props) => {
       },
       {
         accessorKey: 'modified',
+        label: t('customers.table.modified'),
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title={t('customers.table.modified')} />
         ),
@@ -182,6 +215,7 @@ export const CustomersPage = ({ ...rest }: Props) => {
       },
       {
         id: 'actions',
+        label: t('customers.table.actions'),
         enableHiding: false,
         enableResizing: false,
         size: 80,
@@ -225,13 +259,6 @@ export const CustomersPage = ({ ...rest }: Props) => {
     [t]
   );
 
-  // Filter data based on status
-  const filteredData = useMemo(() => {
-    return customers.filter((customer) => {
-      if (statusFilter === 'all') return true;
-      return customer.status === statusFilter;
-    });
-  }, [customers, statusFilter]);
 
   // Form validation
   const validateForm = (): boolean => {
@@ -353,46 +380,21 @@ export const CustomersPage = ({ ...rest }: Props) => {
 
   return (
     <div className="min-h-screen bg-background" {...rest}>
-      <div className="mx-auto space-y-6">
+      <div className="mx-auto  space-y-2 md:space-y-6">
         {/* Page Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">{t('customers.title')}</h1>
-          <Button onClick={openCreateDialog}>
+        <div className="flex items-center justify-end md:justify-between">
+          <h1 className="hidden md:block text-3xl font-bold">{t('customers.title')}</h1>
+          <Button className="w-full md:w-auto mb-2" onClick={openCreateDialog}>
             <Plus className="mr-2 h-4 w-4" />
             {t('customers.addCustomer')}
           </Button>
         </div>
 
-        {/* Filters Section */}
-        <div className="flex flex-col gap-4 rounded-lg border border-border bg-card p-4 sm:flex-row sm:items-center">
-          <Input
-            placeholder={t('customers.searchPlaceholder')}
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className="max-w-sm"
-          />
-          <Select
-            value={statusFilter}
-            onValueChange={(value: 'all' | CustomerStatus) => setStatusFilter(value)}
-          >
-            <SelectTrigger className="w-full sm:w-[200px]">
-              <SelectValue placeholder={t('customers.statusFilter')} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">{t('customers.allStatuses')}</SelectItem>
-              <SelectItem value="active">{t('customers.activeStatus')}</SelectItem>
-              <SelectItem value="inactive">{t('customers.inactiveStatus')}</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
         {/* DataTable */}
         <DataTable
           columns={columns}
-          data={filteredData}
+          data={customers}
           pageSize={10}
-          searchColumn="company_name"
-          searchValue={searchValue}
         />
       </div>
 

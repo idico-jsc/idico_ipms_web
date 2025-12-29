@@ -70,9 +70,16 @@ export interface ActiveFilter {
 }
 
 /**
- * Extended column definition with filter and sticky support
+ * Extended column definition with filter, search, and sticky support
  */
 export type FilterableColumnDef<TData, TValue = unknown> = ColumnDef<TData, TValue> & {
+  /**
+   * Human-readable label for this column
+   * Used in column visibility dropdown and other UI elements
+   * If not provided, falls back to column.id
+   */
+  label?: string;
+
   /** Filter configuration for this column */
   filter?: {
     label: string;
@@ -82,6 +89,12 @@ export type FilterableColumnDef<TData, TValue = unknown> = ColumnDef<TData, TVal
       label: string;
     }>;
   };
+
+  /**
+   * Make this column searchable via the search bar
+   * When enabled, this column will be included in global search
+   */
+  searchable?: boolean;
 
   /**
    * Make this column sticky (fixed position during horizontal scroll)

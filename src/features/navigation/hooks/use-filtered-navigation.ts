@@ -8,7 +8,7 @@
 
 import { useMemo } from "react";
 import { useUserRoles, hasAnyRole } from "@/features/auth";
-import { useNavigationConfig } from "./useNavigationConfig";
+import { useNavigationConfig } from "./use-navigation-config";
 import { filterNavItems } from "../utils/filter-nav-items";
 import type { NavItem } from "@/types/navigation.types";
 

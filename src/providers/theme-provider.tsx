@@ -4,6 +4,7 @@ type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
+  setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
   setLightMode: () => void;
   setDarkMode: () => void;
@@ -50,6 +51,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const value = {
     theme,
+    setTheme,
     toggleTheme,
     setLightMode,
     setDarkMode,

@@ -3,8 +3,25 @@
  * Custom variants, theme definitions, and CSS variables
  */
 
+/* Mulish Variable Font */
+@font-face {
+  font-family: 'Mulish';
+  src: url('/src/assets/fonts/Mulish/Mulish-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mulish';
+  src: url('/src/assets/fonts/Mulish/Mulish-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 1000;
+  font-style: italic;
+  font-display: swap;
+}
+
 @theme {
-  --font-sans: 'Lexend', 'Alexandria', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Mulish', 'Lexend', 'Alexandria', system-ui, -apple-system, sans-serif;
 }
 
 @custom-variant dark (&:is(.dark *));

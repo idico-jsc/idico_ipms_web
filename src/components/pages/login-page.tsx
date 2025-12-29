@@ -3,7 +3,7 @@ import { cn } from "@/utils";
 import { ScreenLayout } from "@templates";
 import { useTranslation } from "react-i18next";
 import { LoginForm, LoginSlider } from "@/features/auth";
-import { LanguageSwitcher, ThemeToggle } from "@molecules";
+import { LanguageSwitcher, ThemeToggle } from "@/features/preference";
 import { Card, CardContent } from "@atoms";
 
 export type LoginPageProps = HTMLAttributes<HTMLDivElement> & {};
@@ -12,7 +12,7 @@ export const LoginPage: FC<LoginPageProps> = ({ className }) => {
   const { t } = useTranslation(["pages", "common"]);
 
   return (
-    <ScreenLayout className={cn(className)}>
+    <ScreenLayout classNameWrapper="bg-muted  dark:bg-background" className={cn("",className)}>
       <Card className="max-w-[480px] md:max-w-[500px] lg:max-w-[1200px] w-full overflow-hidden rounded-lg shadow-2xl backdrop-blur-sm lg:w-full">
         <CardContent className="grid h-full w-full grid-cols-1 p-0 lg:grid-cols-[55%_auto]">
           {/* Left side - Carousel (hidden on mobile) */}
@@ -28,7 +28,7 @@ export const LoginPage: FC<LoginPageProps> = ({ className }) => {
               <ThemeToggle />
               <LanguageSwitcher />
             </div>
-            <div className="flex flex-1 flex-col px-0 py-5 lg:py-20">
+            <div className="flex flex-1 flex-col">
               <div className="mb-8 space-y-2 text-center">
                 <h4 className="text-3xl font-bold tracking-tight uppercase">
                   {t("common:app_name")}

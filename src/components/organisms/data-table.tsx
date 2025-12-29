@@ -11,11 +11,15 @@ import {
   type SortingState,
   type VisibilityState,
   type ColumnSizingState,
+  type ExpandedState,
+  type OnChangeFn,
+  type Row,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  getExpandedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
 import { Archive, ChevronLeft, ChevronRight, Columns3Cog, FunnelPlus, Search, Trash } from 'lucide-react';
@@ -49,6 +53,10 @@ interface DataTableProps<TData, TValue> {
   filterConfig?: FilterConfig[];
   onFiltersChange?: (filters: ActiveFilter[]) => void;
   onRowSelectionChange?: (selectedRows: TData[]) => void;
+  expanded?: ExpandedState;
+  onExpandedChange?: OnChangeFn<ExpandedState>;
+  getRowCanExpand?: (row: Row<TData>) => boolean;
+  renderSubComponent?: (row: Row<TData>) => React.ReactNode;
 }
 
 export function DataTable<TData, TValue>({
@@ -63,6 +71,10 @@ export function DataTable<TData, TValue>({
   filterConfig,
   onFiltersChange,
   onRowSelectionChange,
+  expanded,
+  onExpandedChange,
+  getRowCanExpand,
+  renderSubComponent,
 }: DataTableProps<TData, TValue>) {
   const { t } = useTranslation('components');
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -161,9 +173,12 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onColumnSizingChange: setColumnSizing,
+    onExpandedChange: onExpandedChange,
+    getRowCanExpand: getRowCanExpand,
     enableColumnResizing: true,
     columnResizeMode: 'onChange',
     globalFilterFn: combinedFilterFn,
@@ -174,6 +189,7 @@ export function DataTable<TData, TValue>({
       rowSelection,
       columnSizing,
       globalFilter: globalFilterValue,
+      expanded: expanded,
     },
     initialState: {
       pagination: {
@@ -308,9 +324,9 @@ export function DataTable<TData, TValue>({
                     return (
                       <TableHead
                         key={header.id}
-                        className={cn("px-5 text-brand-primary dark:text-foreground bg-gray-100! dark:bg-black/10! py-4 relative group/header overflow-hidden", {
-                          'sticky left-0 z-10': isSticky && isFirstColumn,
-                          'sticky right-0 z-10 ': isSticky && isLastColumn
+                        className={cn("px-5 text-primary py-2 md:py-4 relative group/header overflow-hidden", {
+                          'sticky left-0 z-10 bg-card dark:bg-card!': isSticky && isFirstColumn,
+                          'sticky right-0 z-10 bg-card dark:bg-card!': isSticky && isLastColumn
                         })}
                         style={{
                           width: getColumnWidth(header.getSize(), index),
@@ -342,32 +358,43 @@ export function DataTable<TData, TValue>({
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'} className="group/row">
-                    {row.getVisibleCells().map((cell, index) => {
-                      const isSticky = (cell.column.columnDef as any).sticky;
-                      const isFirstColumn = index === 0;
-                      const isLastColumn = index === row.getVisibleCells().length - 1;
+                  <>
+                    <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'} className="group/row">
+                      {row.getVisibleCells().map((cell, index) => {
+                        const isSticky = (cell.column.columnDef as any).sticky;
+                        const isFirstColumn = index === 0;
+                        const isLastColumn = index === row.getVisibleCells().length - 1;
 
-                      return (
-                        <TableCell
-                          key={cell.id}
-                          className={cn("px-5 bg-card overflow-hidden", {
-                            'sticky left-0 z-10 bg-card': isSticky && isFirstColumn,
-                            'sticky right-0 z-10 bg-card': isSticky && isLastColumn
-                          })}
-                          style={{
-                            width: getColumnWidth(cell.column.getSize(), index),
-                          }}
-                        >
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        return (
+                          <TableCell
+                            key={cell.id}
+                            className={cn("px-5 bg-card overflow-hidden", {
+                              'sticky left-0 z-10 bg-card': isSticky && isFirstColumn,
+                              'sticky right-0 z-10 bg-card': isSticky && isLastColumn
+                            })}
+                            style={{
+                              width: getColumnWidth(cell.column.getSize(), index),
+                            }}
+                          >
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                    {row.getIsExpanded() && renderSubComponent && (
+                      <TableRow key={`${row.id}-expanded`}>
+                        <TableCell colSpan={row.getVisibleCells().length} className="p-0">
+                          <div className="px-5 py-4 bg-muted/30">
+                            {renderSubComponent(row)}
+                          </div>
                         </TableCell>
-                      );
-                    })}
-                  </TableRow>
+                      </TableRow>
+                    )}
+                  </>
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={columns.length} className="h-24 text-center">
+                  <TableCell colSpan={columns.length} className="h-14 md:h-24 md:text-center">
                     {emptyMessage}
                   </TableCell>
                 </TableRow>
@@ -378,7 +405,7 @@ export function DataTable<TData, TValue>({
 
         {/* Pagination */}
         {showPagination && totalRows > 0 && (
-          <div className="flex items-center justify-between border-t border-border px-4 py-4">
+          <div className="flex flex-col-reverse md:flex-row items-center justify-between border-t border-border px-0 py-4 md:p-4 gap-2">
             <div className="flex-1 text-sm text-muted-foreground">
               {table.getFilteredSelectedRowModel().rows.length > 0 ? (
                 <div className="font-medium">
@@ -904,8 +931,8 @@ export function DataTableFilterToolbar({
   const { t } = useTranslation('components');
 
   return (
-    <div className="flex-col flex gap-2 flex-wrap">
-      <div className="flex items-center gap-2">
+    <div className="flex-col flex gap-1 flex-wrap">
+      <div className="flex flex-col md:flex-row justify-start md:items-center gap-2">
         {/* Search Bar */}
         {searchableColumns.length > 0 && onSearchChange && (
           <div className="relative flex-1 max-w-sm">

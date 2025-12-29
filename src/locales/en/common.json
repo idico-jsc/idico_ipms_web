@@ -5,36 +5,7 @@
   "toggleTheme": "Toggle theme",
   "darkMode": "Dark mode",
   "lightMode": "Light mode",
-  "cancel": "Cancel",
-  "apply": "Apply",
-  "pagination": {
-    "showing": "Showing {{from}}-{{to}} of {{total}}",
-    "previous": "Previous",
-    "next": "Next"
-  },
-  "table": {
-    "filters": {
-      "addFilter": "Add filter",
-      "clearAll": "Clear all",
-      "selectColumn": "Select column",
-      "selectOperator": "Select operator",
-      "enterValue": "Enter value",
-      "operators": {
-        "contains": "Contains",
-        "equals": "Equals",
-        "startsWith": "Starts with",
-        "endsWith": "Ends with",
-        "is": "Is",
-        "isNot": "Is not",
-        "isAnyOf": "Is any of",
-        "dateIs": "Is",
-        "dateBefore": "Before",
-        "dateAfter": "After",
-        "dateBetween": "Between",
-        "numberEquals": "Equals",
-        "greaterThan": "Greater than",
-        "lessThan": "Less than"
-      }
-    }
+  "breadcrumb": {
+    "home": "Home"
   }
 }

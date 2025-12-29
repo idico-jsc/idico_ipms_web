@@ -132,5 +132,99 @@
       "previous": "Trước",
       "next": "Sau"
     }
+  },
+  "contracts": {
+    "title": "Hợp đồng",
+    "addContract": "Thêm hợp đồng",
+    "editContract": "Sửa hợp đồng",
+    "deleteContract": "Xóa hợp đồng",
+    "viewPDF": "Xem PDF",
+    "confirmDelete": "Bạn có chắc chắn muốn xóa hợp đồng này?",
+    "confirmDeleteMessage": "Hành động này không thể hoàn tác. Dữ liệu hợp đồng sẽ bị xóa vĩnh viễn.",
+    "statusActive": "Đang hiệu lực",
+    "statusExpired": "Hết hạn",
+    "statusPending": "Chờ duyệt",
+    "statusTerminated": "Đã hủy",
+    "table": {
+      "contractCode": "Mã hợp đồng",
+      "customerName": "Tên khách hàng",
+      "rentalDuration": "Thời hạn thuê",
+      "status": "Trạng thái",
+      "pdfFile": "File PDF",
+      "created": "Ngày tạo",
+      "modified": "Ngày sửa",
+      "actions": "Thao tác"
+    },
+    "form": {
+      "cancel": "Hủy"
+    }
+  },
+  "serviceRequests": {
+    "title": "Yêu cầu dịch vụ",
+    "addRequest": "Tạo yêu cầu",
+    "editRequest": "Sửa yêu cầu",
+    "deleteRequest": "Xóa yêu cầu",
+    "requestTypes": {
+      "infrastructure": "Hạ tầng",
+      "electricity_water": "Điện & Nước",
+      "security": "An ninh",
+      "it_internet": "IT & Internet"
+    },
+    "requestTypeDescriptions": {
+      "infrastructure": "Đường, tòa nhà, cơ sở vật chất",
+      "electricity_water": "Điện, cấp nước",
+      "security": "An toàn và an ninh",
+      "it_internet": "Internet, mạng, hỗ trợ IT"
+    },
+    "priorities": {
+      "low": "Thấp",
+      "medium": "Trung bình",
+      "high": "Cao",
+      "urgent": "Khẩn cấp"
+    },
+    "statuses": {
+      "submitted": "Đã gửi",
+      "in_progress": "Đang xử lý",
+      "resolved": "Đã giải quyết",
+      "closed": "Đã đóng"
+    },
+    "table": {
+      "title": "Tiêu đề",
+      "requestType": "Loại",
+      "priority": "Độ ưu tiên",
+      "location": "Vị trí",
+      "status": "Trạng thái",
+      "customerName": "Khách hàng",
+      "created": "Ngày tạo",
+      "modified": "Cập nhật",
+      "actions": "Thao tác"
+    },
+    "form": {
+      "requestType": "Loại yêu cầu",
+      "priority": "Độ ưu tiên",
+      "description": "Mô tả",
+      "descriptionPlaceholder": "Mô tả chi tiết yêu cầu dịch vụ của bạn...",
+      "location": "Vị trí",
+      "locationPlaceholder": "VD: Khu A, Tầng 3",
+      "images": "Đính kèm hình ảnh",
+      "imagesPlaceholder": "Kéo thả hình ảnh hoặc click để chọn",
+      "imagesUploaded": "Tải hình ảnh thành công",
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "errors": {
+        "requestTypeRequired": "Vui lòng chọn loại yêu cầu",
+        "priorityRequired": "Vui lòng chọn độ ưu tiên",
+        "descriptionRequired": "Mô tả là bắt buộc",
+        "descriptionTooShort": "Mô tả phải có ít nhất 10 ký tự",
+        "descriptionTooLong": "Mô tả không được quá 1000 ký tự",
+        "locationRequired": "Vị trí là bắt buộc",
+        "locationTooShort": "Vị trí phải có ít nhất 3 ký tự",
+        "invalidImageFormat": "Định dạng hình ảnh không hợp lệ. Vui lòng sử dụng JPG, PNG hoặc WebP.",
+        "imageTooLarge": "Kích thước hình ảnh phải nhỏ hơn giới hạn cho phép",
+        "uploadFailed": "Tải hình ảnh thất bại. Vui lòng thử lại."
+      }
+    },
+    "confirmDelete": "Xóa yêu cầu dịch vụ?",
+    "confirmDeleteMessage": "Hành động này không thể hoàn tác. Yêu cầu dịch vụ sẽ bị xóa vĩnh viễn."
   }
 }
