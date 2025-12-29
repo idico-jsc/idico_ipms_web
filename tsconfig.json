@@ -35,7 +35,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "global.d.ts", "./auto-imports.d.ts", "sw.js"],
+  "include": ["src", "global.d.ts", "sw.js"],
   "exclude": ["node_modules", "dist"],
 
   "references": [{ "path": "./tsconfig.node.json" }]
