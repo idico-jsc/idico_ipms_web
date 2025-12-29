@@ -1,0 +1,24 @@
+/**
+ * Global Styles
+ * Component-level and base styles
+ */
+
+@layer components {
+  .bg-glass {
+    @apply bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  button {
+    @apply cursor-pointer
+  }
+}

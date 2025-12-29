@@ -29,15 +29,16 @@ import {
   SidebarMenuSubItem,
   SidebarProvider,
   SidebarInset,
-} from "@/components/atoms/sidebar";
+} from "@atoms/sidebar";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/atoms/collapsible";
+} from "@atoms/collapsible";
 import { useFilteredNavigation } from "../hooks/use-filtered-navigation";
 import type { NavItem } from "@/types/navigation.types";
-import { Logo, LogoPath } from "@atoms";
+import { Logo, LogoPath, VersionDisplay } from "@atoms";
+import { cn } from "@/utils";
 
 interface AppSidebarProps {
   children: ReactNode;
@@ -67,7 +68,11 @@ function NavItemRenderer({ item }: { item: NavItem }) {
       >
         <SidebarMenuItem>
           <CollapsibleTrigger asChild>
-            <SidebarMenuButton tooltip={item.label} isActive={isActive}>
+            <SidebarMenuButton
+              tooltip={item.label}
+              isActive={isActive}
+              className="hover:bg-black/20 data-[active=true]:border-none data-[active=true]:outline-none data-[active=true]:shadow-none"
+            >
               {Icon && <Icon />}
               <span>{item.label}</span>
               <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -81,8 +86,12 @@ function NavItemRenderer({ item }: { item: NavItem }) {
 
                 return (
                   <SidebarMenuSubItem key={child.id}>
-                    <SidebarMenuSubButton asChild isActive={isChildActive}>
-                      <NavLink to={child.path??""}>
+                    <SidebarMenuSubButton
+                      asChild
+                      isActive={isChildActive}
+                      className="hover:bg-black/20 data-[active=true]:border-none data-[active=true]:outline-none data-[active=true]:shadow-none"
+                    >
+                      <NavLink to={child.path ?? ""}>
                         {ChildIcon && <ChildIcon />}
                         <span>{child.label}</span>
                       </NavLink>
@@ -100,8 +109,13 @@ function NavItemRenderer({ item }: { item: NavItem }) {
   // Case 2: No children - simple link
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton asChild tooltip={item.label} isActive={isActive}>
-        <NavLink to={item.path??""}>
+      <SidebarMenuButton
+        asChild
+        tooltip={item.label}
+        isActive={isActive}
+        className="hover:bg-black/20 data-[active=true]:border-none data-[active=true]:outline-none data-[active=true]:shadow-none"
+      >
+        <NavLink to={item.path ?? ""}>
           {Icon && <Icon />}
           <span>{item.label}</span>
           {item.badge && (
@@ -125,61 +139,84 @@ export function AppSidebar({ children }: AppSidebarProps) {
 
   return (
     <SidebarProvider>
-      <Sidebar className="bg-brand-primary overflow-hidden" collapsible="icon">
-       <div className="flex flex-col relative w-full h-full z-20 ">
-         {/* Header */}
-        <SidebarHeader>
-          <div className="flex items-center py-2 gap-2">
-            {/* Logo Icon - Only visible when collapsed */}
-            <div className="transition-all duration-200 opacity-0 w-0 group-data-[collapsible=icon]:opacity-100 group-data-[collapsible=icon]:w-auto">
-              <div className="flex h-8 w-8 p-1.5 items-center justify-center rounded-md bg-brand-secondary text-primary-foreground">
-                <Logo variant={"icon"} className="brightness-0 invert"/>
+      <Sidebar className="bg-sidebar border-none" collapsible="icon">
+        <div className="relative w-full h-full overflow-hidden">
+          <div className="flex flex-col relative w-full h-full z-20 ">
+            {/* Header */}
+            <SidebarHeader>
+              <div className="flex items-center py-2 gap-2">
+                {/* Logo Icon - Only visible when collapsed */}
+                <div className="transition-all duration-200 opacity-0 w-0 group-data-[collapsible=icon]:opacity-100 group-data-[collapsible=icon]:w-auto">
+                  <div className="flex h-8 w-8 p-1.5 items-center justify-center rounded-md bg-brand-secondary text-primary-foreground">
+                    <Logo variant={"icon"} className="brightness-0 invert" />
+                  </div>
+                </div>
+
+                {/* Logo Text - Only visible when expanded */}
+                <div className="transition-all duration-200 opacity-100 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:w-0">
+                  <Logo variant={"white"} />
+                </div>
               </div>
-            </div>
+            </SidebarHeader>
 
-            {/* Logo Text - Only visible when expanded */}
-            <div className="transition-all duration-200 opacity-100 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:w-0">
-              <Logo variant={"white"} />
-            </div>
-          </div>
-        </SidebarHeader>
+            {/* Main Navigation */}
+            <SidebarContent>
+              {groups.map((group) => (
+                <SidebarGroup key={group.id}>
+                  <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+                  <SidebarGroupContent>
+                    <SidebarMenu>
+                      {group.children?.map((item) => (
+                        <NavItemRenderer key={item.id} item={item} />
+                      ))}
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              ))}
+            </SidebarContent>
 
-        {/* Main Navigation */}
-        <SidebarContent>
-          {groups.map((group) => (
-            <SidebarGroup key={group.id}>
-              <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
-              <SidebarGroupContent>
+            {/* Footer */}
+            <SidebarFooter>
+              {footer.length > 0 && (
                 <SidebarMenu>
-                  {group.children?.map((item) => (
+                  {footer.map((item) => (
                     <NavItemRenderer key={item.id} item={item} />
                   ))}
                 </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          ))}
-        </SidebarContent>
-
-        {/* Footer */}
-        {footer.length > 0 && (
-          <SidebarFooter>
-            <SidebarMenu>
-              {footer.map((item) => (
-                <NavItemRenderer key={item.id} item={item} />
-              ))}
-            </SidebarMenu>
-          </SidebarFooter>
-        )}
-       </div>
-       {/*Decor */}
-        <div className="absolute top-0 left-0 z-1 min-w-75 w-full h-full">
-          <LogoPath className="absolute top-0 left-0 w-full h-[52.5%] bg-brand-primary"/>
-          <LogoPath className="absolute bottom-0 left-0 w-full h-[52.5%] rotate-180 bg-brand-primary"/>
+              )}
+              {/* Version Display */}
+              <div className="px-2">
+                <VersionDisplay
+                  position="inline"
+                  variant="minimal"
+                  className="text-sidebar-foreground/50 group-data-[collapsible=icon]:text-center"
+                />
+              </div>
+            </SidebarFooter>
+          </div>
+          {/*Decor */}
+          <div className="absolute top-0 left-0 z-1 min-w-75 w-full h-full">
+            <LogoPath className="absolute top-0 left-0 w-full h-[52.5%] [background:var(--brand-gradient-3)]" />
+            <LogoPath className="absolute bottom-0 left-0 w-full h-[52.5%] rotate-180 [background:var(--brand-gradient-3)]" />
+          </div>
         </div>
       </Sidebar>
 
       {/* Children rendered in SidebarInset */}
-      <SidebarInset>{children}</SidebarInset>
+      <SidebarInset
+        className={cn(
+          // Set content container, so we can use container queries
+          '@container/content',
+
+          // If layout is fixed, set the height
+          // to 100svh to prevent overflow
+          'has-data-[layout=fixed]:h-svh',
+
+          // If layout is fixed and sidebar is inset,
+          // set the height to 100svh - spacing (total margins) to prevent overflow
+          'peer-data-[variant=inset]:has-data-[layout=fixed]:h-[calc(100svh-(var(--spacing)*4))]'
+        )}
+      >{children}</SidebarInset>
     </SidebarProvider>
   );
 }

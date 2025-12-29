@@ -1,6 +1,6 @@
 import { Moon, Sun } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@atoms/button";
 import { useTheme } from "@/hooks";
 import { cn } from "@/utils";
 
@@ -19,7 +19,7 @@ export function ThemeToggle({ className, variant = "outline", size = "icon" }: T
       variant={variant}
       size={size}
       onClick={toggleTheme}
-      className={cn("relative", className)}
+      className={cn("bg-black/5 dark:bg-white/5 border-none relative rounded-full", className)}
       aria-label={t("toggleTheme")}
       title={theme === "dark" ? t("lightMode") : t("darkMode")}
     >

@@ -93,6 +93,15 @@ export const getPath = {
   // Main routes
   home: createRoute("/"),
 
+  // Change-password routes
+  changePassword: createRoute("/change-password"),
+
+  // Components routes
+  components: createRoute("/components"),
+
+  // Customers routes
+  customers: createRoute("/customers"),
+
   // Debug-notifications routes
   debugNotifications: createRoute("/debug-notifications"),
 
@@ -104,6 +113,10 @@ export const getPath = {
 
   // Reset-password routes
   resetPassword: createRoute<{ token: string }>("/reset-password/[token]", ["token"]),
+
+  // Settings routes
+  settings: createRoute("/settings"),
+  settingsProfile: createRoute("/settings/profile"),
 } as const;
 
 /**

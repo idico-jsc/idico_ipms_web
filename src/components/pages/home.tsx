@@ -1,178 +1,146 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
-import { Button } from "@/components/atoms/button";
-import { useAuth } from "@/features/auth/hooks/use-auth";
-import { Bell } from "lucide-react";
-import { getPath } from "@/features/navigation";
-import { FontTester } from "@/components/organisms/font-tester";
+/**
+ * Home Page - CRM Dashboard
+ *
+ * Main dashboard page with:
+ * - User greeting header
+ * - Balance summary
+ * - Quick actions
+ * - Financial insights
+ * - Recent activities
+ */
 
-interface Props extends React.ComponentProps<"div"> {}
+import { Youtube, DollarSign, ShoppingCart, Zap } from 'lucide-react';
+import {
+  DashboardHeader,
+  BalanceSummaryCard,
+  InsightBanner,
+  RecentActivitiesList,
+  Activity,
+} from '@/features/dashboard';
+import { usePlatform } from '@/hooks/use-capacitor';
+import { cn } from '@/utils';
+import { LogoPath } from '@/components/atoms';
+
+interface Props extends React.ComponentProps<'div'> { }
+
+// Mock data - Replace with real API calls
+const mockActivities: Activity[] = [
+  {
+    id: '1',
+    title: 'Youtube',
+    description: 'Subscription Payment',
+    amount: 15.0,
+    date: new Date('2024-05-16'),
+    icon: <Youtube className="h-5 w-5" />,
+    iconBgColor: 'bg-red-100 text-red-600',
+    type: 'expense',
+  },
+  {
+    id: '2',
+    title: 'Stripe',
+    description: 'Monthly Salary',
+    amount: 3000.0,
+    date: new Date('2024-05-15'),
+    icon: <DollarSign className="h-5 w-5" />,
+    iconBgColor: 'bg-blue-100 text-blue-600',
+    type: 'income',
+  },
+  {
+    id: '3',
+    title: 'Google Play',
+    description: 'E-book Purchase',
+    amount: 139.0,
+    date: new Date('2024-05-14'),
+    icon: <ShoppingCart className="h-5 w-5" />,
+    iconBgColor: 'bg-green-100 text-green-600',
+    type: 'expense',
+  },
+  {
+    id: '4',
+    title: 'OVO',
+    description: 'Top Up E-Money',
+    amount: 180.0,
+    date: new Date('2024-05-13'),
+    icon: <Zap className="h-5 w-5" />,
+    iconBgColor: 'bg-purple-100 text-purple-600',
+    type: 'expense',
+  },
+];
 
 export const Home = ({ ...rest }: Props) => {
-  const [count, setCount] = useState(0);
-  const { t } = useTranslation(["pages", "fields", "buttons"]);
-  const { user, isAuthenticated, logout } = useAuth();
-  const navigate = useNavigate();
+  const { isNative } = usePlatform();
 
-  const handleIncrement = () => {
-    setCount(count + 1);
+  const handleTransfer = () => {
+    console.log('Transfer clicked');
   };
 
-  console.log(getPath.resetPassword({ token: "abc123", qs: { redirect: true } }));
-  
+  const handleWithdraw = () => {
+    console.log('Withdraw clicked');
+  };
+
+  const handleInvest = () => {
+    console.log('Invest clicked');
+  };
+
+  const handleTopUp = () => {
+    console.log('Top up clicked');
+  };
+
+  const handleInsightClick = () => {
+    console.log('Insight banner clicked');
+  };
+
+  const handleActivityClick = (activity: Activity) => {
+    console.log('Activity clicked:', activity);
+  };
 
   return (
-    <div className="bg-background text-foreground relative min-h-screen" {...rest}>
-      <div className="mx-auto max-w-4xl space-y-8">
-        {/* User Profile Section */}
-        {isAuthenticated && user ? (
-          <div className="bg-card border-border rounded-lg border p-6 shadow-sm">
-            <div className="mb-4 flex items-start justify-between">
-              <h2 className="text-2xl font-bold">User Profile</h2>
-              <Button variant="outline" size="sm" onClick={logout}>
-                {t("buttons:logout")}
-              </Button>
-            </div>
+    <div
+      className={cn(
+        'min-h-screen -m-4 md:m-0',
+        isNative && 'pt-safe'
+      )}
+      {...rest}
+    >
+      {/* Header Section - Only visible on mobile */}
+      <div className="relative bg-brand-primary-dark px-4 pt-4 mb-4 pb-20 md:hidden">
+        <DashboardHeader className="relative z-10" />
+        <div className="absolute top-0 left-0 z-1 w-full h-full">
+          <LogoPath variant="horizontal" className="absolute top-0 left-[-60%] w-full h-full [background:var(--brand-gradient-2)]" />
+          <LogoPath
+            variant="horizontal"
+            className="absolute bottom-0 right-[-12%] w-full h-full rotate-180 [background:var(--brand-gradient-2)]"
+          />
+        </div>
+      </div>
 
-            <div className="space-y-4">
-              {/* User Avatar and Name */}
-              <div className="flex items-center gap-4">
-                {user.user_image ? (
-                  <img
-                    src={user.user_image}
-                    alt={user.full_name || user.name}
-                    className="border-border h-16 w-16 rounded-full border-2 object-cover"
-                  />
-                ) : (
-                  <div className="bg-primary/10 flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold">
-                    {user.full_name?.[0] || user.name[0] || "U"}
-                  </div>
-                )}
-                <div>
-                  <h3 className="text-xl font-semibold">{user.full_name || user.name}</h3>
-                  <p className="text-muted-foreground">{user.email}</p>
-                </div>
-              </div>
+      {/* Main Content */}
+      <div className="relative z-10 container -mt-20 md:mt-0 mx-auto max-w-2xl px-4 pb-24 md:pb-8 md:pt-8 space-y-4">
 
-              {/* User Details Grid */}
-              <div className="border-border grid grid-cols-1 gap-4 border-t pt-4 md:grid-cols-2">
-                <div>
-                  <p className="text-muted-foreground text-sm">Username</p>
-                  <p className="font-medium">{user.name}</p>
-                </div>
-
-                <div>
-                  <p className="text-muted-foreground text-sm">User Type</p>
-                  <p className="font-medium">{user.user_type || "N/A"}</p>
-                </div>
-
-                <div>
-                  <p className="text-muted-foreground text-sm">Status</p>
-                  <p className="font-medium">
-                    <span className={user.enabled ? "text-green-600" : "text-red-600"}>
-                      {user.enabled ? "✓ Enabled" : "✗ Disabled"}
-                    </span>
-                  </p>
-                </div>
-
-                {user.roles && user.roles.length > 0 && (
-                  <div className="md:col-span-2">
-                    <p className="text-muted-foreground mb-2 text-sm">Roles</p>
-                    <div className="flex flex-wrap gap-2">
-                      {user.roles.map((role) => (
-                        <span
-                          key={role}
-                          className="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm"
-                        >
-                          {role}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {user.creation && (
-                  <div>
-                    <p className="text-muted-foreground text-sm">Account Created</p>
-                    <p className="font-medium">{new Date(user.creation).toLocaleDateString()}</p>
-                  </div>
-                )}
-
-                {user.modified && (
-                  <div>
-                    <p className="text-muted-foreground text-sm">Last Modified</p>
-                    <p className="font-medium">{new Date(user.modified).toLocaleDateString()}</p>
-                  </div>
-                )}
-
-                {/* Roles */}
-                <div className="md:col-span-2">
-                  <p className="text-muted-foreground mb-2 text-sm">Roles</p>
-                  <div className="flex flex-wrap gap-2">
-                    {user?.assigned_sis_roles?.map((role) => (
-                      <span
-                        key={role}
-                        className="bg-primary/10 text-primary rounded-full px-3 py-1 text-sm"
-                      >
-                        {role}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="bg-card border-border rounded-lg border p-6 text-center">
-            <p className="text-muted-foreground">
-              Not logged in. Please log in to view your profile.
-            </p>
-          </div>
-        )}
-
-        {/* Push Notifications Section */}
-        <div className="bg-card border-border rounded-lg border p-6">
-          <h2 className="mb-4 text-2xl font-bold">Push Notifications</h2>
-          <p className="text-muted-foreground mb-4">
-            Test and debug push notifications for mobile and web
-          </p>
-          <Button onClick={() => navigate(getPath.debugNotifications())} variant="default">
-            <Bell className="mr-2 h-4 w-4" />
-            Debug Notifications
-          </Button>
+        {/* Balance Summary Card */}
+        <div className="-mt-6 md:mt-0">
+          <BalanceSummaryCard
+            balance={41379.0}
+            currency="USD"
+            onTransfer={handleTransfer}
+            onWithdraw={handleWithdraw}
+            onInvest={handleInvest}
+            onTopUp={handleTopUp}
+          />
         </div>
 
-        {/* Font Testing Section */}
-        <div className="bg-card border-border rounded-lg border p-6">
-          <h2 className="mb-4 text-2xl font-bold">Alexandria Font Testing</h2>
-          <FontTester />
-        </div>
+        {/* Insight Banner */}
+        <InsightBanner
+          title="Let's check your Financial"
+          description="Insight for the month of June!"
+          onClick={handleInsightClick}
+        />
 
-        {/* Counter Demo Section */}
-        <div className="bg-card border-border rounded-lg border p-6">
-          <h2 className="mb-4 text-2xl font-bold">Counter Demo</h2>
-          <div className="flex items-center gap-4">
-            <span className="text-2xl">
-              {t("count.label", { ns: "fields" })}: {count}
-            </span>
-            <Button variant={"secondary"} onClick={handleIncrement}>
-              {t("increase", { ns: "buttons" })}
-            </Button>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <p className="text-muted-foreground text-center">
-          {t("home.title", { ns: "pages" })} {t("home.author", { ns: "pages" })}
-          <a
-            href="https://github.com/yeasin2002"
-            className="hover:text-foreground mx-2 underline transition-colors"
-            target="_blank"
-          >
-            (yeasin2002)
-          </a>
-        </p>
+        {/* Recent Activities */}
+        <RecentActivitiesList
+          activities={mockActivities}
+          onActivityClick={handleActivityClick}
+        />
       </div>
     </div>
   );

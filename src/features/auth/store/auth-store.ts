@@ -1,12 +1,7 @@
 import { create } from "zustand";
 import type { FrappeUser } from "@/types/frappe.types";
 import { removeToken, hasToken, setToken } from "../services/token-storage";
-import {
-  getCurrentUser,
-  loginWithCredentials,
-  loginWithGoogle as loginWithGoogleApi,
-  logout
-} from "../services/api";
+import { getCurrentUser, logout } from "../services/api";
 import { getTokenExpirySeconds } from "../helpers";
 
 /**
@@ -37,9 +32,9 @@ interface AuthActions {
   setError: (error: string | null) => void;
 
   // Auth actions
-  login: (email: string, password: string) => Promise<void>;
-  loginWithGoogle: (idToken: string) => Promise<void>;
   logout: () => void;
+  saveAuth: (token: string) => Promise<void>;
+  saveMockAuth: (user: FrappeUser, token: string) => void;
   clearAuth: () => void;
 
   // User profile fetching
@@ -111,68 +106,6 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     }
   },
 
-  // Login action
-  login: async (username: string, password: string) => {
-    set({ isLoading: true, error: null });
-
-    try {
-      // Call login API
-      const data = await loginWithCredentials(username, password);
-      console.log("data", data);
-
-      if (!data.token) {
-        throw new Error("No token received");
-      }
-      // Save token
-      const expiresIn = getTokenExpirySeconds();
-      setToken(data.token, expiresIn);
-      // Fetch user profile
-      await get().fetchUserProfile();
-
-      set({ isLoading: false, error: null });
-    } catch (err) {
-      console.log("err", err);
-
-      const errorMessage = err instanceof Error ? err.message : "Login failed";
-      set({
-        isLoading: false,
-        error: errorMessage,
-        user: null,
-        isAuthenticated: false,
-      });
-      throw err;
-    }
-  },
-
-  // Login with Google OAuth
-  loginWithGoogle: async (idToken: string) => {
-    set({ isLoading: true, error: null });
-
-    try {
-      // Call Google login API with ID token (JWT credential)
-      const data = await loginWithGoogleApi(idToken);
-      if (!data.token) {
-        throw new Error("No token received from Google login");
-      }
-      // Save token
-      const expiresIn = getTokenExpirySeconds();
-      setToken(data.token, expiresIn);
-      // Fetch user profile
-      await get().fetchUserProfile();
-
-      set({ isLoading: false, error: null });
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Google login failed";
-      set({
-        isLoading: false,
-        error: errorMessage,
-        user: null,
-        isAuthenticated: false,
-      });
-      throw err;
-    }
-  },
-
   // Logout action
   logout: async () => {
     try {
@@ -191,6 +124,48 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         isLoading: false,
       });
     }
+  },
+
+  // Save auth state (user and token)
+  saveAuth: async (token:string) => {
+    set({ isLoading: true, error: null });
+
+    try {
+      // Save token
+      const expiresIn = getTokenExpirySeconds();
+      setToken(token, expiresIn);
+      // Fetch user profile
+      await get().fetchUserProfile();
+
+      set({ isLoading: false, error: null });
+    } catch (err) {
+      console.log("err", err);
+
+      const errorMessage = err instanceof Error ? err.message : "Login failed";
+      set({
+        isLoading: false,
+        error: errorMessage,
+        user: null,
+        isAuthenticated: false,
+      });
+      throw err;
+    }
+  },
+
+  // Save mock auth state (for development only)
+  // Saves token and user data directly without calling API
+  saveMockAuth: (user, token) => {
+    // Save token to storage
+    const expiresIn = getTokenExpirySeconds();
+    setToken(token, expiresIn);
+
+    // Save user to store
+    set({
+      user,
+      isAuthenticated: true,
+      error: null,
+      isLoading: false,
+    });
   },
 
   // Clear auth state (without redirect)
@@ -238,3 +213,4 @@ export const useUser = () => useAuthStore((state) => state.user);
 export const useIsAuthenticated = () => useAuthStore((state) => state.isAuthenticated);
 export const useAuthLoading = () => useAuthStore((state) => state.isLoading);
 export const useAuthError = () => useAuthStore((state) => state.error);
+export const useAuthInitialized = () => useAuthStore((state) => state.isInitialized);

@@ -8,6 +8,8 @@
     "home": "Home",
     "dashboard": "Dashboard",
     "customers": "Customers",
+    "contracts": "Contracts",
+    "industrialParks": "Industrial Parks",
     "users": "Users",
     "reports": "Reports",
     "salesReport": "Sales Report",
@@ -15,7 +17,10 @@
     "settings": "Settings",
     "debugNotifications": "Debug Notifications",
     "notifications": "Notifications",
+    "components": "Components",
+    "serviceRequests": "Service Requests",
     "profile": "Account Profile",
+    "changePassword": "Change Password",
     "logout": "Logout"
   }
 }

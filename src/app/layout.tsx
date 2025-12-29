@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { VersionDisplay } from "@/components/atoms/version-display";
 import { usePlatform } from "@/hooks/use-capacitor";
 
 interface RootLayoutProps {
@@ -18,7 +17,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
       } : undefined}
     >
      {children}
-      <VersionDisplay position="bottom-right" variant="default" />
     </div>
   );
 }

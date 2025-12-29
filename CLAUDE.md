@@ -33,6 +33,36 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 e4
 ## Important Rules
 
+### File Naming Conventions
+
+**ALWAYS follow these naming conventions when creating files:**
+
+1. **Component Files** - Use kebab-case for React components:
+   - ✅ `user-avatar.tsx`, `dashboard-header.tsx`, `balance-summary-card.tsx`
+   - ❌ `userAvatar.tsx`, `dashboard_header.tsx`
+
+2. **Hook Files** - Use kebab-case with `use-` prefix:
+   - ✅ `use-page-title.ts`, `use-filtered-navigation.ts`, `use-auth.ts`
+   - ❌ `usePageTitle.ts`, `use_page_title.ts`, `UsePageTitle.ts`
+
+3. **Utility/Helper Files** - Use kebab-case:
+   - ✅ `format-date.ts`, `api-client.ts`, `storage-utils.ts`
+   - ❌ `formatDate.ts`, `apiClient.ts`, `storage_utils.ts`
+
+4. **Type/Interface Files** - Use kebab-case with `.types.ts` or `.d.ts`:
+   - ✅ `navigation.types.ts`, `user.types.ts`, `i18n.d.ts`
+   - ❌ `navigationTypes.ts`, `Navigation.types.ts`
+
+5. **Page Files** - Must be named `page.tsx` for file-based routing:
+   - ✅ `src/app/(main)/settings/page.tsx`
+   - ❌ `src/app/(main)/settings/Settings.tsx`
+
+6. **Config Files** - Use kebab-case:
+   - ✅ `vite.config.ts`, `tailwind.config.ts`
+   - ❌ `viteConfig.ts`, `TailwindConfig.ts`
+
+**Consistency is critical** - Always check existing files in the same directory to match their naming pattern.
+
 ### When Creating Root-Level Documentation Files
 
 **ALWAYS update both files when creating new `.md` files in the project root:**

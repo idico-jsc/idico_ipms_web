@@ -1,0 +1,74 @@
+{
+  "pagination": {
+    "showing": "Showing {{from}}-{{to}} of {{total}}",
+    "previous": "Previous",
+    "next": "Next",
+    "first": "First",
+    "last": "Last",
+    "page": "Page {{current}} of {{total}}"
+  },
+  "table": {
+    "search": {
+      "placeholder": "Search...",
+      "noColumns": "No searchable columns configured"
+    },
+    "columns": {
+      "toggle": "Columns",
+      "hideAll": "Hide all",
+      "showAll": "Show all"
+    },
+    "filters": {
+      "addFilter": "Add filter",
+      "clearAll": "Clear all",
+      "selectColumn": "Select column",
+      "selectOperator": "Select operator",
+      "enterValue": "Enter value",
+      "operators": {
+        "contains": "Contains",
+        "equals": "Equals",
+        "startsWith": "Starts with",
+        "endsWith": "Ends with",
+        "is": "Is",
+        "isNot": "Is not",
+        "isAnyOf": "Is any of",
+        "dateIs": "Is",
+        "dateBefore": "Before",
+        "dateAfter": "After",
+        "dateBetween": "Between",
+        "numberEquals": "Equals",
+        "greaterThan": "Greater than",
+        "lessThan": "Less than"
+      }
+    }
+  },
+  "dataTable": {
+    "noResults": "No results found.",
+    "selected": "{{count}} of {{total}} row(s) selected.",
+    "rowsPerPage": "Rows per page",
+    "actions": {
+      "archive": "Archive",
+      "delete": "Delete"
+    }
+  },
+  "datePicker": {
+    "pickDate": "Pick a date",
+    "selectDate": "Select date"
+  },
+  "dateInput": {
+    "placeholder": "DD/MM/YYYY",
+    "invalidDate": "Invalid date format"
+  },
+  "combobox": {
+    "search": "Search...",
+    "noResults": "No results found.",
+    "select": "Select..."
+  },
+  "fileUpload": {
+    "dragDrop": "Drag and drop files here, or click to select",
+    "maxSize": "Max file size: {{size}}MB",
+    "invalidType": "Invalid file type",
+    "uploading": "Uploading...",
+    "uploadSuccess": "Upload successful",
+    "uploadError": "Upload failed"
+  }
+}

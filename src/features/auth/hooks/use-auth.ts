@@ -3,7 +3,7 @@ import { useAuthStore } from "../store/auth-store";
 import { FrappeError } from "@/types";
 import { toast } from "sonner";
 import { useError } from "@/hooks";
-import { resetPassword } from "../services/api";
+import { resetPassword, loginWithCredentials, loginWithGoogle as loginWithGoogleApi } from "../services/api";
 import { useState } from "react";
 
 /**
@@ -21,8 +21,9 @@ export function useAuth() {
   const isLoading = useAuthStore((state) => state.isLoading);
   const error = useAuthStore((state) => state.error);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const loginAction = useAuthStore((state) => state.login);
-  const loginWithGoogleAction = useAuthStore((state) => state.loginWithGoogle);
+  const setLoading = useAuthStore((state) => state.setLoading);
+  const setError = useAuthStore((state) => state.setError);
+  const saveAuth = useAuthStore((state) => state.saveAuth);
   const logoutAction = useAuthStore((state) => state.logout);
 
   const [isResettingPassword, setIsResettingPassword] = useState(false);
@@ -30,13 +31,24 @@ export function useAuth() {
   const { t } = useTranslation("messages");
   const { handleError } = useError();
 
-  // Login wrapper
+  // Login wrapper - calls API then saves to store
   const login = async (email: string, password: string) => {
+    setLoading(true);
+    setError(null);
+
     try {
-      await loginAction(email, password);
+      // Call login API to get token
+      const authResponse = await loginWithCredentials(email, password);
+      if (!authResponse.token) {
+        throw new Error("No token received");
+      }
+      await saveAuth(authResponse.token);
     } catch (error) {
       // Type guard for FrappeError
       const frappeError = error as FrappeError;
+
+      setLoading(false);
+      setError(frappeError?.message || "Login failed");
 
       // Rethrow with translated message
       if (frappeError?.exc_type === "AuthenticationError") {
@@ -57,13 +69,27 @@ export function useAuth() {
     }
   };
 
-  // Google login wrapper
+  // Google login wrapper - calls API then saves to store
   const loginWithGoogle = async (idToken: string) => {
+    setLoading(true);
+    setError(null);
+
     try {
-      await loginWithGoogleAction(idToken);
+      // Call Google login API to get token
+      const authResponse = await loginWithGoogleApi(idToken);
+
+      if (!authResponse.token) {
+        throw new Error("No token received from Google login");
+      }
+
+      saveAuth(authResponse.token);
+
     } catch (error) {
       // Type guard for FrappeError
       const frappeError = error as FrappeError;
+
+      setLoading(false);
+      setError(frappeError?.message || "Google login failed");
 
       // Handle Google-specific errors with fallback message
       toast.error("Google Login Failed", {

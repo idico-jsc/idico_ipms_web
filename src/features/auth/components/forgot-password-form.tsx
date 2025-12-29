@@ -9,9 +9,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/atoms/form";
-import { Input } from "@/components/atoms/input";
-import { Button } from "@/components/atoms/button";
+} from "@atoms/form";
+import { Input } from "@atoms/input";
+import { Button } from "@atoms/button";
 import { cn } from "@/utils";
 import { RETRY_DELAY } from "@/constants/env";
 import { useForgotPasswordForm } from "../hooks/use-forgot-password-form";

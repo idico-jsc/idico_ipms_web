@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router";
 import { MoreVertical } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useFilteredNavigation } from "../hooks/use-filtered-navigation";
-import { useSidebar } from "@/components/atoms/sidebar";
+import { useSidebar } from "@atoms/sidebar";
 import type { NavItem } from "@/types/navigation.types";
 import { getMobileNavItems } from "../utils/filter-nav-items";
 
@@ -70,7 +70,7 @@ export function MobileBottomNav() {
                     aria-current={isActive ? "page" : undefined}
                   >
                     {/* Active badge - appears above icon */}
-                    {isActive && item.label && (
+                    {/* {isActive && item.label && (
                       <div
                         className={cn(
                           "absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap",
@@ -85,7 +85,7 @@ export function MobileBottomNav() {
                       >
                         {item.label}
                       </div>
-                    )}
+                    )} */}
 
                     {/* Icon */}
                     {Icon && (

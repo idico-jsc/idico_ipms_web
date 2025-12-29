@@ -1,0 +1,74 @@
+{
+  "pagination": {
+    "showing": "Hiển thị {{from}}-{{to}} trong tổng số {{total}}",
+    "previous": "Trước",
+    "next": "Sau",
+    "first": "Đầu tiên",
+    "last": "Cuối cùng",
+    "page": "Trang {{current}} / {{total}}"
+  },
+  "table": {
+    "search": {
+      "placeholder": "Tìm kiếm...",
+      "noColumns": "Không có cột tìm kiếm được cấu hình"
+    },
+    "columns": {
+      "toggle": "Hiển thị",
+      "hideAll": "Ẩn tất cả",
+      "showAll": "Hiện tất cả"
+    },
+    "filters": {
+      "addFilter": "Thêm bộ lọc",
+      "clearAll": "Xóa tất cả",
+      "selectColumn": "Chọn cột",
+      "selectOperator": "Chọn điều kiện",
+      "enterValue": "Nhập giá trị",
+      "operators": {
+        "contains": "Chứa",
+        "equals": "Bằng",
+        "startsWith": "Bắt đầu bằng",
+        "endsWith": "Kết thúc bằng",
+        "is": "Là",
+        "isNot": "Không phải",
+        "isAnyOf": "Là một trong",
+        "dateIs": "Là",
+        "dateBefore": "Trước",
+        "dateAfter": "Sau",
+        "dateBetween": "Giữa",
+        "numberEquals": "Bằng",
+        "greaterThan": "Lớn hơn",
+        "lessThan": "Nhỏ hơn"
+      }
+    }
+  },
+  "dataTable": {
+    "noResults": "Không tìm thấy kết quả.",
+    "selected": "Đã chọn {{count}} trong {{total}} hàng.",
+    "rowsPerPage": "Số hàng mỗi trang",
+    "actions": {
+      "archive": "Lưu trữ",
+      "delete": "Xóa"
+    }
+  },
+  "datePicker": {
+    "pickDate": "Chọn ngày",
+    "selectDate": "Chọn ngày"
+  },
+  "dateInput": {
+    "placeholder": "DD/MM/YYYY",
+    "invalidDate": "Định dạng ngày không hợp lệ"
+  },
+  "combobox": {
+    "search": "Tìm kiếm...",
+    "noResults": "Không tìm thấy kết quả.",
+    "select": "Chọn..."
+  },
+  "fileUpload": {
+    "dragDrop": "Kéo và thả tệp vào đây, hoặc nhấp để chọn",
+    "maxSize": "Kích thước tệp tối đa: {{size}}MB",
+    "invalidType": "Loại tệp không hợp lệ",
+    "uploading": "Đang tải lên...",
+    "uploadSuccess": "Tải lên thành công",
+    "uploadError": "Tải lên thất bại"
+  }
+}

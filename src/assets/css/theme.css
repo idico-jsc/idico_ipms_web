@@ -1,90 +1,36 @@
-@import 'tailwindcss';
+/**
+ * Tailwind Theme Configuration
+ * Custom variants, theme definitions, and CSS variables
+ */
 
-@plugin 'tailwindcss-animate';
-
-/* Alexandria Font Family */
+/* Mulish Variable Font */
 @font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Thin.ttf') format('truetype');
-  font-weight: 100;
+  font-family: 'Mulish';
+  src: url('/src/assets/fonts/Mulish/Mulish-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 1000;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-ExtraLight.ttf') format('truetype');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-ExtraBold.ttf') format('truetype');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Alexandria';
-  src: url('/src/assets/fonts/Alexandria-Black.ttf') format('truetype');
-  font-weight: 900;
-  font-style: normal;
+  font-family: 'Mulish';
+  src: url('/src/assets/fonts/Mulish/Mulish-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 1000;
+  font-style: italic;
   font-display: swap;
 }
 
 @theme {
-  --font-sans: 'Alexandria', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Mulish', 'Lexend', 'Alexandria', system-ui, -apple-system, sans-serif;
 }
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.5rem;
+  --cell-size: 2rem;
   --background: oklch(100% 0 0);
-  --foreground: oklch(14.5% 0 0);
+  --foreground: oklch(45% 0 0);
   --card: oklch(100% 0 0);
   --card-foreground: oklch(14.5% 0 0);
   --popover: oklch(100% 0 0);
@@ -99,7 +45,8 @@
   --muted-foreground: oklch(55.6% 0 0);
   --accent: oklch(97% 0 0);
   --accent-foreground: oklch(20.5% 0 0);
-  --destructive: oklch(57.7% 0.245 27.325);
+  --destructive: oklch(58% 0.2 25.9);
+  --destructive-foreground: oklch(100% 0 0);
   --border: oklch(92.2% 0 0);
   --input: oklch(92.2% 0 0);
   --ring: oklch(70.8% 0 0);
@@ -108,11 +55,11 @@
   --chart-3: var(--color-blue-600);
   --chart-4: var(--color-blue-700);
   --chart-5: var(--color-blue-800);
-  --sidebar: oklch(98.5% 0 0);
+  --sidebar: oklch(0.3152 0.0531 190.95);
   --sidebar-foreground: oklch(14.5% 0 0);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--primary-foreground);
-  --sidebar-accent: var(--primary);
+  --sidebar-accent: var(--primary-);
   --sidebar-accent-foreground: var(--primary-foreground);
   --sidebar-border: oklch(92.2% 0 0 / 0.4);
   --sidebar-ring: oklch(70.8% 0 0);
@@ -138,25 +85,31 @@
   --brand-tertiary-foreground: oklch(14.5% 0 0);
   --brand-neutral: oklch(92.748% 0.00181 248.522);
   --brand-neutral-foreground: oklch(14.5% 0 0);
+
+  --brand-gradient-1: linear-gradient(90deg,oklch(36.170% 0.05880 194.899), oklch(66.130% 0.11342 192.543));
+  --brand-gradient-2: linear-gradient(-90deg, oklch(36.170% 0.05880 194.899), oklch(22.5% 0.045 195));
+  --brand-gradient-3: linear-gradient(30deg, oklch(0.367 0.062 193.2) 40%, oklch(30.228% 0.04979 194.881) );
 }
+
 .dark {
-  --background: oklch(0.25 0 0);
-  --foreground: oklch(98.5% 0 0);
-  --card: oklch(20.5% 0 0);
+  --background: oklch(0.18 0.01 258.39);
+  --foreground: var(--brand-neutral);
+  --card: oklch(21.634% 0.01334 258.401);
   --card-foreground: oklch(98.5% 0 0);
-  --popover: oklch(26.9% 0 0);
+  --popover: oklch(0.18 0.01 258.39);
   --popover-foreground: oklch(98.5% 0 0);
-  --primary: var(--brand-secondary);
+  --primary: oklch(0.55 0.08 194.99);
   --primary-foreground: var(--brand-secondary-foreground);
   --secondary: var(--brand-neutral);
   --secondary-foreground: var(--brand-neutral-foreground);
   --tertiary: var(--brand-tertiary);
   --tertiary-foreground: var(--brand-tertiary-foreground);
-  --muted: oklch(26.9% 0 0);
+  --muted: oklch(26% 0.01 248);
   --muted-foreground: oklch(70.8% 0 0);
-  --accent: oklch(37.1% 0 0);
+  --accent: oklch(0.22 0.02 255.74);
   --accent-foreground: oklch(98.5% 0 0);
   --destructive: oklch(70.4% 0.191 22.216);
+  --destructive-foreground: oklch(100% 0 0);
   --border: oklch(100% 0 0/0.1);
   --input: oklch(100% 0 0/0.15);
   --ring: oklch(55.6% 0 0);
@@ -165,7 +118,7 @@
   --chart-3: var(--color-blue-600);
   --chart-4: var(--color-blue-700);
   --chart-5: var(--color-blue-800);
-  --sidebar: oklch(20.5% 0 0);
+  --sidebar: oklch(0.3152 0.0531 190.95);
   --sidebar-foreground: oklch(98.5% 0 0);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--primary-foreground);
@@ -184,19 +137,6 @@
   --code-number: oklch(72% 0 0);
   --selection: oklch(92.2% 0 0);
   --selection-foreground: oklch(20.5% 0 0);
-
-  --brand-primary: oklch(36.170% 0.05880 194.899);
-  --brand-primary-foreground: oklch(100% 0 0);
-  --brand-primary-dark: oklch(22.5% 0.045 195);
-  --brand-primary-dark-foreground: oklch(100% 0 0);
-  --brand-secondary: oklch(58.464% 0.20561 28.903);
-  --brand-secondary-foreground: oklch(100% 0 0);
-  --brand-tertiary: oklch(66.130% 0.11342 192.543);
-  --brand-tertiary-foreground: oklch(14.5% 0 0);
-  --brand-neutral: oklch(92.748% 0.00181 248.522);
-  --brand-neutral-foreground: oklch(14.5% 0 0);
-
-
 }
 
 @theme inline {
@@ -230,12 +170,13 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: #003A38;
+  --cell-size: var(--cell-size);
+  --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--color-brand-primary-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--color-brand-primary-foreground);
-  --color-sidebar-accent-foreground: var(--color-brand-primary);
+  --color-sidebar-accent: var(--color-brand-secondary);
+  --color-sidebar-accent-foreground: var(--color-sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --spacing-sidebar-width: var(--sidebar-width);
@@ -259,31 +200,7 @@
   --color-brand-tertiary-foreground: var(--brand-tertiary-foreground);
   --color-brand-neutral: var(--brand-neutral);
   --color-brand-neutral-foreground: var(--brand-neutral-foreground);
-}
 
-@layer components {
-  .bg-glass {
-    @apply bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground font-sans;
-  }
-  button {
-    @apply cursor-pointer
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+  --brand-gradient-1: var(--brand-gradient-1);
+  --brand-gradient-2: var(--brand-gradient-2);
 }
