@@ -1,6 +1,6 @@
 import { LanguageSwitcher, ThemeToggle } from '@/features/preference';
 import { UserMenu } from '@/features/auth';
-import { SidebarTrigger } from '@/components/atoms/sidebar';
+import { SidebarTrigger } from '@atoms/sidebar';
 import { Breadcrumb } from './breadcrumb';
 
 export function Header() {

@@ -1,6 +1,6 @@
 import { Moon, Sun } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@atoms/button";
 import { useTheme } from "@/hooks";
 import { cn } from "@/utils";
 

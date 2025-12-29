@@ -7,8 +7,8 @@
  * - Amount and date
  */
 
-import { Card } from '@/components/atoms/card';
-import { Avatar, AvatarFallback } from '@/components/atoms/avatar';
+import { Card } from '@atoms/card';
+import { Avatar, AvatarFallback } from '@atoms/avatar';
 import { cn } from '@/utils';
 
 export interface Activity {

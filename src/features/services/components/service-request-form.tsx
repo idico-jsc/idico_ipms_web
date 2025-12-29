@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { Textarea } from '@/components/atoms/textarea';
+import { Textarea } from '@atoms/textarea';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/atoms/select';
+} from '@atoms/select';
 import { RequestTypeSelector } from './request-type-selector';
 import { ImageUpload } from '@/components/molecules';
 import type { ServiceRequestFormData, Priority } from '@/types/service-request.types';

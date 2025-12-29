@@ -1,8 +1,8 @@
 import * as React from "react"
 import { CalendarIcon } from "lucide-react"
 
-import { Button } from "@/components/atoms/button"
-import { Input } from "@/components/atoms/input"
+import { Button } from "@atoms/button"
+import { Input } from "@atoms/input"
 import { DatePicker } from "@/components/molecules/date-picker"
 import { cn } from "@/utils"
 

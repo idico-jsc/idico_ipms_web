@@ -13,7 +13,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { Bell, ChevronLeft, Settings } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { usePlatform } from '@/hooks/use-capacitor';
-import { Button } from '@/components/atoms/button';
+import { Button } from '@atoms/button';
 import { usePageTitle } from '../hooks';
 
 /**

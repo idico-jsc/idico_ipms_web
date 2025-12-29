@@ -11,8 +11,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/atoms/dialog';
-import { PdfViewer } from '@/components/atoms/pdf-viewer';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@atoms/dialog';
+import { PdfViewer } from '@atoms/pdf-viewer';
 
 interface PdfViewerDialogProps {
   /**

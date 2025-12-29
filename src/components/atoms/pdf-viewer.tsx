@@ -12,8 +12,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-import { Button } from '@/components/atoms/button';
-import { Input } from '@/components/atoms/input';
+import { Button } from '@atoms/button';
+import { Input } from '@atoms/input';
 import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Search, X, Download } from 'lucide-react';
 
 import 'react-pdf/dist/Page/AnnotationLayer.css';

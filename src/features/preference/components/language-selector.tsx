@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/atoms/select';
+} from '@atoms/select';
 import type { LanguageCode } from '@/constants/languages';
 
 export function LanguageSelector() {

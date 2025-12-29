@@ -8,7 +8,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/atoms/alert-dialog';
+} from '@atoms/alert-dialog';
 import type { ServiceRequest } from '@/types/service-request.types';
 
 interface DeleteServiceRequestDialogProps {

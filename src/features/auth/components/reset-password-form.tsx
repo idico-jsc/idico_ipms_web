@@ -9,7 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/atoms/form";
+} from "@atoms/form";
 import { PasswordInput } from "@/components/molecules/password-input";
 import { PasswordStrengthIndicator } from "@/components/molecules/password-strength-indicator";
 import { cn } from "@/utils";
@@ -17,7 +17,7 @@ import { useResetPasswordForm } from "../hooks/use-reset-password-form";
 import { useNetworkStatus } from "@/providers/network-provider";
 import { useAuth } from "../hooks/use-auth";
 import { CircleCheck } from "lucide-react";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@atoms/button";
 import { AUTO_REDIRECT_DELAY } from "@/constants/env";
 import { getPath } from "@/features/navigation";
 

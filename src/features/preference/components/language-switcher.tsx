@@ -1,12 +1,12 @@
 import { useLanguage } from "@/hooks/use-language";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@atoms/button";
 import { cn } from "@/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/atoms/dropdown-menu";
+} from "@atoms/dropdown-menu";
 import { Check } from "lucide-react";
 import type { LanguageCode } from "@/constants/languages";
 

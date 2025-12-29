@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Hammer, Zap, Shield, Wifi, LucideIcon } from 'lucide-react';
-import { Card } from '@/components/atoms/card';
+import { Card } from '@atoms/card';
 import { cn } from '@/utils';
 import type { RequestType } from '@/types/service-request.types';
 

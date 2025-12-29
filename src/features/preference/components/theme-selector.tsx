@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/atoms/select';
+} from '@atoms/select';
 import { useTheme } from '@/hooks';
 
 export function ThemeSelector() {

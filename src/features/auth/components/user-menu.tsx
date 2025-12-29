@@ -13,8 +13,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/atoms/dropdown-menu';
-import { Button } from '@/components/atoms/button';
+} from '@atoms/dropdown-menu';
+import { Button } from '@atoms/button';
 import { useAuth } from '@/features/auth/hooks/use-auth';
 import { UserAvatar } from '@molecules';
 

@@ -1,4 +1,4 @@
-import { Button } from '@/components/atoms/button';
+import { Button } from '@atoms/button';
 import { usePushNotificationContext } from '@/providers/push-notification-provider';
 import { Send, Loader2 } from 'lucide-react';
 import { useState } from 'react';

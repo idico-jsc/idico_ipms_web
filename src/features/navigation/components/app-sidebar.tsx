@@ -29,12 +29,12 @@ import {
   SidebarMenuSubItem,
   SidebarProvider,
   SidebarInset,
-} from "@/components/atoms/sidebar";
+} from "@atoms/sidebar";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/atoms/collapsible";
+} from "@atoms/collapsible";
 import { useFilteredNavigation } from "../hooks/use-filtered-navigation";
 import type { NavItem } from "@/types/navigation.types";
 import { Logo, LogoPath, VersionDisplay } from "@atoms";

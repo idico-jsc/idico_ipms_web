@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@atoms/button";
 
 const fontWeights = [
   { label: "Thin (100)", value: "100" },

@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/atoms/button';
+import { Button } from '@atoms/button';
 import {
   Dialog,
   DialogContent,
@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/atoms/dialog';
+} from '@atoms/dialog';
 import { ServiceRequestForm } from './service-request-form';
 import type { ServiceRequestFormData } from '@/types/service-request.types';
 

@@ -11,14 +11,14 @@
 
 import { useState } from 'react';
 import { Camera, Mail, User as UserIcon, Save, Edit } from 'lucide-react';
-import { Card } from '@/components/atoms/card';
-import { Button } from '@/components/atoms/button';
-import { Input } from '@/components/atoms/input';
-import { Label } from '@/components/atoms/label';
+import { Card } from '@atoms/card';
+import { Button } from '@atoms/button';
+import { Input } from '@atoms/input';
+import { Label } from '@atoms/label';
 import { UserAvatar } from '@/components/molecules/user-avatar';
 import { useAuth } from '@/features/auth';
 import { cn } from '@/utils';
-import { Separator } from '@/components/atoms/separator';
+import { Separator } from '@atoms/separator';
 
 interface Props extends React.ComponentProps<'div'> { }
 

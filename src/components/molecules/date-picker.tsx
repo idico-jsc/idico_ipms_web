@@ -1,11 +1,11 @@
 import * as React from "react"
 
-import { Calendar } from "@/components/atoms/calendar"
+import { Calendar } from "@atoms/calendar"
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/components/atoms/popover"
+} from "@atoms/popover"
 
 export interface DatePickerProps {
     date?: Date
