@@ -8,8 +8,8 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Plus, Edit, Trash2, MoreHorizontal, FileText, Download } from 'lucide-react';
 import type { FilterableColumnDef } from '@/types/table';
-import { Button } from '@/components/atoms/button';
-import { Badge } from '@/components/atoms/badge';
+import { Button } from '@atoms/button';
+import { Badge } from '@atoms/badge';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,15 +19,15 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/atoms/alert-dialog';
+} from '@atoms/alert-dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/atoms/dropdown-menu';
+} from '@atoms/dropdown-menu';
 import { DataTable, DataTableColumnHeader } from '@/components/organisms';
-import { Checkbox } from '@/components/atoms/checkbox';
+import { Checkbox } from '@atoms/checkbox';
 import { PdfViewerDialog } from '@/components/molecules';
 import { mockContracts } from '@/data/mock-contracts';
 import type { Contract, ContractStatus } from '@/types/contract.types';

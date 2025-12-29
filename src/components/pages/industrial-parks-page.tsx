@@ -6,10 +6,7 @@
 
 import { useState } from 'react';
 import { MapPin, Users, Shield, Building2, Plus, LayoutGrid, List, Headset } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/atoms/card';
-import { Badge } from '@/components/atoms/badge';
-import { Button } from '@/components/atoms/button';
-import { Input } from '@/components/atoms/input';
+import { Badge, Button, Input, Separator, Card, CardContent, CardDescription, CardHeader, CardTitle } from '@atoms';
 import { mockIndustrialParks } from '@/data/mock-industrial-parks';
 import type { IndustrialPark } from '@/types/industrial-park.types';
 

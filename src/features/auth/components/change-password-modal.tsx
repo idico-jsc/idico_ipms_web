@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/atoms/dialog';
+} from '@atoms/dialog';
 import { ChangePasswordForm } from './change-password-form';
 
 interface ChangePasswordModalProps {

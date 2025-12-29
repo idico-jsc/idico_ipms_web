@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Button, buttonVariants } from "@/components/atoms/button";
-import { LoadingSpinner } from "@/components/atoms/loading-spinner";
+import { Button, buttonVariants } from "@atoms/button";
+import { LoadingSpinner } from "@atoms/loading-spinner";
 import { cn } from "@/utils/cn";
 import type { VariantProps } from "class-variance-authority";
 

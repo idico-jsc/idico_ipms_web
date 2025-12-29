@@ -5,7 +5,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/atoms/carousel";
+} from "@atoms/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { cn } from "@/utils";
 

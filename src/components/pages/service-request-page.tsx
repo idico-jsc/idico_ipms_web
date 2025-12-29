@@ -9,16 +9,16 @@ import { useTranslation } from 'react-i18next';
 import { Plus, Edit, Trash2, MoreHorizontal, ChevronDown, ChevronRight } from 'lucide-react';
 import type { FilterableColumnDef } from '@/types/table';
 import type { Row, ExpandedState } from '@tanstack/react-table';
-import { Button } from '@/components/atoms/button';
-import { Textarea } from '@/components/atoms/textarea';
-import { Badge } from '@/components/atoms/badge';
+import { Button } from '@atoms/button';
+import { Textarea } from '@atoms/textarea';
+import { Badge } from '@atoms/badge';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/atoms/select';
+} from '@atoms/select';
 import {
   Dialog,
   DialogContent,
@@ -26,7 +26,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/atoms/dialog';
+} from '@atoms/dialog';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,15 +36,15 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/atoms/alert-dialog';
+} from '@atoms/alert-dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/atoms/dropdown-menu';
+} from '@atoms/dropdown-menu';
 import { DataTable, DataTableColumnHeader } from '@/components/organisms';
-import { Checkbox } from '@/components/atoms/checkbox';
+import { Checkbox } from '@atoms/checkbox';
 import { RequestTypeSelector, StatusProgressBar } from '@/features/services';
 import { ImageUpload } from '@/components/molecules';
 import { mockServiceRequests } from '@/data/mock-service-requests';

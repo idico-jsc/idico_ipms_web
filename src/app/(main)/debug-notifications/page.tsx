@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/atoms/button';
-import { Card } from '@/components/atoms/card';
+import { Button } from '@atoms/button';
+import { Card } from '@atoms/card';
 import { PushNotificationService } from '@/features/push-notifications/services/push-notification.service';
 import { FirebaseMessagingService } from '@/features/push-notifications/services/firebase-messaging.service';
 import { NotificationPermissionCard, TestNotificationButton } from '@/features/push-notifications';

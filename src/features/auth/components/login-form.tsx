@@ -13,8 +13,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/atoms/form";
-import { Input } from "@/components/atoms/input";
+} from "@atoms/form";
+import { Input } from "@atoms/input";
 import { PasswordInput } from "@/components/molecules/password-input";
 import { cn } from "@/utils";
 import { GOOGLE_CLIENT_ID } from "@/constants/env";

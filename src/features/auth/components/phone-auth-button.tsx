@@ -1,5 +1,5 @@
 import { Phone } from "lucide-react";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@atoms/button";
 import { cn } from "@/utils";
 
 interface PhoneAuthButtonProps {

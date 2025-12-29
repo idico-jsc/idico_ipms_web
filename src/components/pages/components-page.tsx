@@ -14,12 +14,12 @@ import {
 } from 'lucide-react';
 
 // shadcn components
-import { Button } from '@/components/atoms/button';
-import { ButtonGroup } from '@/components/atoms/button-group';
-import { Input } from '@/components/atoms/input';
-import { Label } from '@/components/atoms/label';
-import { Checkbox } from '@/components/atoms/checkbox';
-import { Badge } from '@/components/atoms/badge';
+import { Button } from '@atoms/button';
+import { ButtonGroup } from '@atoms/button-group';
+import { Input } from '@atoms/input';
+import { Label } from '@atoms/label';
+import { Checkbox } from '@atoms/checkbox';
+import { Badge } from '@atoms/badge';
 import {
   Card,
   CardContent,
@@ -27,7 +27,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/atoms/card';
+} from '@atoms/card';
 import {
   Dialog,
   DialogContent,
@@ -36,7 +36,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/atoms/dialog';
+} from '@atoms/dialog';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -47,7 +47,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/atoms/alert-dialog';
+} from '@atoms/alert-dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -55,23 +55,23 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/atoms/dropdown-menu';
+} from '@atoms/dropdown-menu';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/atoms/select';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/atoms/avatar';
-import { Separator } from '@/components/atoms/separator';
-import { Skeleton } from '@/components/atoms/skeleton';
-import { Calendar } from '@/components/atoms/calendar';
+} from '@atoms/select';
+import { Avatar, AvatarFallback, AvatarImage } from '@atoms/avatar';
+import { Separator } from '@atoms/separator';
+import { Skeleton } from '@atoms/skeleton';
+import { Calendar } from '@atoms/calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/atoms/popover';
+} from '@atoms/popover';
 import {
   Sheet,
   SheetContent,
@@ -79,18 +79,18 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/atoms/sheet';
+} from '@atoms/sheet';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/atoms/tooltip';
+} from '@atoms/tooltip';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/atoms/collapsible';
+} from '@atoms/collapsible';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -98,15 +98,15 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/atoms/breadcrumb';
+} from '@atoms/breadcrumb';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/components/atoms/carousel';
-import { LoadingSpinner } from '@/components/atoms/loading-spinner';
+} from '@atoms/carousel';
+import { LoadingSpinner } from '@atoms/loading-spinner';
 import { toast } from 'sonner';
 
 interface Props extends React.ComponentProps<'div'> {}

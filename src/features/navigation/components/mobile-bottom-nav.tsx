@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router";
 import { MoreVertical } from "lucide-react";
 import { cn } from "@/utils/cn";
 import { useFilteredNavigation } from "../hooks/use-filtered-navigation";
-import { useSidebar } from "@/components/atoms/sidebar";
+import { useSidebar } from "@atoms/sidebar";
 import type { NavItem } from "@/types/navigation.types";
 import { getMobileNavItems } from "../utils/filter-nav-items";
 

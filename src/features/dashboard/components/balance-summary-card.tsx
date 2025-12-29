@@ -7,7 +7,7 @@
  */
 
 import { ArrowDownLeft, ArrowUpRight, TrendingUp, Plus } from 'lucide-react';
-import { Card, CardContent } from '@/components/atoms/card';
+import { Card, CardContent } from '@atoms/card';
 import { cn } from '@/utils';
 
 interface BalanceSummaryCardProps {

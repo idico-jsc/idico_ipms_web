@@ -7,7 +7,7 @@
  * - Multiple size variants
  */
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/atoms/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@atoms/avatar';
 import { cn } from '@/utils';
 
 interface UserAvatarProps {

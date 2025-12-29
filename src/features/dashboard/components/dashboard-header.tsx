@@ -8,7 +8,7 @@
  */
 
 import { Bell } from 'lucide-react';
-import { Button } from '@/components/atoms/button';
+import { Button } from '@atoms/button';
 import { UserAvatar } from '@/components/molecules/user-avatar';
 import { useAuth } from '@/features/auth';
 import { useNavigate } from 'react-router';

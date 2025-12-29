@@ -18,7 +18,7 @@ import {
   BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/atoms/breadcrumb";
+} from "@atoms/breadcrumb";
 import { useNavigationConfig } from "../hooks/use-navigation-config";
 import type { NavItem } from "@/types/navigation.types";
 

@@ -27,8 +27,8 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTableFilters } from '@/hooks/use-table-filters';
 import { extractFilterConfigsFromColumns } from '@/utils/table-filters';
-import { Button } from '@/components/atoms/button';
-import { Input } from '@/components/atoms/input';
+import { Button } from '@atoms/button';
+import { Input } from '@atoms/input';
 import {
   Table,
   TableBody,
@@ -36,7 +36,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/atoms/table';
+} from '@atoms/table';
 import { type Column } from '@tanstack/react-table';
 import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { cn } from '@/utils';
@@ -492,7 +492,7 @@ export function DataTableColumnHeader<TData, TValue>({
 // Column Visibility Component
 // ============================================================================
 
-import { Checkbox } from '@/components/atoms/checkbox';
+import { Checkbox } from '@atoms/checkbox';
 
 interface DataTableColumnVisibilityProps<TData> {
   table: ReturnType<typeof useReactTable<TData>>;
@@ -553,25 +553,25 @@ export function DataTableColumnVisibility<TData>({
 
 import type { FilterConfig, ActiveFilter, FilterOperator } from '@/types/table';
 import { X, Plus } from 'lucide-react';
-import { Badge } from '@/components/atoms/badge';
+import { Badge } from '@atoms/badge';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuSeparator,
   DropdownMenuLabel,
-} from '@/components/atoms/dropdown-menu';
+} from '@atoms/dropdown-menu';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/atoms/select';
+} from '@atoms/select';
 import { DateInput } from '@/components/organisms/date-input';
 import { getOperatorsForType, getOperatorLabelKey } from '@/utils/table-filters';
 import { format } from 'date-fns';
-import { Separator } from '@/components/atoms/separator';
+import { Separator } from '@atoms/separator';
 
 // ============================================================================
 // DataTableFilterBadge

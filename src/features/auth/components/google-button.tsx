@@ -1,5 +1,5 @@
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
-import { Button } from "@/components/atoms/button";
+import { Button } from "@atoms/button";
 import { cn, isNative, signInWithGoogleNative } from "@/utils";
 
 interface GoogleButtonProps {

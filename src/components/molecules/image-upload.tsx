@@ -1,8 +1,8 @@
 import { useRef, useState, DragEvent } from 'react';
 import { Upload, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/atoms/button';
-import { LoadingSpinner } from '@/components/atoms/loading-spinner';
+import { Button } from '@atoms/button';
+import { LoadingSpinner } from '@atoms/loading-spinner';
 import { cn } from '@/utils';
 import { toast } from 'sonner';
 

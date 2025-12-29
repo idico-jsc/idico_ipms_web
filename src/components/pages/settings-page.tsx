@@ -22,8 +22,8 @@ import {
   Settings as SettingsIcon,
 } from 'lucide-react';
 import { useNavigate } from 'react-router';
-import { Card } from '@/components/atoms/card';
-import { Button } from '@/components/atoms/button';
+import { Card } from '@atoms/card';
+import { Button } from '@atoms/button';
 import { UserAvatar } from '@/components/molecules/user-avatar';
 import { LanguageSelector, ThemeSelector } from '@/features/preference';
 import { useAuth, ChangePasswordModal } from '@/features/auth';
@@ -38,7 +38,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/atoms/alert-dialog';
+} from '@atoms/alert-dialog';
 import { useTranslation } from 'react-i18next';
 
 interface Props extends React.ComponentProps<'div'> { }
