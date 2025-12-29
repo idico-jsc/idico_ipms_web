@@ -13,5 +13,4 @@ export * from "./not-found";
 export * from "./profile-page";
 export * from "./reset-password-page";
 export * from "./service-request-page";
-export * from "./service-request-page-refactored";
 export * from "./settings-page";
