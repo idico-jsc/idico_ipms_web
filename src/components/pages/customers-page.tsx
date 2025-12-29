@@ -6,8 +6,8 @@
 
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { type ColumnDef } from '@tanstack/react-table';
-import { Plus, Edit, Trash2 } from 'lucide-react';
+import { Plus, Edit, Trash2, MoreHorizontal } from 'lucide-react';
+import type { FilterableColumnDef } from '@/types/table';
 import { Button } from '@/components/atoms/button';
 import { Input } from '@/components/atoms/input';
 import { Badge } from '@/components/atoms/badge';
@@ -36,19 +36,24 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/atoms/alert-dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/atoms/dropdown-menu';
 import { DataTable, DataTableColumnHeader } from '@/components/organisms';
+import { Checkbox } from '@/components/atoms/checkbox';
 import { mockCustomers } from '@/data/mock-customers';
 import type { Customer, CustomerFormData, CustomerStatus } from '@/types/customer.types';
 
-interface Props extends React.ComponentProps<'div'> {}
+interface Props extends React.ComponentProps<'div'> { }
 
 export const CustomersPage = ({ ...rest }: Props) => {
   const { t } = useTranslation('pages');
 
   // State management
   const [customers, setCustomers] = useState<Customer[]>(mockCustomers);
-  const [searchValue, setSearchValue] = useState('');
-  const [statusFilter, setStatusFilter] = useState<'all' | CustomerStatus>('all');
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -64,64 +69,121 @@ export const CustomersPage = ({ ...rest }: Props) => {
   const [formErrors, setFormErrors] = useState<Partial<Record<keyof CustomerFormData, string>>>({});
 
   // Define columns with useMemo for performance
-  const columns: ColumnDef<Customer>[] = useMemo(
+  const columns: FilterableColumnDef<Customer>[] = useMemo(
     () => [
       {
+        id: 'select',
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && 'indeterminate')
+            }
+            onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+            aria-label="Select all"
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label="Select row"
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+        enableResizing: false,
+        size: 50,
+        minSize: 50,
+        maxSize: 50,
+      },
+      {
         accessorKey: 'company_name',
+        label: t('customers.table.companyName'),
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title={t('customers.table.companyName')} />
         ),
         cell: ({ row }) => <div className="font-medium">{row.getValue('company_name')}</div>,
+        size: 300,
+        minSize: 150,
+        maxSize: 500,
+        filter: {
+          label: t('customers.table.companyName'),
+          type: 'text',
+        },
+        searchable: true
       },
       {
         accessorKey: 'name',
+        label: t('customers.table.representative'),
         header: t('customers.table.representative'),
         cell: ({ row }) => <div>{row.getValue('name')}</div>,
-      },
-      {
-        accessorKey: 'tax_code',
-        header: t('customers.table.taxCode'),
-        cell: ({ row }) => <div className="font-mono text-sm">{row.getValue('tax_code')}</div>,
-      },
-      {
-        accessorKey: 'address',
-        header: t('customers.table.address'),
-        cell: ({ row }) => (
-          <div className="max-w-xs truncate" title={row.getValue('address')}>
-            {row.getValue('address')}
-          </div>
-        ),
-      },
-      {
-        accessorKey: 'status',
-        header: t('customers.table.status'),
-        cell: ({ row }) => {
-          const status = row.getValue('status') as CustomerStatus;
-          return (
-            <Badge variant={status === 'active' ? 'default' : 'destructive'}>
-              {status === 'active' ? t('customers.activeStatus') : t('customers.inactiveStatus')}
-            </Badge>
-          );
+        enableResizing: true,
+        filter: {
+          label: t('customers.table.representative'),
+          type: 'text',
         },
       },
       {
-        accessorKey: 'tags',
-        header: t('customers.table.tags'),
+        accessorKey: 'tax_code',
+        label: t('customers.table.taxCode'),
+        header: t('customers.table.taxCode'),
+        cell: ({ row }) => <div className="text-sm">{row.getValue('tax_code')}</div>,
+        enableResizing: true,
+        filter: {
+          label: t('customers.table.taxCode'),
+          type: 'text',
+        },
+      },
+      {
+        accessorKey: 'address',
+        label: t('customers.table.address'),
+        header: t('customers.table.address'),
+        cell: ({ row }) => (
+          <div className="truncate" title={row.getValue('address')}>
+            {row.getValue('address')}
+          </div>
+        ),
+        enableResizing: true,
+        filter: {
+          label: t('customers.table.address'),
+          type: 'text',
+        },
+      },
+      {
+        accessorKey: 'status',
+        label: t('customers.table.status'),
+        header: t('customers.table.status'),
+        enableResizing: true,
         cell: ({ row }) => {
-          const tags = row.getValue('tags') as string[];
+          const status = row.getValue('status') as CustomerStatus;
           return (
-            <div className="flex flex-wrap gap-1">
-              {tags.map((tag) => (
-                <Badge key={tag} variant="outline" className="text-xs">
-                  {tag}
+            <div className="">
+              {
+                status === 'active' && <Badge variant={"default"}>
+                  {t('customers.activeStatus')}
                 </Badge>
-              ))}
+              }
+              {
+                status === 'inactive' && <Badge variant={"destructive"}>
+                  {t('customers.inactiveStatus')}
+                </Badge>
+              }
             </div>
           );
+        },
+        filter: {
+          label: t('customers.table.status'),
+          type: 'select',
+          options: [
+            { value: 'active', label: t('customers.activeStatus') },
+            { value: 'inactive', label: t('customers.inactiveStatus') },
+          ],
         },
       },
       {
         accessorKey: 'created',
+        label: t('customers.table.created'),
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title={t('customers.table.created')} />
         ),
@@ -129,9 +191,15 @@ export const CustomersPage = ({ ...rest }: Props) => {
           const date = new Date(row.getValue('created'));
           return <div className="text-sm">{date.toLocaleDateString('vi-VN')}</div>;
         },
+        enableResizing: true,
+        filter: {
+          label: t('customers.table.created'),
+          type: 'date',
+        },
       },
       {
         accessorKey: 'modified',
+        label: t('customers.table.modified'),
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title={t('customers.table.modified')} />
         ),
@@ -139,30 +207,50 @@ export const CustomersPage = ({ ...rest }: Props) => {
           const date = new Date(row.getValue('modified'));
           return <div className="text-sm">{date.toLocaleDateString('vi-VN')}</div>;
         },
+        enableResizing: false,
+        filter: {
+          label: t('customers.table.modified'),
+          type: 'date',
+        },
       },
       {
         id: 'actions',
+        label: t('customers.table.actions'),
         enableHiding: false,
+        enableResizing: false,
+        size: 80,
+        minSize: 60,
+        maxSize: 100,
+        sticky: true,
         cell: ({ row }) => {
           const customer = row.original;
           return (
-            <div className="flex justify-end gap-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => openEditDialog(customer)}
-                title={t('customers.editCustomer')}
-              >
-                <Edit className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => openDeleteDialog(customer)}
-                title={t('customers.deleteCustomer')}
-              >
-                <Trash2 className="h-4 w-4 text-destructive" />
-              </Button>
+            <div className="flex justify-end">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="md:opacity-0 md:transition-opacity md:group-hover/row:opacity-100 md:focus-visible:opacity-100 md:data-[state=open]:opacity-100"
+                  >
+                    <MoreHorizontal className="h-4 w-4" />
+                    <span className="sr-only">{t('customers.table.actions')}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => openEditDialog(customer)}>
+                    <Edit className="mr-2 h-4 w-4" />
+                    {t('customers.editCustomer')}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => openDeleteDialog(customer)}
+                    className="text-destructive focus:text-destructive"
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    {t('customers.deleteCustomer')}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           );
         },
@@ -171,13 +259,6 @@ export const CustomersPage = ({ ...rest }: Props) => {
     [t]
   );
 
-  // Filter data based on status
-  const filteredData = useMemo(() => {
-    return customers.filter((customer) => {
-      if (statusFilter === 'all') return true;
-      return customer.status === statusFilter;
-    });
-  }, [customers, statusFilter]);
 
   // Form validation
   const validateForm = (): boolean => {
@@ -232,18 +313,18 @@ export const CustomersPage = ({ ...rest }: Props) => {
     const updatedCustomers = customers.map((customer) =>
       customer.id === selectedCustomer.id
         ? {
-            ...customer,
-            name: formData.name.trim(),
-            company_name: formData.company_name.trim(),
-            tax_code: formData.tax_code.trim(),
-            address: formData.address.trim(),
-            status: formData.status,
-            tags: formData.tags
-              .split(',')
-              .map((tag) => tag.trim())
-              .filter((tag) => tag !== ''),
-            modified: new Date().toISOString(),
-          }
+          ...customer,
+          name: formData.name.trim(),
+          company_name: formData.company_name.trim(),
+          tax_code: formData.tax_code.trim(),
+          address: formData.address.trim(),
+          status: formData.status,
+          tags: formData.tags
+            .split(',')
+            .map((tag) => tag.trim())
+            .filter((tag) => tag !== ''),
+          modified: new Date().toISOString(),
+        }
         : customer
     );
 
@@ -299,53 +380,21 @@ export const CustomersPage = ({ ...rest }: Props) => {
 
   return (
     <div className="min-h-screen bg-background" {...rest}>
-      <div className="mx-auto space-y-6">
+      <div className="mx-auto  space-y-2 md:space-y-6">
         {/* Page Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-3xl font-bold">{t('customers.title')}</h1>
-          <Button onClick={openCreateDialog}>
+        <div className="flex items-center justify-end md:justify-between">
+          <h1 className="hidden md:block text-3xl font-bold">{t('customers.title')}</h1>
+          <Button className="w-full md:w-auto mb-2" onClick={openCreateDialog}>
             <Plus className="mr-2 h-4 w-4" />
             {t('customers.addCustomer')}
           </Button>
         </div>
 
-        {/* Filters Section */}
-        <div className="flex flex-col gap-4 rounded-lg border border-border bg-card p-4 sm:flex-row sm:items-center">
-          <Input
-            placeholder={t('customers.searchPlaceholder')}
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            className="max-w-sm"
-          />
-          <Select
-            value={statusFilter}
-            onValueChange={(value: 'all' | CustomerStatus) => setStatusFilter(value)}
-          >
-            <SelectTrigger className="w-full sm:w-[200px]">
-              <SelectValue placeholder={t('customers.statusFilter')} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">{t('customers.allStatuses')}</SelectItem>
-              <SelectItem value="active">{t('customers.activeStatus')}</SelectItem>
-              <SelectItem value="inactive">{t('customers.inactiveStatus')}</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
         {/* DataTable */}
         <DataTable
           columns={columns}
-          data={filteredData}
+          data={customers}
           pageSize={10}
-          searchColumn="company_name"
-          searchValue={searchValue}
-          stickyFirstColumn
-          paginationText={{
-            showing: (from, to, total) =>
-              t('customers.pagination.showing', { from, to, total }),
-            previous: t('customers.pagination.previous'),
-            next: t('customers.pagination.next'),
-          }}
         />
       </div>
 

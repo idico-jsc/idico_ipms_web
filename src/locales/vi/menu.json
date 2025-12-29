@@ -8,6 +8,8 @@
     "home": "Trang chủ",
     "dashboard": "Bảng điều khiển",
     "customers": "Khách hàng",
+    "contracts": "Hợp đồng",
+    "industrialParks": "Khu Công nghiệp",
     "users": "Người dùng",
     "reports": "Báo cáo",
     "salesReport": "Báo cáo bán hàng",
@@ -15,7 +17,10 @@
     "settings": "Cài đặt",
     "debugNotifications": "Kiểm tra thông báo",
     "notifications": "Thông báo",
+    "components": "Thành phần",
+    "serviceRequests": "Yêu cầu dịch vụ",
     "profile": "Hồ Sơ Tài Khoản",
+    "changePassword": "Đổi Mật Khẩu",
     "logout": "Đăng Xuất"
   }
 }

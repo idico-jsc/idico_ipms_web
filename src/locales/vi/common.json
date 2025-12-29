@@ -4,5 +4,8 @@
   "notAvailable": "Không có sẵn",
   "toggleTheme": "Chuyển đổi chủ đề",
   "darkMode": "Chế độ tối",
-  "lightMode": "Chế độ sáng"
+  "lightMode": "Chế độ sáng",
+  "breadcrumb": {
+    "home": "Trang chủ"
+  }
 }

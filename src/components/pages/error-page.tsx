@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Button } from "@/components/atoms";
 import { AlertTriangle, Home, RefreshCw, ArrowLeft } from "lucide-react";
-import { LanguageSwitcher } from "@molecules";
+import { LanguageSwitcher } from "@/features/preference";
 import { IS_DEV } from "@/constants/env";
 import { getPath } from "@/features/navigation";
 

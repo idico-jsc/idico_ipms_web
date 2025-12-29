@@ -4,5 +4,8 @@
   "notAvailable": "Not available",
   "toggleTheme": "Toggle theme",
   "darkMode": "Dark mode",
-  "lightMode": "Light mode"
+  "lightMode": "Light mode",
+  "breadcrumb": {
+    "home": "Home"
+  }
 }

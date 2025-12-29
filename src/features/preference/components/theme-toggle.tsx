@@ -19,7 +19,7 @@ export function ThemeToggle({ className, variant = "outline", size = "icon" }: T
       variant={variant}
       size={size}
       onClick={toggleTheme}
-      className={cn("relative", className)}
+      className={cn("bg-black/5 dark:bg-white/5 border-none relative rounded-full", className)}
       aria-label={t("toggleTheme")}
       title={theme === "dark" ? t("lightMode") : t("darkMode")}
     >

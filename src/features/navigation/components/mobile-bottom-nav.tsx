@@ -70,7 +70,7 @@ export function MobileBottomNav() {
                     aria-current={isActive ? "page" : undefined}
                   >
                     {/* Active badge - appears above icon */}
-                    {isActive && item.label && (
+                    {/* {isActive && item.label && (
                       <div
                         className={cn(
                           "absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap",
@@ -85,7 +85,7 @@ export function MobileBottomNav() {
                       >
                         {item.label}
                       </div>
-                    )}
+                    )} */}
 
                     {/* Icon */}
                     {Icon && (

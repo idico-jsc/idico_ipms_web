@@ -9,8 +9,7 @@
  */
 
 import { ReactNode } from "react";
-import { AppSidebar, MobileBottomNav } from "@/features/navigation";
-import { Header } from "@/components/organisms/header";
+import { AppSidebar, Header, MobileBottomNav, MobileTopBar } from "@/features/navigation";
 import { usePlatform } from "@/hooks/use-capacitor";
 
 interface SidebarLayoutProps {
@@ -27,8 +26,10 @@ export function SidebarLayout({ children }: SidebarLayoutProps) {
   return (
     <AppSidebar>
       <div className="flex w-full flex-col">
-        {/* Header with sidebar trigger */}
+        {/* Desktop Header with sidebar trigger */}
         <Header />
+        {/* Mobile Top Bar */}
+        <MobileTopBar />
         {/* Main content */}
         <div
           className="container mx-auto w-full flex-1 p-4"
