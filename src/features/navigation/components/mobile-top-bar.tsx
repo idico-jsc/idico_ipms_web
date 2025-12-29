@@ -16,10 +16,6 @@ import { usePlatform } from '@/hooks/use-capacitor';
 import { Button } from '@/components/atoms/button';
 import { usePageTitle } from '../hooks';
 
-interface MobileTopBarProps {
-
-}
-
 /**
  * Mobile Top Bar Component
  * Only visible on mobile devices (not on home page)

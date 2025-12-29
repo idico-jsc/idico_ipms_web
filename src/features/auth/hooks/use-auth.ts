@@ -3,8 +3,7 @@ import { useAuthStore } from "../store/auth-store";
 import { FrappeError } from "@/types";
 import { toast } from "sonner";
 import { useError } from "@/hooks";
-import { resetPassword, loginWithCredentials, loginWithGoogle as loginWithGoogleApi, getCurrentUser } from "../services/api";
-import { getTokenExpirySeconds } from "../helpers";
+import { resetPassword, loginWithCredentials, loginWithGoogle as loginWithGoogleApi } from "../services/api";
 import { useState } from "react";
 
 /**

@@ -10,13 +10,11 @@
 
 import { useState } from 'react';
 import {
-  User,
   Lock,
   Globe,
   Palette,
   Star,
   Info,
-  LogOut,
   ChevronRight,
   Home,
   Users,

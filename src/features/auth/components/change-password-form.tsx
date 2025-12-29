@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { CircleCheck, Lock } from 'lucide-react';
-import { useNavigate } from 'react-router';
+import { CircleCheck } from 'lucide-react';
 import { LoadingButton } from '@/components/molecules/loading-button';
 import {
   Form,
@@ -25,7 +24,6 @@ interface ChangePasswordFormProps {
 }
 
 export function ChangePasswordForm({ onCancel, onSuccess }: ChangePasswordFormProps) {
-  const navigate = useNavigate();
   const form = useChangePasswordForm();
   const { user } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState(false);
