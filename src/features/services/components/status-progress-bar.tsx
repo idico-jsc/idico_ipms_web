@@ -39,16 +39,10 @@ export function StatusProgressBar({
 
   const getStageStyle = (stageIndex: number) => {
     const stageOrder = stageIndex + 1;
-    if (stageOrder < currentOrder) {
+    if (stageOrder <= currentOrder) {
       return {
-        circle: 'bg-green-500',
-        line: 'bg-green-500',
-      };
-    }
-    if (stageOrder === currentOrder) {
-      return {
-        circle: 'bg-blue-500',
-        line: 'bg-blue-500',
+        circle: 'bg-primary',
+        line: 'bg-primary',
       };
     }
     return {
@@ -58,17 +52,15 @@ export function StatusProgressBar({
   };
 
   return (
-    <div className={cn('flex w-full items-center gap-1', className)}>
+    <div className={cn('flex items-start gap-2', className)}>
       {stages.map((stage, index) => {
         const styles = getStageStyle(index);
+        const isLast = index === stages.length - 1;
         return (
-          <div key={stage.key} className="flex items-center gap-1 flex-1">
-            {index > 0 && (
-              <div className={`h-1 flex-1 ${styles.line} transition-all duration-300`} />
-            )}
+          <div key={stage.key} className="flex items-center gap-2">
             <div className="flex flex-col items-center gap-1">
               <div
-                className={`w-6 h-6 md:w-8 md:h-8 rounded-full ${styles.circle} transition-all duration-300 flex-shrink-0`}
+                className={`w-3 h-3 md:w-4 md:h-4 rounded-full ${styles.circle} transition-all duration-300 shrink-0`}
               />
               {showLabel && (
                 <span className="text-xs text-center whitespace-nowrap">
@@ -76,6 +68,9 @@ export function StatusProgressBar({
                 </span>
               )}
             </div>
+            {!isLast && (
+              <div className={`w-8 md:w-12 h-0.5 ${styles.line} transition-all duration-300 -mt-3`} />
+            )}
           </div>
         );
       })}
